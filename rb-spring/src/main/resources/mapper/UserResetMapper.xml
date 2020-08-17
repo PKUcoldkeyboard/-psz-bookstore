@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.UserResetMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.UserReset">
+    <id column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="submit_time" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="verify_parameter" jdbcType="VARCHAR" property="verifyParameter" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_account, submit_time, verify_parameter
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_reset
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_reset
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.UserReset">
+    insert into user_reset (user_account, submit_time, verify_parameter
+      )
+    values (#{userAccount,jdbcType=VARCHAR}, #{submitTime,jdbcType=TIMESTAMP}, #{verifyParameter,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.UserReset">
+    insert into user_reset
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+      <if test="verifyParameter != null">
+        verify_parameter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyParameter != null">
+        #{verifyParameter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.UserReset">
+    update user_reset
+    <set>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyParameter != null">
+        verify_parameter = #{verifyParameter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UserReset">
+    update user_reset
+    set submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      verify_parameter = #{verifyParameter,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.DatabaseBackupMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    <id column="daba_id" jdbcType="INTEGER" property="dabaId" />
+    <result column="daba_title" jdbcType="VARCHAR" property="dabaTitle" />
+    <result column="daba_date" jdbcType="TIMESTAMP" property="dabaDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    <result column="daba_content" jdbcType="LONGVARCHAR" property="dabaContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    daba_id, daba_title, daba_date
+  </sql>
+  <sql id="Blob_Column_List">
+    daba_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from database_backup
+    where daba_id = #{dabaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from database_backup
+    where daba_id = #{dabaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    insert into database_backup (daba_id, daba_title, daba_date, 
+      daba_content)
+    values (#{dabaId,jdbcType=INTEGER}, #{dabaTitle,jdbcType=VARCHAR}, #{dabaDate,jdbcType=TIMESTAMP}, 
+      #{dabaContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    insert into database_backup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dabaId != null">
+        daba_id,
+      </if>
+      <if test="dabaTitle != null">
+        daba_title,
+      </if>
+      <if test="dabaDate != null">
+        daba_date,
+      </if>
+      <if test="dabaContent != null">
+        daba_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dabaId != null">
+        #{dabaId,jdbcType=INTEGER},
+      </if>
+      <if test="dabaTitle != null">
+        #{dabaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dabaDate != null">
+        #{dabaDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dabaContent != null">
+        #{dabaContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    update database_backup
+    <set>
+      <if test="dabaTitle != null">
+        daba_title = #{dabaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dabaDate != null">
+        daba_date = #{dabaDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dabaContent != null">
+        daba_content = #{dabaContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where daba_id = #{dabaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    update database_backup
+    set daba_title = #{dabaTitle,jdbcType=VARCHAR},
+      daba_date = #{dabaDate,jdbcType=TIMESTAMP},
+      daba_content = #{dabaContent,jdbcType=LONGVARCHAR}
+    where daba_id = #{dabaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.DatabaseBackup">
+    update database_backup
+    set daba_title = #{dabaTitle,jdbcType=VARCHAR},
+      daba_date = #{dabaDate,jdbcType=TIMESTAMP}
+    where daba_id = #{dabaId,jdbcType=INTEGER}
+  </update>
+</mapper>

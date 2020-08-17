@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.Course">
+    <id column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="course_credit" jdbcType="TINYINT" property="courseCredit" />
+    <result column="course_teacher" jdbcType="VARCHAR" property="courseTeacher" />
+    <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+    <result column="course_language" jdbcType="VARCHAR" property="courseLanguage" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.CourseWithBLOBs">
+    <result column="course_pre" jdbcType="LONGVARCHAR" property="coursePre" />
+    <result column="course_intro" jdbcType="LONGVARCHAR" property="courseIntro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    course_id, course_name, course_credit, course_teacher, course_type, course_language
+  </sql>
+  <sql id="Blob_Column_List">
+    course_pre, course_intro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.CourseWithBLOBs">
+    insert into course (course_id, course_name, course_credit, 
+      course_teacher, course_type, course_language, 
+      course_pre, course_intro)
+    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{courseCredit,jdbcType=TINYINT}, 
+      #{courseTeacher,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, #{courseLanguage,jdbcType=VARCHAR}, 
+      #{coursePre,jdbcType=LONGVARCHAR}, #{courseIntro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.CourseWithBLOBs">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="courseCredit != null">
+        course_credit,
+      </if>
+      <if test="courseTeacher != null">
+        course_teacher,
+      </if>
+      <if test="courseType != null">
+        course_type,
+      </if>
+      <if test="courseLanguage != null">
+        course_language,
+      </if>
+      <if test="coursePre != null">
+        course_pre,
+      </if>
+      <if test="courseIntro != null">
+        course_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCredit != null">
+        #{courseCredit,jdbcType=TINYINT},
+      </if>
+      <if test="courseTeacher != null">
+        #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLanguage != null">
+        #{courseLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePre != null">
+        #{coursePre,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseIntro != null">
+        #{courseIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.CourseWithBLOBs">
+    update course
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCredit != null">
+        course_credit = #{courseCredit,jdbcType=TINYINT},
+      </if>
+      <if test="courseTeacher != null">
+        course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLanguage != null">
+        course_language = #{courseLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="coursePre != null">
+        course_pre = #{coursePre,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="courseIntro != null">
+        course_intro = #{courseIntro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.CourseWithBLOBs">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_credit = #{courseCredit,jdbcType=TINYINT},
+      course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      course_language = #{courseLanguage,jdbcType=VARCHAR},
+      course_pre = #{coursePre,jdbcType=LONGVARCHAR},
+      course_intro = #{courseIntro,jdbcType=LONGVARCHAR}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Course">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_credit = #{courseCredit,jdbcType=TINYINT},
+      course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      course_language = #{courseLanguage,jdbcType=VARCHAR}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

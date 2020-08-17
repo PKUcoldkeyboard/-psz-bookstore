@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.LikeMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.Like">
+    <id column="like_id" jdbcType="INTEGER" property="likeId" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    like_id, user_account, post_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from like
+    where like_id = #{likeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from like
+    where like_id = #{likeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.Like">
+    insert into like (like_id, user_account, post_id
+      )
+    values (#{likeId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.Like">
+    insert into like
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="likeId != null">
+        like_id,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="likeId != null">
+        #{likeId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.Like">
+    update like
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where like_id = #{likeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Like">
+    update like
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      post_id = #{postId,jdbcType=INTEGER}
+    where like_id = #{likeId,jdbcType=INTEGER}
+  </update>
+</mapper>

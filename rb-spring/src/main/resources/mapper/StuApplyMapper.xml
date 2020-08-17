@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.StuApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.StuApply">
+    <id column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <id column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="stap_date" jdbcType="TIMESTAMP" property="stapDate" />
+    <result column="stap_condition" jdbcType="BIT" property="stapCondition" />
+    <result column="te_id" jdbcType="VARCHAR" property="teId" />
+    <result column="te_name" jdbcType="VARCHAR" property="teName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_account, apply_id, stap_date, stap_condition, te_id, te_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.StuApplyKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stu_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.StuApplyKey">
+    delete from stu_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.StuApply">
+    insert into stu_apply (user_account, apply_id, stap_date, 
+      stap_condition, te_id, te_name
+      )
+    values (#{userAccount,jdbcType=VARCHAR}, #{applyId,jdbcType=INTEGER}, #{stapDate,jdbcType=TIMESTAMP}, 
+      #{stapCondition,jdbcType=BIT}, #{teId,jdbcType=VARCHAR}, #{teName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.StuApply">
+    insert into stu_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="stapDate != null">
+        stap_date,
+      </if>
+      <if test="stapCondition != null">
+        stap_condition,
+      </if>
+      <if test="teId != null">
+        te_id,
+      </if>
+      <if test="teName != null">
+        te_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="stapDate != null">
+        #{stapDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stapCondition != null">
+        #{stapCondition,jdbcType=BIT},
+      </if>
+      <if test="teId != null">
+        #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teName != null">
+        #{teName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.StuApply">
+    update stu_apply
+    <set>
+      <if test="stapDate != null">
+        stap_date = #{stapDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stapCondition != null">
+        stap_condition = #{stapCondition,jdbcType=BIT},
+      </if>
+      <if test="teId != null">
+        te_id = #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teName != null">
+        te_name = #{teName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.StuApply">
+    update stu_apply
+    set stap_date = #{stapDate,jdbcType=TIMESTAMP},
+      stap_condition = #{stapCondition,jdbcType=BIT},
+      te_id = #{teId,jdbcType=VARCHAR},
+      te_name = #{teName,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>

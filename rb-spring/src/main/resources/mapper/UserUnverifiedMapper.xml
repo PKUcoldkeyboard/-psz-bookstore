@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.UserUnverifiedMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.UserUnverified">
+    <id column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="signup_time" jdbcType="TIMESTAMP" property="signupTime" />
+    <result column="verify_parameter" jdbcType="VARCHAR" property="verifyParameter" />
+    <result column="stu_gender" jdbcType="VARCHAR" property="stuGender" />
+    <result column="stu_grade" jdbcType="VARCHAR" property="stuGrade" />
+    <result column="stu_major" jdbcType="VARCHAR" property="stuMajor" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_account, user_name, `password`, user_type, signup_time, verify_parameter, stu_gender, 
+    stu_grade, stu_major
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_unverified
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_unverified
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.UserUnverified">
+    insert into user_unverified (user_account, user_name, `password`, 
+      user_type, signup_time, verify_parameter, 
+      stu_gender, stu_grade, stu_major
+      )
+    values (#{userAccount,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=VARCHAR}, #{signupTime,jdbcType=TIMESTAMP}, #{verifyParameter,jdbcType=VARCHAR}, 
+      #{stuGender,jdbcType=VARCHAR}, #{stuGrade,jdbcType=VARCHAR}, #{stuMajor,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.UserUnverified">
+    insert into user_unverified
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="signupTime != null">
+        signup_time,
+      </if>
+      <if test="verifyParameter != null">
+        verify_parameter,
+      </if>
+      <if test="stuGender != null">
+        stu_gender,
+      </if>
+      <if test="stuGrade != null">
+        stu_grade,
+      </if>
+      <if test="stuMajor != null">
+        stu_major,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="signupTime != null">
+        #{signupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyParameter != null">
+        #{verifyParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGender != null">
+        #{stuGender,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGrade != null">
+        #{stuGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMajor != null">
+        #{stuMajor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.UserUnverified">
+    update user_unverified
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="signupTime != null">
+        signup_time = #{signupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyParameter != null">
+        verify_parameter = #{verifyParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGender != null">
+        stu_gender = #{stuGender,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGrade != null">
+        stu_grade = #{stuGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMajor != null">
+        stu_major = #{stuMajor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UserUnverified">
+    update user_unverified
+    set user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      signup_time = #{signupTime,jdbcType=TIMESTAMP},
+      verify_parameter = #{verifyParameter,jdbcType=VARCHAR},
+      stu_gender = #{stuGender,jdbcType=VARCHAR},
+      stu_grade = #{stuGrade,jdbcType=VARCHAR},
+      stu_major = #{stuMajor,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+</mapper>

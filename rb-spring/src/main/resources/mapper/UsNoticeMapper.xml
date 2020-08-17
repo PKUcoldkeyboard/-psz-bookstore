@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.UsNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.UsNotice">
+    <id column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <id column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="usno_condition" jdbcType="BIT" property="usnoCondition" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_account, post_id, usno_condition
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UsNoticeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from us_notice
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and post_id = #{postId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UsNoticeKey">
+    delete from us_notice
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and post_id = #{postId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.UsNotice">
+    insert into us_notice (user_account, post_id, usno_condition
+      )
+    values (#{userAccount,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{usnoCondition,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.UsNotice">
+    insert into us_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="usnoCondition != null">
+        usno_condition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="usnoCondition != null">
+        #{usnoCondition,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.UsNotice">
+    update us_notice
+    <set>
+      <if test="usnoCondition != null">
+        usno_condition = #{usnoCondition,jdbcType=BIT},
+      </if>
+    </set>
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and post_id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UsNotice">
+    update us_notice
+    set usno_condition = #{usnoCondition,jdbcType=BIT}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+      and post_id = #{postId,jdbcType=INTEGER}
+  </update>
+</mapper>
