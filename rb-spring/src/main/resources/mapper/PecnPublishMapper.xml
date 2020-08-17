@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.PecnPublishMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.PecnPublish">
+    <id column="pecnpub_id" jdbcType="INTEGER" property="pecnpubId" />
+    <result column="pecn_id" jdbcType="INTEGER" property="pecnId" />
+    <result column="pecnpub_name" jdbcType="VARCHAR" property="pecnpubName" />
+    <result column="pecnpub_grade" jdbcType="VARCHAR" property="pecnpubGrade" />
+    <result column="pecnpub_year" jdbcType="DATE" property="pecnpubYear" />
+    <result column="pecnpub_num" jdbcType="SMALLINT" property="pecnpubNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pecnpub_id, pecn_id, pecnpub_name, pecnpub_grade, pecnpub_year, pecnpub_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pecn_publish
+    where pecnpub_id = #{pecnpubId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pecn_publish
+    where pecnpub_id = #{pecnpubId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.PecnPublish">
+    insert into pecn_publish (pecnpub_id, pecn_id, pecnpub_name, 
+      pecnpub_grade, pecnpub_year, pecnpub_num
+      )
+    values (#{pecnpubId,jdbcType=INTEGER}, #{pecnId,jdbcType=INTEGER}, #{pecnpubName,jdbcType=VARCHAR}, 
+      #{pecnpubGrade,jdbcType=VARCHAR}, #{pecnpubYear,jdbcType=DATE}, #{pecnpubNum,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.PecnPublish">
+    insert into pecn_publish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pecnpubId != null">
+        pecnpub_id,
+      </if>
+      <if test="pecnId != null">
+        pecn_id,
+      </if>
+      <if test="pecnpubName != null">
+        pecnpub_name,
+      </if>
+      <if test="pecnpubGrade != null">
+        pecnpub_grade,
+      </if>
+      <if test="pecnpubYear != null">
+        pecnpub_year,
+      </if>
+      <if test="pecnpubNum != null">
+        pecnpub_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pecnpubId != null">
+        #{pecnpubId,jdbcType=INTEGER},
+      </if>
+      <if test="pecnId != null">
+        #{pecnId,jdbcType=INTEGER},
+      </if>
+      <if test="pecnpubName != null">
+        #{pecnpubName,jdbcType=VARCHAR},
+      </if>
+      <if test="pecnpubGrade != null">
+        #{pecnpubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="pecnpubYear != null">
+        #{pecnpubYear,jdbcType=DATE},
+      </if>
+      <if test="pecnpubNum != null">
+        #{pecnpubNum,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.PecnPublish">
+    update pecn_publish
+    <set>
+      <if test="pecnId != null">
+        pecn_id = #{pecnId,jdbcType=INTEGER},
+      </if>
+      <if test="pecnpubName != null">
+        pecnpub_name = #{pecnpubName,jdbcType=VARCHAR},
+      </if>
+      <if test="pecnpubGrade != null">
+        pecnpub_grade = #{pecnpubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="pecnpubYear != null">
+        pecnpub_year = #{pecnpubYear,jdbcType=DATE},
+      </if>
+      <if test="pecnpubNum != null">
+        pecnpub_num = #{pecnpubNum,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where pecnpub_id = #{pecnpubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.PecnPublish">
+    update pecn_publish
+    set pecn_id = #{pecnId,jdbcType=INTEGER},
+      pecnpub_name = #{pecnpubName,jdbcType=VARCHAR},
+      pecnpub_grade = #{pecnpubGrade,jdbcType=VARCHAR},
+      pecnpub_year = #{pecnpubYear,jdbcType=DATE},
+      pecnpub_num = #{pecnpubNum,jdbcType=SMALLINT}
+    where pecnpub_id = #{pecnpubId,jdbcType=INTEGER}
+  </update>
+</mapper>

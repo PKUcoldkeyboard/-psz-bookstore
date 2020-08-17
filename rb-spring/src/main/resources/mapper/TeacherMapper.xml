@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.Teacher">
+    <id column="te_id" jdbcType="VARCHAR" property="teId" />
+    <result column="te_name" jdbcType="VARCHAR" property="teName" />
+    <result column="te_initial" jdbcType="VARCHAR" property="teInitial" />
+    <result column="te_title" jdbcType="VARCHAR" property="teTitle" />
+    <result column="te_section" jdbcType="VARCHAR" property="teSection" />
+    <result column="te_contact" jdbcType="VARCHAR" property="teContact" />
+    <result column="te_quota_tot" jdbcType="SMALLINT" property="teQuotaTot" />
+    <result column="te_intention_tot" jdbcType="SMALLINT" property="teIntentionTot" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.TeacherWithBLOBs">
+    <result column="te_field" jdbcType="LONGVARCHAR" property="teField" />
+    <result column="te_topic" jdbcType="LONGVARCHAR" property="teTopic" />
+    <result column="te_requirements" jdbcType="LONGVARCHAR" property="teRequirements" />
+    <result column="te_student" jdbcType="LONGVARCHAR" property="teStudent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    te_id, te_name, te_initial, te_title, te_section, te_contact, te_quota_tot, te_intention_tot
+  </sql>
+  <sql id="Blob_Column_List">
+    te_field, te_topic, te_requirements, te_student
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.TeacherWithBLOBs">
+    insert into teacher (te_id, te_name, te_initial, 
+      te_title, te_section, te_contact, 
+      te_quota_tot, te_intention_tot, te_field, 
+      te_topic, te_requirements, te_student
+      )
+    values (#{teId,jdbcType=VARCHAR}, #{teName,jdbcType=VARCHAR}, #{teInitial,jdbcType=VARCHAR}, 
+      #{teTitle,jdbcType=VARCHAR}, #{teSection,jdbcType=VARCHAR}, #{teContact,jdbcType=VARCHAR}, 
+      #{teQuotaTot,jdbcType=SMALLINT}, #{teIntentionTot,jdbcType=SMALLINT}, #{teField,jdbcType=LONGVARCHAR}, 
+      #{teTopic,jdbcType=LONGVARCHAR}, #{teRequirements,jdbcType=LONGVARCHAR}, #{teStudent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.TeacherWithBLOBs">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        te_id,
+      </if>
+      <if test="teName != null">
+        te_name,
+      </if>
+      <if test="teInitial != null">
+        te_initial,
+      </if>
+      <if test="teTitle != null">
+        te_title,
+      </if>
+      <if test="teSection != null">
+        te_section,
+      </if>
+      <if test="teContact != null">
+        te_contact,
+      </if>
+      <if test="teQuotaTot != null">
+        te_quota_tot,
+      </if>
+      <if test="teIntentionTot != null">
+        te_intention_tot,
+      </if>
+      <if test="teField != null">
+        te_field,
+      </if>
+      <if test="teTopic != null">
+        te_topic,
+      </if>
+      <if test="teRequirements != null">
+        te_requirements,
+      </if>
+      <if test="teStudent != null">
+        te_student,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teName != null">
+        #{teName,jdbcType=VARCHAR},
+      </if>
+      <if test="teInitial != null">
+        #{teInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="teTitle != null">
+        #{teTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="teSection != null">
+        #{teSection,jdbcType=VARCHAR},
+      </if>
+      <if test="teContact != null">
+        #{teContact,jdbcType=VARCHAR},
+      </if>
+      <if test="teQuotaTot != null">
+        #{teQuotaTot,jdbcType=SMALLINT},
+      </if>
+      <if test="teIntentionTot != null">
+        #{teIntentionTot,jdbcType=SMALLINT},
+      </if>
+      <if test="teField != null">
+        #{teField,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teTopic != null">
+        #{teTopic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teRequirements != null">
+        #{teRequirements,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teStudent != null">
+        #{teStudent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.TeacherWithBLOBs">
+    update teacher
+    <set>
+      <if test="teName != null">
+        te_name = #{teName,jdbcType=VARCHAR},
+      </if>
+      <if test="teInitial != null">
+        te_initial = #{teInitial,jdbcType=VARCHAR},
+      </if>
+      <if test="teTitle != null">
+        te_title = #{teTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="teSection != null">
+        te_section = #{teSection,jdbcType=VARCHAR},
+      </if>
+      <if test="teContact != null">
+        te_contact = #{teContact,jdbcType=VARCHAR},
+      </if>
+      <if test="teQuotaTot != null">
+        te_quota_tot = #{teQuotaTot,jdbcType=SMALLINT},
+      </if>
+      <if test="teIntentionTot != null">
+        te_intention_tot = #{teIntentionTot,jdbcType=SMALLINT},
+      </if>
+      <if test="teField != null">
+        te_field = #{teField,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teTopic != null">
+        te_topic = #{teTopic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teRequirements != null">
+        te_requirements = #{teRequirements,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teStudent != null">
+        te_student = #{teStudent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.TeacherWithBLOBs">
+    update teacher
+    set te_name = #{teName,jdbcType=VARCHAR},
+      te_initial = #{teInitial,jdbcType=VARCHAR},
+      te_title = #{teTitle,jdbcType=VARCHAR},
+      te_section = #{teSection,jdbcType=VARCHAR},
+      te_contact = #{teContact,jdbcType=VARCHAR},
+      te_quota_tot = #{teQuotaTot,jdbcType=SMALLINT},
+      te_intention_tot = #{teIntentionTot,jdbcType=SMALLINT},
+      te_field = #{teField,jdbcType=LONGVARCHAR},
+      te_topic = #{teTopic,jdbcType=LONGVARCHAR},
+      te_requirements = #{teRequirements,jdbcType=LONGVARCHAR},
+      te_student = #{teStudent,jdbcType=LONGVARCHAR}
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Teacher">
+    update teacher
+    set te_name = #{teName,jdbcType=VARCHAR},
+      te_initial = #{teInitial,jdbcType=VARCHAR},
+      te_title = #{teTitle,jdbcType=VARCHAR},
+      te_section = #{teSection,jdbcType=VARCHAR},
+      te_contact = #{teContact,jdbcType=VARCHAR},
+      te_quota_tot = #{teQuotaTot,jdbcType=SMALLINT},
+      te_intention_tot = #{teIntentionTot,jdbcType=SMALLINT}
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+</mapper>

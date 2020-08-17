@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.ConfPublishMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.ConfPublish">
+    <id column="confpub_id" jdbcType="INTEGER" property="confpubId" />
+    <result column="conf_id" jdbcType="INTEGER" property="confId" />
+    <result column="confpub_name" jdbcType="VARCHAR" property="confpubName" />
+    <result column="confpub_grade" jdbcType="VARCHAR" property="confpubGrade" />
+    <result column="confpub_year" jdbcType="DATE" property="confpubYear" />
+    <result column="confpub_num" jdbcType="SMALLINT" property="confpubNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    confpub_id, conf_id, confpub_name, confpub_grade, confpub_year, confpub_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from conf_publish
+    where confpub_id = #{confpubId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from conf_publish
+    where confpub_id = #{confpubId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.ConfPublish">
+    insert into conf_publish (confpub_id, conf_id, confpub_name, 
+      confpub_grade, confpub_year, confpub_num
+      )
+    values (#{confpubId,jdbcType=INTEGER}, #{confId,jdbcType=INTEGER}, #{confpubName,jdbcType=VARCHAR}, 
+      #{confpubGrade,jdbcType=VARCHAR}, #{confpubYear,jdbcType=DATE}, #{confpubNum,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.ConfPublish">
+    insert into conf_publish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="confpubId != null">
+        confpub_id,
+      </if>
+      <if test="confId != null">
+        conf_id,
+      </if>
+      <if test="confpubName != null">
+        confpub_name,
+      </if>
+      <if test="confpubGrade != null">
+        confpub_grade,
+      </if>
+      <if test="confpubYear != null">
+        confpub_year,
+      </if>
+      <if test="confpubNum != null">
+        confpub_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="confpubId != null">
+        #{confpubId,jdbcType=INTEGER},
+      </if>
+      <if test="confId != null">
+        #{confId,jdbcType=INTEGER},
+      </if>
+      <if test="confpubName != null">
+        #{confpubName,jdbcType=VARCHAR},
+      </if>
+      <if test="confpubGrade != null">
+        #{confpubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="confpubYear != null">
+        #{confpubYear,jdbcType=DATE},
+      </if>
+      <if test="confpubNum != null">
+        #{confpubNum,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.ConfPublish">
+    update conf_publish
+    <set>
+      <if test="confId != null">
+        conf_id = #{confId,jdbcType=INTEGER},
+      </if>
+      <if test="confpubName != null">
+        confpub_name = #{confpubName,jdbcType=VARCHAR},
+      </if>
+      <if test="confpubGrade != null">
+        confpub_grade = #{confpubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="confpubYear != null">
+        confpub_year = #{confpubYear,jdbcType=DATE},
+      </if>
+      <if test="confpubNum != null">
+        confpub_num = #{confpubNum,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where confpub_id = #{confpubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.ConfPublish">
+    update conf_publish
+    set conf_id = #{confId,jdbcType=INTEGER},
+      confpub_name = #{confpubName,jdbcType=VARCHAR},
+      confpub_grade = #{confpubGrade,jdbcType=VARCHAR},
+      confpub_year = #{confpubYear,jdbcType=DATE},
+      confpub_num = #{confpubNum,jdbcType=SMALLINT}
+    where confpub_id = #{confpubId,jdbcType=INTEGER}
+  </update>
+</mapper>

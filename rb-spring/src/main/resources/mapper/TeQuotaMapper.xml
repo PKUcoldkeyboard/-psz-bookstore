@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.TeQuotaMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.TeQuota">
+    <id column="te_id" jdbcType="VARCHAR" property="teId" />
+    <id column="quota_no" jdbcType="SMALLINT" property="quotaNo" />
+    <result column="quota_num" jdbcType="SMALLINT" property="quotaNum" />
+    <result column="intention_num" jdbcType="SMALLINT" property="intentionNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    te_id, quota_no, quota_num, intention_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeQuotaKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from te_quota
+    where te_id = #{teId,jdbcType=VARCHAR}
+      and quota_no = #{quotaNo,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeQuotaKey">
+    delete from te_quota
+    where te_id = #{teId,jdbcType=VARCHAR}
+      and quota_no = #{quotaNo,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.TeQuota">
+    insert into te_quota (te_id, quota_no, quota_num, 
+      intention_num)
+    values (#{teId,jdbcType=VARCHAR}, #{quotaNo,jdbcType=SMALLINT}, #{quotaNum,jdbcType=SMALLINT}, 
+      #{intentionNum,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.TeQuota">
+    insert into te_quota
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        te_id,
+      </if>
+      <if test="quotaNo != null">
+        quota_no,
+      </if>
+      <if test="quotaNum != null">
+        quota_num,
+      </if>
+      <if test="intentionNum != null">
+        intention_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="quotaNo != null">
+        #{quotaNo,jdbcType=SMALLINT},
+      </if>
+      <if test="quotaNum != null">
+        #{quotaNum,jdbcType=SMALLINT},
+      </if>
+      <if test="intentionNum != null">
+        #{intentionNum,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.TeQuota">
+    update te_quota
+    <set>
+      <if test="quotaNum != null">
+        quota_num = #{quotaNum,jdbcType=SMALLINT},
+      </if>
+      <if test="intentionNum != null">
+        intention_num = #{intentionNum,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where te_id = #{teId,jdbcType=VARCHAR}
+      and quota_no = #{quotaNo,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeQuota">
+    update te_quota
+    set quota_num = #{quotaNum,jdbcType=SMALLINT},
+      intention_num = #{intentionNum,jdbcType=SMALLINT}
+    where te_id = #{teId,jdbcType=VARCHAR}
+      and quota_no = #{quotaNo,jdbcType=SMALLINT}
+  </update>
+</mapper>

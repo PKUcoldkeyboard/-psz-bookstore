@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.TeacherDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.TeacherDetail">
+    <id column="te_id" jdbcType="VARCHAR" property="teId" />
+    <result column="te_gender" jdbcType="VARCHAR" property="teGender" />
+    <result column="te_post" jdbcType="VARCHAR" property="tePost" />
+    <result column="te_website" jdbcType="VARCHAR" property="teWebsite" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs">
+    <result column="te_frequency" jdbcType="LONGVARCHAR" property="teFrequency" />
+    <result column="te_education" jdbcType="LONGVARCHAR" property="teEducation" />
+    <result column="te_career" jdbcType="LONGVARCHAR" property="teCareer" />
+    <result column="te_social_appointments" jdbcType="LONGVARCHAR" property="teSocialAppointments" />
+    <result column="te_awards" jdbcType="LONGVARCHAR" property="teAwards" />
+    <result column="te_works" jdbcType="LONGVARCHAR" property="teWorks" />
+    <result column="te_papers" jdbcType="LONGVARCHAR" property="tePapers" />
+    <result column="te_project" jdbcType="LONGVARCHAR" property="teProject" />
+    <result column="te_others" jdbcType="LONGVARCHAR" property="teOthers" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    te_id, te_gender, te_post, te_website
+  </sql>
+  <sql id="Blob_Column_List">
+    te_frequency, te_education, te_career, te_social_appointments, te_awards, te_works, 
+    te_papers, te_project, te_others
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher_detail
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher_detail
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs">
+    insert into teacher_detail (te_id, te_gender, te_post, 
+      te_website, te_frequency, te_education, 
+      te_career, te_social_appointments, 
+      te_awards, te_works, te_papers, 
+      te_project, te_others)
+    values (#{teId,jdbcType=VARCHAR}, #{teGender,jdbcType=VARCHAR}, #{tePost,jdbcType=VARCHAR}, 
+      #{teWebsite,jdbcType=VARCHAR}, #{teFrequency,jdbcType=LONGVARCHAR}, #{teEducation,jdbcType=LONGVARCHAR}, 
+      #{teCareer,jdbcType=LONGVARCHAR}, #{teSocialAppointments,jdbcType=LONGVARCHAR}, 
+      #{teAwards,jdbcType=LONGVARCHAR}, #{teWorks,jdbcType=LONGVARCHAR}, #{tePapers,jdbcType=LONGVARCHAR}, 
+      #{teProject,jdbcType=LONGVARCHAR}, #{teOthers,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs">
+    insert into teacher_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        te_id,
+      </if>
+      <if test="teGender != null">
+        te_gender,
+      </if>
+      <if test="tePost != null">
+        te_post,
+      </if>
+      <if test="teWebsite != null">
+        te_website,
+      </if>
+      <if test="teFrequency != null">
+        te_frequency,
+      </if>
+      <if test="teEducation != null">
+        te_education,
+      </if>
+      <if test="teCareer != null">
+        te_career,
+      </if>
+      <if test="teSocialAppointments != null">
+        te_social_appointments,
+      </if>
+      <if test="teAwards != null">
+        te_awards,
+      </if>
+      <if test="teWorks != null">
+        te_works,
+      </if>
+      <if test="tePapers != null">
+        te_papers,
+      </if>
+      <if test="teProject != null">
+        te_project,
+      </if>
+      <if test="teOthers != null">
+        te_others,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teId != null">
+        #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teGender != null">
+        #{teGender,jdbcType=VARCHAR},
+      </if>
+      <if test="tePost != null">
+        #{tePost,jdbcType=VARCHAR},
+      </if>
+      <if test="teWebsite != null">
+        #{teWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="teFrequency != null">
+        #{teFrequency,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teEducation != null">
+        #{teEducation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teCareer != null">
+        #{teCareer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teSocialAppointments != null">
+        #{teSocialAppointments,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teAwards != null">
+        #{teAwards,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teWorks != null">
+        #{teWorks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tePapers != null">
+        #{tePapers,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teProject != null">
+        #{teProject,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teOthers != null">
+        #{teOthers,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs">
+    update teacher_detail
+    <set>
+      <if test="teGender != null">
+        te_gender = #{teGender,jdbcType=VARCHAR},
+      </if>
+      <if test="tePost != null">
+        te_post = #{tePost,jdbcType=VARCHAR},
+      </if>
+      <if test="teWebsite != null">
+        te_website = #{teWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="teFrequency != null">
+        te_frequency = #{teFrequency,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teEducation != null">
+        te_education = #{teEducation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teCareer != null">
+        te_career = #{teCareer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teSocialAppointments != null">
+        te_social_appointments = #{teSocialAppointments,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teAwards != null">
+        te_awards = #{teAwards,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teWorks != null">
+        te_works = #{teWorks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tePapers != null">
+        te_papers = #{tePapers,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teProject != null">
+        te_project = #{teProject,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teOthers != null">
+        te_others = #{teOthers,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs">
+    update teacher_detail
+    set te_gender = #{teGender,jdbcType=VARCHAR},
+      te_post = #{tePost,jdbcType=VARCHAR},
+      te_website = #{teWebsite,jdbcType=VARCHAR},
+      te_frequency = #{teFrequency,jdbcType=LONGVARCHAR},
+      te_education = #{teEducation,jdbcType=LONGVARCHAR},
+      te_career = #{teCareer,jdbcType=LONGVARCHAR},
+      te_social_appointments = #{teSocialAppointments,jdbcType=LONGVARCHAR},
+      te_awards = #{teAwards,jdbcType=LONGVARCHAR},
+      te_works = #{teWorks,jdbcType=LONGVARCHAR},
+      te_papers = #{tePapers,jdbcType=LONGVARCHAR},
+      te_project = #{teProject,jdbcType=LONGVARCHAR},
+      te_others = #{teOthers,jdbcType=LONGVARCHAR}
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeacherDetail">
+    update teacher_detail
+    set te_gender = #{teGender,jdbcType=VARCHAR},
+      te_post = #{tePost,jdbcType=VARCHAR},
+      te_website = #{teWebsite,jdbcType=VARCHAR}
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </update>
+</mapper>

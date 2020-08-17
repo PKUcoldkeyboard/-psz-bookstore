@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.ApplyMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.Apply">
+    <id column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="stu_id" jdbcType="VARCHAR" property="stuId" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+    <result column="te_id" jdbcType="VARCHAR" property="teId" />
+    <result column="te_name" jdbcType="VARCHAR" property="teName" />
+    <result column="apply_topic" jdbcType="SMALLINT" property="applyTopic" />
+    <result column="apply_condition" jdbcType="VARCHAR" property="applyCondition" />
+    <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    apply_id, stu_id, stu_name, te_id, te_name, apply_topic, apply_condition, apply_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.Apply">
+    insert into apply (apply_id, stu_id, stu_name, 
+      te_id, te_name, apply_topic, 
+      apply_condition, apply_date)
+    values (#{applyId,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{stuName,jdbcType=VARCHAR}, 
+      #{teId,jdbcType=VARCHAR}, #{teName,jdbcType=VARCHAR}, #{applyTopic,jdbcType=SMALLINT}, 
+      #{applyCondition,jdbcType=VARCHAR}, #{applyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.Apply">
+    insert into apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="stuName != null">
+        stu_name,
+      </if>
+      <if test="teId != null">
+        te_id,
+      </if>
+      <if test="teName != null">
+        te_name,
+      </if>
+      <if test="applyTopic != null">
+        apply_topic,
+      </if>
+      <if test="applyCondition != null">
+        apply_condition,
+      </if>
+      <if test="applyDate != null">
+        apply_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null">
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="teId != null">
+        #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teName != null">
+        #{teName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTopic != null">
+        #{applyTopic,jdbcType=SMALLINT},
+      </if>
+      <if test="applyCondition != null">
+        #{applyCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.Apply">
+    update apply
+    <set>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="teId != null">
+        te_id = #{teId,jdbcType=VARCHAR},
+      </if>
+      <if test="teName != null">
+        te_name = #{teName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTopic != null">
+        apply_topic = #{applyTopic,jdbcType=SMALLINT},
+      </if>
+      <if test="applyCondition != null">
+        apply_condition = #{applyCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Apply">
+    update apply
+    set stu_id = #{stuId,jdbcType=VARCHAR},
+      stu_name = #{stuName,jdbcType=VARCHAR},
+      te_id = #{teId,jdbcType=VARCHAR},
+      te_name = #{teName,jdbcType=VARCHAR},
+      apply_topic = #{applyTopic,jdbcType=SMALLINT},
+      apply_condition = #{applyCondition,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.ApplyDetailMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.ApplyDetail">
+    <id column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="apply_gender" jdbcType="VARCHAR" property="applyGender" />
+    <result column="apply_grade" jdbcType="VARCHAR" property="applyGrade" />
+    <result column="apply_subject" jdbcType="VARCHAR" property="applySubject" />
+    <result column="apply_grade_point" jdbcType="VARCHAR" property="applyGradePoint" />
+    <result column="apply_minor" jdbcType="VARCHAR" property="applyMinor" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.ApplyDetailWithBLOBs">
+    <result column="apply_skill" jdbcType="LONGVARCHAR" property="applySkill" />
+    <result column="apply_major_course" jdbcType="LONGVARCHAR" property="applyMajorCourse" />
+    <result column="apply_math_course" jdbcType="LONGVARCHAR" property="applyMathCourse" />
+    <result column="apply_code_course" jdbcType="LONGVARCHAR" property="applyCodeCourse" />
+    <result column="apply_reason" jdbcType="LONGVARCHAR" property="applyReason" />
+    <result column="apply_self_intro" jdbcType="LONGVARCHAR" property="applySelfIntro" />
+    <result column="apply_interest" jdbcType="LONGVARCHAR" property="applyInterest" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    apply_id, apply_gender, apply_grade, apply_subject, apply_grade_point, apply_minor
+  </sql>
+  <sql id="Blob_Column_List">
+    apply_skill, apply_major_course, apply_math_course, apply_code_course, apply_reason, 
+    apply_self_intro, apply_interest
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from apply_detail
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply_detail
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.ApplyDetailWithBLOBs">
+    insert into apply_detail (apply_id, apply_gender, apply_grade, 
+      apply_subject, apply_grade_point, apply_minor, 
+      apply_skill, apply_major_course, apply_math_course, 
+      apply_code_course, apply_reason, apply_self_intro, 
+      apply_interest)
+    values (#{applyId,jdbcType=INTEGER}, #{applyGender,jdbcType=VARCHAR}, #{applyGrade,jdbcType=VARCHAR}, 
+      #{applySubject,jdbcType=VARCHAR}, #{applyGradePoint,jdbcType=VARCHAR}, #{applyMinor,jdbcType=VARCHAR}, 
+      #{applySkill,jdbcType=LONGVARCHAR}, #{applyMajorCourse,jdbcType=LONGVARCHAR}, #{applyMathCourse,jdbcType=LONGVARCHAR}, 
+      #{applyCodeCourse,jdbcType=LONGVARCHAR}, #{applyReason,jdbcType=LONGVARCHAR}, #{applySelfIntro,jdbcType=LONGVARCHAR}, 
+      #{applyInterest,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.ApplyDetailWithBLOBs">
+    insert into apply_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="applyGender != null">
+        apply_gender,
+      </if>
+      <if test="applyGrade != null">
+        apply_grade,
+      </if>
+      <if test="applySubject != null">
+        apply_subject,
+      </if>
+      <if test="applyGradePoint != null">
+        apply_grade_point,
+      </if>
+      <if test="applyMinor != null">
+        apply_minor,
+      </if>
+      <if test="applySkill != null">
+        apply_skill,
+      </if>
+      <if test="applyMajorCourse != null">
+        apply_major_course,
+      </if>
+      <if test="applyMathCourse != null">
+        apply_math_course,
+      </if>
+      <if test="applyCodeCourse != null">
+        apply_code_course,
+      </if>
+      <if test="applyReason != null">
+        apply_reason,
+      </if>
+      <if test="applySelfIntro != null">
+        apply_self_intro,
+      </if>
+      <if test="applyInterest != null">
+        apply_interest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="applyGender != null">
+        #{applyGender,jdbcType=VARCHAR},
+      </if>
+      <if test="applyGrade != null">
+        #{applyGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="applySubject != null">
+        #{applySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="applyGradePoint != null">
+        #{applyGradePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="applyMinor != null">
+        #{applyMinor,jdbcType=VARCHAR},
+      </if>
+      <if test="applySkill != null">
+        #{applySkill,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyMajorCourse != null">
+        #{applyMajorCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyMathCourse != null">
+        #{applyMathCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCodeCourse != null">
+        #{applyCodeCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyReason != null">
+        #{applyReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applySelfIntro != null">
+        #{applySelfIntro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyInterest != null">
+        #{applyInterest,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.ApplyDetailWithBLOBs">
+    update apply_detail
+    <set>
+      <if test="applyGender != null">
+        apply_gender = #{applyGender,jdbcType=VARCHAR},
+      </if>
+      <if test="applyGrade != null">
+        apply_grade = #{applyGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="applySubject != null">
+        apply_subject = #{applySubject,jdbcType=VARCHAR},
+      </if>
+      <if test="applyGradePoint != null">
+        apply_grade_point = #{applyGradePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="applyMinor != null">
+        apply_minor = #{applyMinor,jdbcType=VARCHAR},
+      </if>
+      <if test="applySkill != null">
+        apply_skill = #{applySkill,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyMajorCourse != null">
+        apply_major_course = #{applyMajorCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyMathCourse != null">
+        apply_math_course = #{applyMathCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyCodeCourse != null">
+        apply_code_course = #{applyCodeCourse,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyReason != null">
+        apply_reason = #{applyReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applySelfIntro != null">
+        apply_self_intro = #{applySelfIntro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="applyInterest != null">
+        apply_interest = #{applyInterest,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.ApplyDetailWithBLOBs">
+    update apply_detail
+    set apply_gender = #{applyGender,jdbcType=VARCHAR},
+      apply_grade = #{applyGrade,jdbcType=VARCHAR},
+      apply_subject = #{applySubject,jdbcType=VARCHAR},
+      apply_grade_point = #{applyGradePoint,jdbcType=VARCHAR},
+      apply_minor = #{applyMinor,jdbcType=VARCHAR},
+      apply_skill = #{applySkill,jdbcType=LONGVARCHAR},
+      apply_major_course = #{applyMajorCourse,jdbcType=LONGVARCHAR},
+      apply_math_course = #{applyMathCourse,jdbcType=LONGVARCHAR},
+      apply_code_course = #{applyCodeCourse,jdbcType=LONGVARCHAR},
+      apply_reason = #{applyReason,jdbcType=LONGVARCHAR},
+      apply_self_intro = #{applySelfIntro,jdbcType=LONGVARCHAR},
+      apply_interest = #{applyInterest,jdbcType=LONGVARCHAR}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.ApplyDetail">
+    update apply_detail
+    set apply_gender = #{applyGender,jdbcType=VARCHAR},
+      apply_grade = #{applyGrade,jdbcType=VARCHAR},
+      apply_subject = #{applySubject,jdbcType=VARCHAR},
+      apply_grade_point = #{applyGradePoint,jdbcType=VARCHAR},
+      apply_minor = #{applyMinor,jdbcType=VARCHAR}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>

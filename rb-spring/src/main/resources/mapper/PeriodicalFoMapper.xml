@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.PeriodicalFoMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.PeriodicalFo">
+    <id column="pefo_id" jdbcType="INTEGER" property="pefoId" />
+    <result column="pefo_name" jdbcType="VARCHAR" property="pefoName" />
+    <result column="pefo_official_website_link" jdbcType="VARCHAR" property="pefoOfficialWebsiteLink" />
+    <result column="pefo_comprehensive_influencing_factors" jdbcType="DECIMAL" property="pefoComprehensiveInfluencingFactors" />
+    <result column="pefo_submission_entry" jdbcType="VARCHAR" property="pefoSubmissionEntry" />
+    <result column="pefo_submission_requirements" jdbcType="VARCHAR" property="pefoSubmissionRequirements" />
+    <result column="pubnum_tot" jdbcType="INTEGER" property="pubnumTot" />
+    <result column="pubnum_3years" jdbcType="INTEGER" property="pubnum3years" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pefo_id, pefo_name, pefo_official_website_link, pefo_comprehensive_influencing_factors, 
+    pefo_submission_entry, pefo_submission_requirements, pubnum_tot, pubnum_3years
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from periodical_fo
+    where pefo_id = #{pefoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from periodical_fo
+    where pefo_id = #{pefoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.PeriodicalFo">
+    insert into periodical_fo (pefo_id, pefo_name, pefo_official_website_link, 
+      pefo_comprehensive_influencing_factors, pefo_submission_entry, 
+      pefo_submission_requirements, pubnum_tot, 
+      pubnum_3years)
+    values (#{pefoId,jdbcType=INTEGER}, #{pefoName,jdbcType=VARCHAR}, #{pefoOfficialWebsiteLink,jdbcType=VARCHAR}, 
+      #{pefoComprehensiveInfluencingFactors,jdbcType=DECIMAL}, #{pefoSubmissionEntry,jdbcType=VARCHAR}, 
+      #{pefoSubmissionRequirements,jdbcType=VARCHAR}, #{pubnumTot,jdbcType=INTEGER}, 
+      #{pubnum3years,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.PeriodicalFo">
+    insert into periodical_fo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pefoId != null">
+        pefo_id,
+      </if>
+      <if test="pefoName != null">
+        pefo_name,
+      </if>
+      <if test="pefoOfficialWebsiteLink != null">
+        pefo_official_website_link,
+      </if>
+      <if test="pefoComprehensiveInfluencingFactors != null">
+        pefo_comprehensive_influencing_factors,
+      </if>
+      <if test="pefoSubmissionEntry != null">
+        pefo_submission_entry,
+      </if>
+      <if test="pefoSubmissionRequirements != null">
+        pefo_submission_requirements,
+      </if>
+      <if test="pubnumTot != null">
+        pubnum_tot,
+      </if>
+      <if test="pubnum3years != null">
+        pubnum_3years,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pefoId != null">
+        #{pefoId,jdbcType=INTEGER},
+      </if>
+      <if test="pefoName != null">
+        #{pefoName,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoOfficialWebsiteLink != null">
+        #{pefoOfficialWebsiteLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoComprehensiveInfluencingFactors != null">
+        #{pefoComprehensiveInfluencingFactors,jdbcType=DECIMAL},
+      </if>
+      <if test="pefoSubmissionEntry != null">
+        #{pefoSubmissionEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoSubmissionRequirements != null">
+        #{pefoSubmissionRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="pubnumTot != null">
+        #{pubnumTot,jdbcType=INTEGER},
+      </if>
+      <if test="pubnum3years != null">
+        #{pubnum3years,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.PeriodicalFo">
+    update periodical_fo
+    <set>
+      <if test="pefoName != null">
+        pefo_name = #{pefoName,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoOfficialWebsiteLink != null">
+        pefo_official_website_link = #{pefoOfficialWebsiteLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoComprehensiveInfluencingFactors != null">
+        pefo_comprehensive_influencing_factors = #{pefoComprehensiveInfluencingFactors,jdbcType=DECIMAL},
+      </if>
+      <if test="pefoSubmissionEntry != null">
+        pefo_submission_entry = #{pefoSubmissionEntry,jdbcType=VARCHAR},
+      </if>
+      <if test="pefoSubmissionRequirements != null">
+        pefo_submission_requirements = #{pefoSubmissionRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="pubnumTot != null">
+        pubnum_tot = #{pubnumTot,jdbcType=INTEGER},
+      </if>
+      <if test="pubnum3years != null">
+        pubnum_3years = #{pubnum3years,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pefo_id = #{pefoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.PeriodicalFo">
+    update periodical_fo
+    set pefo_name = #{pefoName,jdbcType=VARCHAR},
+      pefo_official_website_link = #{pefoOfficialWebsiteLink,jdbcType=VARCHAR},
+      pefo_comprehensive_influencing_factors = #{pefoComprehensiveInfluencingFactors,jdbcType=DECIMAL},
+      pefo_submission_entry = #{pefoSubmissionEntry,jdbcType=VARCHAR},
+      pefo_submission_requirements = #{pefoSubmissionRequirements,jdbcType=VARCHAR},
+      pubnum_tot = #{pubnumTot,jdbcType=INTEGER},
+      pubnum_3years = #{pubnum3years,jdbcType=INTEGER}
+    where pefo_id = #{pefoId,jdbcType=INTEGER}
+  </update>
+</mapper>

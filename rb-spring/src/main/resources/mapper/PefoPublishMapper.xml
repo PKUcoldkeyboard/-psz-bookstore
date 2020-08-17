@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.PefoPublishMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.PefoPublish">
+    <id column="pefopub_id" jdbcType="INTEGER" property="pefopubId" />
+    <result column="pefo_id" jdbcType="INTEGER" property="pefoId" />
+    <result column="pefopub_name" jdbcType="VARCHAR" property="pefopubName" />
+    <result column="pefopub_grade" jdbcType="VARCHAR" property="pefopubGrade" />
+    <result column="pefopub_year" jdbcType="DATE" property="pefopubYear" />
+    <result column="pefopub_num" jdbcType="SMALLINT" property="pefopubNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pefopub_id, pefo_id, pefopub_name, pefopub_grade, pefopub_year, pefopub_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pefo_publish
+    where pefopub_id = #{pefopubId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pefo_publish
+    where pefopub_id = #{pefopubId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.PefoPublish">
+    insert into pefo_publish (pefopub_id, pefo_id, pefopub_name, 
+      pefopub_grade, pefopub_year, pefopub_num
+      )
+    values (#{pefopubId,jdbcType=INTEGER}, #{pefoId,jdbcType=INTEGER}, #{pefopubName,jdbcType=VARCHAR}, 
+      #{pefopubGrade,jdbcType=VARCHAR}, #{pefopubYear,jdbcType=DATE}, #{pefopubNum,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.PefoPublish">
+    insert into pefo_publish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pefopubId != null">
+        pefopub_id,
+      </if>
+      <if test="pefoId != null">
+        pefo_id,
+      </if>
+      <if test="pefopubName != null">
+        pefopub_name,
+      </if>
+      <if test="pefopubGrade != null">
+        pefopub_grade,
+      </if>
+      <if test="pefopubYear != null">
+        pefopub_year,
+      </if>
+      <if test="pefopubNum != null">
+        pefopub_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pefopubId != null">
+        #{pefopubId,jdbcType=INTEGER},
+      </if>
+      <if test="pefoId != null">
+        #{pefoId,jdbcType=INTEGER},
+      </if>
+      <if test="pefopubName != null">
+        #{pefopubName,jdbcType=VARCHAR},
+      </if>
+      <if test="pefopubGrade != null">
+        #{pefopubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="pefopubYear != null">
+        #{pefopubYear,jdbcType=DATE},
+      </if>
+      <if test="pefopubNum != null">
+        #{pefopubNum,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.PefoPublish">
+    update pefo_publish
+    <set>
+      <if test="pefoId != null">
+        pefo_id = #{pefoId,jdbcType=INTEGER},
+      </if>
+      <if test="pefopubName != null">
+        pefopub_name = #{pefopubName,jdbcType=VARCHAR},
+      </if>
+      <if test="pefopubGrade != null">
+        pefopub_grade = #{pefopubGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="pefopubYear != null">
+        pefopub_year = #{pefopubYear,jdbcType=DATE},
+      </if>
+      <if test="pefopubNum != null">
+        pefopub_num = #{pefopubNum,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where pefopub_id = #{pefopubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.PefoPublish">
+    update pefo_publish
+    set pefo_id = #{pefoId,jdbcType=INTEGER},
+      pefopub_name = #{pefopubName,jdbcType=VARCHAR},
+      pefopub_grade = #{pefopubGrade,jdbcType=VARCHAR},
+      pefopub_year = #{pefopubYear,jdbcType=DATE},
+      pefopub_num = #{pefopubNum,jdbcType=SMALLINT}
+    where pefopub_id = #{pefopubId,jdbcType=INTEGER}
+  </update>
+</mapper>

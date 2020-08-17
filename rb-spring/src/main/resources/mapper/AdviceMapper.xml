@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.rbspring.dao.AdviceMapper">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.rbspring.entity.Advice">
+    <id column="advice_id" jdbcType="INTEGER" property="adviceId" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="advice_title" jdbcType="VARCHAR" property="adviceTitle" />
+    <result column="advice_contition" jdbcType="BIT" property="adviceContition" />
+    <result column="advice_date" jdbcType="TIMESTAMP" property="adviceDate" />
+    <result column="advice_anonymous" jdbcType="BIT" property="adviceAnonymous" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cuterwrite.rbspring.entity.Advice">
+    <result column="advice_content" jdbcType="LONGVARCHAR" property="adviceContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    advice_id, user_account, advice_title, advice_contition, advice_date, advice_anonymous
+  </sql>
+  <sql id="Blob_Column_List">
+    advice_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from advice
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from advice
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.Advice">
+    insert into advice (advice_id, user_account, advice_title, 
+      advice_contition, advice_date, advice_anonymous, 
+      advice_content)
+    values (#{adviceId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, #{adviceTitle,jdbcType=VARCHAR}, 
+      #{adviceContition,jdbcType=BIT}, #{adviceDate,jdbcType=TIMESTAMP}, #{adviceAnonymous,jdbcType=BIT}, 
+      #{adviceContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.Advice">
+    insert into advice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adviceId != null">
+        advice_id,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="adviceTitle != null">
+        advice_title,
+      </if>
+      <if test="adviceContition != null">
+        advice_contition,
+      </if>
+      <if test="adviceDate != null">
+        advice_date,
+      </if>
+      <if test="adviceAnonymous != null">
+        advice_anonymous,
+      </if>
+      <if test="adviceContent != null">
+        advice_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adviceId != null">
+        #{adviceId,jdbcType=INTEGER},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTitle != null">
+        #{adviceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceContition != null">
+        #{adviceContition,jdbcType=BIT},
+      </if>
+      <if test="adviceDate != null">
+        #{adviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adviceAnonymous != null">
+        #{adviceAnonymous,jdbcType=BIT},
+      </if>
+      <if test="adviceContent != null">
+        #{adviceContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.Advice">
+    update advice
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTitle != null">
+        advice_title = #{adviceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceContition != null">
+        advice_contition = #{adviceContition,jdbcType=BIT},
+      </if>
+      <if test="adviceDate != null">
+        advice_date = #{adviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adviceAnonymous != null">
+        advice_anonymous = #{adviceAnonymous,jdbcType=BIT},
+      </if>
+      <if test="adviceContent != null">
+        advice_content = #{adviceContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cuterwrite.rbspring.entity.Advice">
+    update advice
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      advice_title = #{adviceTitle,jdbcType=VARCHAR},
+      advice_contition = #{adviceContition,jdbcType=BIT},
+      advice_date = #{adviceDate,jdbcType=TIMESTAMP},
+      advice_anonymous = #{adviceAnonymous,jdbcType=BIT},
+      advice_content = #{adviceContent,jdbcType=LONGVARCHAR}
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Advice">
+    update advice
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      advice_title = #{adviceTitle,jdbcType=VARCHAR},
+      advice_contition = #{adviceContition,jdbcType=BIT},
+      advice_date = #{adviceDate,jdbcType=TIMESTAMP},
+      advice_anonymous = #{adviceAnonymous,jdbcType=BIT}
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </update>
+</mapper>
