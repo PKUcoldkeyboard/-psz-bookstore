@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/login.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+        canvas{z-index:-1;position:absolute;}
+ 	</style>
+</head>
+
+<body>
+    <!--导航栏-->
+    <center>
+        <!--此处为页面主题内容-->
+        <div id="login_main">
+            <div id="login_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div id="login_main_content">
+                <!--主题内容在此写入-->
+                <div class="logo_main">
+                    <a href=""><img th:src="@{main/image/ResearchBubbling.png}" /></a>
+                </div>
+                <div class="input_box">
+                    <div class="login_text_1">
+                        <form action="##"id="loginForm"onsubmit="return false;">
+                            <label style="width:60px; height:22px; padding-top:170px;padding-left:10px;">用户名&nbsp;</label>
+                            <input type="text" id="userAccount"name="userAccount"style="width:240px;height:25px;background: url(main/image/username.png) no-repeat white; background-size:8%; background-position:4px" placeholder="请输入学号/工号" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <input type="password"id="password"name="password" style="width:240px;height:25px; background: url(main/image/password.png) no-repeat white; background-size:6%; background-position: 4.5px" placeholder="请输入密码" />
+                            </p>
+                            <a style="float:right;margin-right:30px;font-weight:400;" href="#"><u>找回密码</u>&nbsp;&nbsp;</a>
+                            <a style="float:right;margin-right:10px;font-weight:400;" href="register_template.html"><u>立即注册</u>&nbsp;&nbsp;</a>
+                            <center><input type="submit" style="margin-top:20px;margin-left:35px;margin-right:35px;font-weight:900;font-size:15px"onclick="login()"value="登   录" /></center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <!--底栏-->
+</body>
+    <script th:src="@{main/js/index.js}"></script>
+    <script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+    <script th:src="@{main/js/Particleground.js}"></script>
+    <script th:src="@{main/js/validation.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+    
+    <script type="text/javascript">
+    	function login(){
+    		var userAccount=$("#userAccount").val();
+    		if(isNull(userAccount)){
+    			Swal.fire({
+	    			text:'学号不能为空',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+				return false;
+    		}
+    		if(!validUserAccount(userAccount)){
+    			Swal.fire({
+	    			text:'请输入正确的学号',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		var password=$("#password").val();
+    		if(isNull(password)){
+    			Swal.fire({
+	    			text:'密码不能为空',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		if(!validPassword(password)){
+    			Swal.fire({
+	    			text:'请输入正确的密码格式(6-20位字符和数字组合)',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		//验证
+    		var params=$("#loginForm").serialize();
+    		var url='/login'
+    		$.ajax({
+    			type:'post',
+    			url:url,
+    			data:params,
+    			success:function(result){
+    				if(result.resultCode==200){
+    					window.location.href='/index';
+    				}else{
+    					Swal.fire({
+    						text:result.message,
+    						icon:'error',
+    						confirmButtonText:'确定',
+    					});
+    				};
+    			},
+    			error:function(){
+    				Swal.fire({
+    					text:'操作失败',
+    					icon:'error',
+    					confirmButtonText:'确定',
+    				});
+    			}
+    		});
+    	}
+    </script>
+</html>

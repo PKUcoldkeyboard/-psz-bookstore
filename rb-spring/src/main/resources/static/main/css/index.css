@@ -1,0 +1,475 @@
+body {
+    background-color: #e9e9ee;
+    font-family: Arial;
+    margin: 0px;
+}
+
+#index_navigation {
+    border-top: 8px solid #e9e9ee;
+    position: fixed;
+    left: 0px;
+    height: 110px;
+    width: 1000px;
+    min-height: 110px;
+    min-width: 1000px;
+    max-height: 110px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    font-size: 14px;
+    z-index: 99999;
+}
+
+#index_navigation_1 {
+    float: left;
+    width: 290px;
+    min-width: 290px;
+    max-width: 290px;
+    height: 110px;
+    min-height: 110px;
+    max-height: 110px;
+    border: none;
+    z-index: 99999;
+
+}
+
+#index_navigation_2 {
+    float: left;
+    margin-right: 5px;
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    height: 46px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border: none;
+    z-index: 99999;
+}
+
+/*期刊会议导航下拉*/
+#index_navigation_3 {
+    float: left;
+    position: relative;
+    right: 5px;
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    height: 46px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid #D7D7D7;
+    border-right: 1px solid white;
+    display: inline-block;
+    z-index: 99999;
+
+}
+
+
+
+#index_navigation_3_1 {
+    position: absolute;
+    top: 45px;
+    left: -1px;
+    display: none;
+    background-color: white;
+    min-width: 90px;
+    min-height: 95px;
+    text-align: center;
+    border-top: none;
+    border-left: 1px solid #D7D7D7;
+    border-right: 1px solid #D7D7D7;
+    border-bottom: 1px solid #D7D7D7;
+    z-index: 99999;
+
+}
+
+
+#index_navigation_3:hover #index_navigation_3_1 {
+    display: block;
+
+}
+
+
+
+
+#index_navigation_3_1 a {
+    display: block;
+    vertical-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    color: #7F7F7F;
+    padding: 8px 10px;
+    border-top: 1px solid #D7D7D7;
+    z-index: 99999;
+
+}
+
+#index_navigation_3_1 a:hover {
+    display: block;
+    vertical-align: center;
+    text-decoration: blink;
+    font-size: 13px;
+    color: #027DB4;
+    border-right: none;
+    z-index: 99999;
+
+
+
+}
+
+#index_navigation_3:hover {
+    border-right: 1px solid #D7D7D7;
+}
+
+/*/*/
+#index_navigation_4 {
+
+    float: left;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+    height: 110px;
+    border: none;
+    z-index: 99999;
+
+
+
+}
+
+/*BBS导航下拉*/
+/*navigation_text的在此div中的效果在代码一部分，没有在此*/
+#index_navigation_5 {
+    position: relative;
+    float: left;
+    left: 5px;
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    height: 46px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid #D7D7D7;
+    border-left: 1px solid white;
+    display: inline-block;
+    z-index: 99999;
+}
+
+
+
+#index_navigation_5_1 {
+    position: absolute;
+    top: 45px;
+    display: none;
+    left: -1px;
+
+    background-color: white;
+    min-width: 90px;
+    min-height: 95px;
+    text-align: center;
+    border-top: none;
+    border-left: 1px solid #D7D7D7;
+    border-right: 1px solid #D7D7D7;
+    border-bottom: 1px solid #D7D7D7;
+    z-index: 99999;
+}
+
+#index_navigation_5:hover #index_navigation_5_1 {
+    display: block;
+}
+
+#index_navigation_5_1 a {
+    display: block;
+    vertical-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    color: #7F7F7F;
+    padding: 8px 10px;
+    border-top: 1px solid #D7D7D7;
+    z-index: 99999;
+}
+
+#index_navigation_5_1 a:hover {
+    display: block;
+    vertical-align: center;
+    text-decoration: blink;
+    font-size: 13px;
+    color: #027DB4;
+    border-left: none;
+}
+
+
+#index_navigation_6 {
+    float: left;
+    margin-left: 15px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    height: 46px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    z-index: 99999;
+}
+
+#index_navigation_7 {
+    float: left;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    height: 46px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border: none;
+    z-index: 99999;
+}
+
+/*导航栏右侧图像和登录*/
+#index_navigation_8 {
+
+    float: left;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    z-index: 99999;
+
+}
+
+#index_navigation_8_1 {
+    margin-top: 10px;
+    height: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
+    z-index: 99999;
+
+}
+
+#index_navigation_8_2 {
+    text-align: center;
+    vertical-align: center;
+    height: 48px;
+    z-index: 99999;
+}
+
+.navigation_text {
+    vertical-align: center;
+    text-decoration: none;
+    text-align: center;
+    color: #7F7F7F;
+    border: none;
+    z-index: 99999;
+}
+
+#index_navigation_3 .navigation_text {
+    vertical-align: center;
+    text-decoration: none;
+    text-align: center;
+    color: #7F7F7F;
+    border: none;
+    z-index: 99999;
+}
+
+#index_navigation_5 .navigation_text {
+    vertical-align: center;
+    text-decoration: none;
+    text-align: center;
+    color: #7F7F7F;
+    border: none;
+    z-index: 99999;
+}
+
+#index_navigation_3 .navigation_text:hover {
+    vertical-align: center;
+    text-align: center;
+    text-decoration: blink;
+    color: #027DB4;
+    border: none;
+}
+
+#index_navigation_5 .navigation_text:hover {
+    vertical-align: center;
+    text-align: center;
+    text-decoration: blink;
+    color: #027DB4;
+    border: none;
+}
+
+a {
+    vertical-align: center;
+    text-decoration: none;
+    color: #7F7F7F;
+}
+
+a:hover {
+    vertical-align: center;
+    text-decoration: blink;
+    color: #027DB4;
+}
+
+/*主体内容部分*/
+#index_main {
+    width: 1001px;
+    min-width: 1001px;
+    max-width: 1001px;
+
+}
+
+#index_main_pad {
+    width: 1000px;
+    height: 130px;
+}
+
+/*主体div*/
+#index_main_content {
+    width: 1000px;
+    height: 120px;
+    border: 1px solid #7F7F7F;
+    margin: 0 auto;
+    background-color: white;
+}
+
+/*底栏*/
+#index_footer {
+    position: relative;
+    height: 110px;
+    width: 1000px;
+    min-height: 110px;
+    min-width: 1000px;
+    max-height: 110px;
+    max-width: 1000px;
+    font-size: 13px;
+    color: #7F7F7F;
+    background-color: white;
+    text-align: center;
+    margin: 0 auto;
+    border-bottom: 8px solid #e9e9ee;
+}
+
+#index_footer p {
+    font-size: 13px;
+    color: #7F7F7F;
+    text-align: center;
+}
+
+.index_footer-1 {
+    float: left;
+    margin-top: 35px;
+    width: auto;
+    height: 55px;
+    display: block;
+}
+
+.index_footer-1 p {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.index_footer-1 b {
+    width: 85px;
+    height: 55px;
+    font-family: 'PingFangSC-Regular', 'PingFang SC', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #AAAAAA;
+    text-align: center;
+    padding: 2px 10px 2px 2px;
+}
+
+.index_footer-1 a {
+    font-family: 'PingFangSC-Regular', 'PingFang SC', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #015478;
+    text-align: center;
+    padding: 2px 10px 2px 2px;
+}
+
+.index_footer-2 {
+    border-width: 0px;
+    position: absolute;
+    margin-left: 404px;
+    margin-right: 404px;
+    top: 55px;
+    width: auto;
+    height: auto;
+    display: flex;
+}
+
+.index_footer-3-1 {
+    float: left;
+    width: 265px;
+    height: 55px;
+    z-index: 99999;
+}
+
+.index_footer-3-2 {
+    float: left;
+    width: 70px;
+    height: 55px;
+    z-index: 99999;
+}
+
+#index_navigation_8_1_login {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
+    z-index: 99999;
+    position: relative;
+    overflow: hidden;
+}
+
+#index_navigation_8_1_login img {
+    border-radius: 25px;
+}
+
+#index_navigation_8_1_login_2 {
+    position: absolute;
+    height: 44px;
+    width: 39px;
+    margin-top: -53.5px;
+    padding-left: 10px;
+    padding-top: 6px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 25px;
+}
+
+#index_navigation_8_1_login_2 span {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+#index_navigation_8_1_login a {}
+
+#index_navigation_8_1_login a:hover #index_navigation_8_1_login_2 {
+    display: block;
+}
+
+
+#index_navigation_8_2_login_3 {
+    text-align: center;
+    vertical-align: center;
+    height: 48px;
+    z-index: 99999;
+}
+
+
+#index_navigation_8_2_login_3 p {
+    font-size: 13px;
+    color: black;
+}

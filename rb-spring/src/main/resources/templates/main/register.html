@@ -1,0 +1,182 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/register.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">    
+    <style>
+        canvas{z-index:-1;position:absolute;}
+  	</style>
+</head>
+
+<body>
+    <center>
+        <!--此处为页面主题内容-->
+        <div id="login_main">
+            <div id="login_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div id="login_main_content">
+                <!--主题内容在此写入-->
+                <div class="logo_main">
+                    <a href=""><img th:src="@{main/image/ResearchBubbling.png}" /></a>
+                </div>
+                <div class="input_box">
+                    <div class="login_text_1">
+                        <form action="##"onsubmit="return false;"id="registerForm">
+                            <label style="width:60px; height:22px; padding-left:10px;">学号<span style="color:#FB0808;">&nbsp;*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input type="text" id="userAccount" name="userAccount"style="width:240px;height:25px;" placeholder="请输入学号（必填）" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;">姓名<span style="color:#FB0808;">&nbsp;*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <input type="text" id="userName" name="userName"style="width:240px;height:25px; margin-top:0px;" placeholder="请输入姓名（必填）" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;padding-right:3px;">性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <select id="gender" name="gender"style="width:240px;height:25px;margin-top:0px;color:#797979;" placeholder="请选择性别">
+                                <option>请选择性别（选填）</option>
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;padding-right:3px;">专业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <input type="text" id="major" name="major" style="width:240px;height:25px; margin-top:0px;" placeholder="请输入专业（选填）" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;padding-right:3px;">年级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <input type="text" id="grade" name="grade" style="width:240px;height:25px; margin-top:0px;" placeholder="请输入年级（选填）" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:0px;padding-left:10px;">密码<span style="color:#FB0808;">&nbsp;*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                            <input type="password" id="password" name="password" style="width:240px;height:25px;" placeholder="请输入密码（必填）" />
+                            </p>
+                            <label style="width:649px; height:130px; padding-top:10px;padding-left:10px;">确认密码<span style="color:#FB0808;">&nbsp;*</span>
+                            </label>
+                            <input type="password" id="confirm" name="confirm" style="width:240px;height:25px;" placeholder="请确认密码（必填）" />
+                            </p>
+                            <input class="register_button" type="button" style="margin-top:20px;margin-left:35px;margin-right:35px;font-size:16px;font-weight:900" value="注   册" onclick="register()" />
+                        </form>
+                        <a href="#">
+                            <span style="font-weight:400;float:right;margin-right:100px;margin-top:-30px;"><u>返回</u></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <!--底栏-->
+</body>
+	<script th:src="@{main/js/index.js}"></script>
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+    <script th:src="@{main/js/Particleground.js}"></script>
+    <script th:src="@{main/js/validation.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+    
+    <script type="text/javascript">
+    	
+    	function register(){
+    		var userAccount=$("#userAccount").val();
+    		if(isNull(userAccount)){
+	    		Swal.fire({
+	    			text:'学号不能为空',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+				return false;
+    		}
+    		if(!validUserAccount(userAccount)){
+    			Swal.fire({
+	    			text:'请输入正确的学号',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+     		var userName=$('#userName').val();
+    		if(isNull(userName)){
+    			Swal.fire({
+	    			text:'姓名不能为空',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		var password=$("#password").val();
+    		if(isNull(password)){
+    			Swal.fire({
+	    			text:'密码不能为空',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		if(!validPassword(password)){
+    			Swal.fire({
+	    			text:'请输入正确的密码格式(6-20位字符和数字组合)',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+   
+    		var confirm=$('#confirm').val();
+    		if(isNull(confirm)){
+    			Swal.fire({
+	    			text:'请输入确认的密码',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		if(password!=confirm){
+    			Swal.fire({
+	    			text:'两次输入的密码不一致',
+	    			icon:'error',
+	    			confirmButtonText:'确定',
+	    		});
+    			return false;
+    		}
+    		//验证
+    		var params=$('#registerForm').serialize();
+    		var url="/register";
+    		$.ajax({
+    			type:'post',
+    			url:url,
+    			data:params,
+    			success:function(result){
+    				if(result.resultCode==200){
+    					Swal.fire({
+    						title:'注册成功',
+    						text:'是否跳转至登录页?',
+    						icon:'success',
+    						confirmButtonText:'确定',
+    					}).then((flag)=>{
+    						if(flag){
+    							window.location.href='/login';
+    						}
+    					}
+    				);
+    				}else{
+    					Swal.fire({
+    						text:result.message,
+    						icon:'error',
+    						confirmButtonText:'确定',
+    					});
+    				}
+    			},
+    			error:function(){
+    				Swal.fire({
+    					text:'操作失败',
+    					icon:'error',
+    					confirmButtonText:'确定',
+    				})
+    			}
+    		})
+    		return true;
+    	}
+    </script>
+</html>

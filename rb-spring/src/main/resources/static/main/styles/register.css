@@ -1,0 +1,116 @@
+
+/*主体内容部分*/
+#login_main{
+    width:1001px;
+    min-width: 1001px;
+    max-width:1001px;
+
+}
+#login_main_pad{
+     width:1000px;
+     height:40px;
+ }
+/*主体div*/
+#login_main_content{
+    width:1000px;
+    height:540px;
+    margin:0 auto;
+    margin-bottom: 15px;
+    background-image:url('../image/background.png');
+    background-repeat:no-repeat;
+}
+
+.logo_main{
+    position:absolute;
+    margin-left:20px;
+    margin-top:20px;
+}
+
+.logo_main img{
+    width:130px;
+    height:120px;
+}
+
+.input_box{
+   width:600px;
+   height:500px;
+   
+   position: absolute;
+   /*垂直居中*/
+   top: 0;
+   bottom: 0;
+   margin-top: 60px;
+   margin-bottom: auto;
+   /*水平居中*/
+   left: 0;
+   right: 0;
+   margin-left: auto;
+   margin-right: auto;
+
+   background-color:rgba(242,242,242,0.3);
+}
+
+.login_text_1{
+    font-size:15px;
+    font-weight:650;
+    font-style:normal;
+    
+}
+
+.login_text_1 a{
+    color:#333333;
+}
+
+input[type=text],select {
+  width: 70%;
+  padding: 0px 5px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top:70px;
+}
+
+input[type=password] {
+  width: 70%;
+  padding: 12px 5px;
+  margin: 2px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.register_button {
+  width: 40%;
+  background-color: #027DB4;
+  color: white;
+  padding: 14px 20px;
+  margin: 0px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top:10px;
+}
+
+red_sign a{
+    font-color:#FB0808;
+}
+
+/*底栏*/
+#index_footer{
+    position: relative;
+    height:110px;
+    width:1000px;
+    min-height: 110px;
+    min-width: 1000px;
+    max-height: 110px;
+    max-width: 1000px;
+    font-size: 13px;
+    color: #7F7F7F;
+    background-color: white;
+    text-align: center;
+    margin: 0 auto ;
+	border-bottom:8px solid #e9e9ee;
+}
