@@ -99,4 +99,12 @@ public class PersonalController {
 		
 		return ResultGenerator.genFailResult(loginResult);
 	}
+	/*
+	 * 退出登录
+	 */
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:header";
+	}
 }

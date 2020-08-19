@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet"th:href="@{main/css/index.css}">
+	<link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+</head>
+<div th:fragment="header" id="index_navigation">
+    <div id="index_navigation_1"></div>
+    <div id="index_navigation_2">
+        <p class="navigation_text">
+            <a href="" target="_top">导师</a>
+        </p>
+    </div>
+    <div id="index_navigation_3">
+        <p class="navigation_text">会议期刊</p>
+        <div id="index_navigation_3_1">
+            <a href="" target="_top">学术会议</a>
+            <a href="" target="_top">外文期刊</a>
+            <a href="" target="_top">中文期刊</a>
+        </div>
+    </div>
+    <div id="index_navigation_4">
+        <a href="">
+            <img th:src="@{main/image/ResearchBubbling.png}" width="110px">
+        </a>
+    </div>
+    <div id="index_navigation_5">
+        <a href="">
+            <p class="navigation_text">学术研讨</p>
+        </a>
+    </div>
+    <div id="index_navigation_6">
+        <p class="navigation_text">
+            <a href="" target="_top">个人中心</a>
+        </p>
+    </div>
+    <div id="index_navigation_7"></div>
+    <div id="index_navigation_8">
+        <div id="index_navigation_8_1_login" th:if="${session.user}">
+            <a href="javascript:void(0);" onclick="javascript:logout()"> <img th:src="@{'/main/image/avatar/'+${session.user.userAccount}+'.jpg'}" width="50px" height="50px">
+                <div id="index_navigation_8_1_login_2">
+                    <span>退出&nbsp;&nbsp;<br>登录&nbsp;&nbsp;
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div id="index_navigation_8_2_login_3" th:if="${session.user}">
+            <p class="navigation_text">
+                <p style="font-size: 13px">
+                    欢迎您：[[${session.user.userName}]]</p>
+            </p>
+        </div>
+        <div id="index_navigation_8_1" th:if="not ${session.user}">
+            <img th:src="@{main/image/peoplePicture.png}" width="50px" height="50px">
+        </div>
+        <div id="index_navigation_8_2" th:if="not ${session.user}">
+            <p class="navigation_text">
+                <a th:href="@{/login}" target="_top" style="padding-right: 4px;">登录</a> <a th:href="@{/register}" target="_top">注册</a>
+            </p>
+        </div>
+    </div>
+    <script>
+    	function logout(){
+    		Swal.fire({
+				text:'是否退出登录',
+				icon:'info',
+				confirmButtonText:'确定',
+			}).then((flag)=>{
+				if(flag){
+					window.location.href='/logout';
+				}
+			}
+		);
+    	}
+    </script>
+</div>
+    <script th:src="@{main/js/index.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+    <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+
+</html>

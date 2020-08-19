@@ -1,5 +1,148 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1>Hello,World!</h1>
-    </body>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>首页</title>
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/homepage.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <style>
+        canvas{z-index:-1;position:absolute;}
+  	</style>
+</head>
+
+<body>
+    <!--此处为页面主题内容-->
+    <center>
+        <div id="index_main">
+            <!--导航栏-->
+		    <center>
+		        <div th:replace="main/header::header"></div>
+		    </center>
+            <div id="index_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <!--顶部轮播图-->
+            <div id="homepage_pic">
+                <input id="pic_state" type="hidden" value="1" />
+                <img class="homepage_img" th:src="@{main/image/homepage.jpg}">
+                <!--前进后退按钮-->
+                <div class="homepage_pic_pre" onclick="picToPre(); resetInterval();">
+                    <img class="arrow_left" th:src="@{main/image/arrow_left.png}" alt="">
+                </div>
+                <div class="homepage_pic_next" onclick="picToNext(); resetInterval();">
+                    <img class="arrow_right" th:src="@{main/image/arrow_right.png}" alt="">
+                </div>
+                <!--卷首语部分-->
+                <!--卷首语1-->
+                <div id="prologue1" class="prologue" style="opacity:1;">
+                    <div class="prologue_title"><b>
+                            科研是什么？
+                        </b></div>
+                    <HR />
+                    <div class="prologue_content">
+                        <img th:src="@{main/image/homepage_quotation.png}" style="width:23px; height:22px; vertical-align:bottom;" />
+                        科研是学术的一部分。通过科学的方法进行研究，探索问题、发现新知，这就是科研。<br />
+                        <span class="prologue_author">
+                            ——张鹏翼老师
+                        </span>
+                    </div>
+                </div>
+                <!--卷首语2-->
+                <div id="prologue2" class="prologue" style="opacity:0;top:193px;">
+                    <div class="prologue_title"><b>
+                            我为什么支持本科生科研？
+                        </b></div>
+                    <HR />
+                    <div class="prologue_content">
+                        <img th:src="@{main/image/homepage_quotation.png}" style="width:23px; height:22px; vertical-align:bottom;" />
+                        成立一个科研工作室，让本科生也可以参与科研，给他们一个将理论运用到实践当中去的机会，能补足他们在实践上的短板，对他们的全面发展是有好处的。<br />
+                        <span class="prologue_author">
+                            ——黄文彬老师
+                        </span>
+                    </div>
+                </div>
+                <!--卷首语3-->
+                <div id="prologue3" class="prologue" style="opacity:0;top:193px;">
+                    <div class="prologue_title"><b>
+                            哪些同学适合做本科生科研？
+                        </b></div>
+                    <HR />
+                    <div class="prologue_content">
+                        <img th:src="@{main/image/homepage_quotation.png}" style="width:23px; height:22px; vertical-align:bottom;" />
+                        学有余力、有好奇心、自我驱动，并且能持之以恒。<br />
+                        <span class="prologue_author">
+                            ——张鹏翼老师
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="index_main_content">
+                <!--主题内容在此写入-->
+                <!--公告栏-->
+                <div id="notice_list">
+                    <p class="notice_title"><b>公告栏</b><span class="notice_see_more"><a href="" target="_blank">>>>查看更多</a></span></p>
+                    <div class="notice_detail">
+                        <table>
+                            <tr>
+                                <td class="notice_detail_main">
+                                    <a href="" target="_blank"><b>挑战杯四院联合宣讲即将举办</b></a>
+                                    <span class="notice_detail_content">赛事组成： 1、五四青年科学奖竞赛（即正赛） 2、跨学科学生课外学术科技作品竞赛（至少一名1本科生，两个以上一级学科，来自两个以上院系或元培不同方向，集体参与） 3、特殊贡献奖（视地方资助与课题汇总情况） 注意：一个作品只能参报一个项目，三个项目互相独立。</span>
+                                </td>
+                                <td class="notice_date">
+                                    2019.11.8
+                                </td>
+                            </tr>
+                            <tr class="notice_detail_tr_grey">
+                                <td class="notice_detail_main">
+                                    <a href="" target="_blank"><b>本学期申请导师通道即将开放！！！</b></a>
+                                    <span class="notice_detail_content">
+                                        赛事日程：
+                                        2019年10月30日：
+                                        正式启动；
+                                        2019年10月30日至11月30日：
+                                        举行院系宣讲会，立项；
+                                    </span>
+                                </td>
+                                <td class="notice_date">
+                                    2019.9.1
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width:500px; height:30px;"></div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <!--底栏-->
+    <div th:replace="main/footer::footer"></div>
+</body>
+
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{main/js/homepage.js}"></script>
+
+<script>
+    window.onload = function () {
+        index_navigation();
+        index_main();
+
+        window.onresize = function () {
+            index_navigation();
+            index_main();
+
+        }
+        window.onscroll = function () {
+            change_index_navigation();
+        }
+
+    }
+</script>
+
 </html>

@@ -24,4 +24,9 @@ public class IndexController {
 	public User getUser(@PathVariable("userAccount") String userAccount) {
 		return userMapper.selectByPrimaryKey(userAccount);
 	}
+	
+	@GetMapping("/header")
+	public String headerPage() {
+		return "main/header";
+	}
 }
