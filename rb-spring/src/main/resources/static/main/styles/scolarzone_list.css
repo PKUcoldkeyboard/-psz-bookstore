@@ -1,0 +1,584 @@
+
+/*主体内容部分*/
+#BBS_teacher_main{
+    width:1000px;
+    min-width: 1000px;
+    max-width:1000px;
+
+}
+#BBS_teacher_main_pad{
+    width:1000px;
+    height:137px;
+}
+/*主体div*/
+#BBS_teacher_main_content{
+    width:1000px;
+    height:auto;
+
+    color:#333333;
+    font-size:10px;
+    font-family: "Microsoft YaHei UI";
+}
+
+/*BBS导航*/
+#BBS_navigation{
+    font-family: Arial;
+    display:inline-block;
+    font-size: 13px;
+    background-color: #555555;
+    color:white;
+    vertical-align: center;
+
+}
+#BBS_navigation_teacher{
+    float:left;
+    width:249px;
+    height:49px;
+
+}
+#BBS_navigation_separator_1{
+    float:left;
+    width:3px;
+    height:27px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+#BBS_navigation_research{
+    float:left;
+    width:247px;
+    height:49px;
+}
+#BBS_navigation_separator_2{
+    float:left;
+    width:3px;
+    height:27px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    background-color: white;
+
+}
+
+
+#BBS_navigation_IMnotice{
+    float:left;
+    width:247px;
+    height:49px;
+}
+#BBS_navigation_separator_3{
+    float:left;
+    width:3px;
+    height:27px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+#BBS_navigation_suggestionBox{
+    float:left;
+    width:247px;
+    height:49px;
+}
+#BBS_navigation a{
+    text-decoration: none;
+    color:white;
+    text-aligin:center;
+    font-size:13px;
+
+
+}
+#BBS_navigation a:hover{
+    text-decoration: underline;
+
+
+}
+/*主题内容的主题内容*/
+#content{
+    width:1000px;
+    height:auto;
+
+}
+#BBS_teacher_main_content_left{
+    width:250px;
+    height:833px;
+    float:left;
+    background-color: white;
+}
+#left_area{
+    margin-top:0px;
+    margin-left:10px;
+    margin-right:10px;
+    width:200px;
+    height:843px;
+}
+.left_content{
+    order-width: 0px;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 830px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(170, 170, 170, 1);
+    border-radius: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#left_content p{
+    text-align: left;
+}
+#left_content img{
+    width:111px;
+    height:104px;
+    border:1px solid white;
+}
+
+#BBS_teacher_main_content_right{
+    float:left;
+    width:750px;
+    background-color: white;
+
+}
+#right_content_pad{
+    height:0px;
+    width:645px;
+    border-bottom: 3px solid #7f7f7f;
+}
+
+/*循环实现的一组的css样式集*/
+.right_content{
+    width:645px;
+    height: 163px;
+    border-bottom:3px solid #7f7f7f;
+    collapse: collapse;
+    margin:0 auto;
+    text-align: left;
+}
+.right_content_top{
+    height:40px;
+    width:750px;
+
+}
+.right_content_top img{
+    float: left;
+}
+.right_content_top_left{
+    width:285px;
+    height:24px;
+    float:left;
+    color:#333333;
+    font-size:14px;
+    padding-left: 10px;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.right_content_top_center{
+    float:left;
+    width:120px;
+    height:25px;
+    padding-left: 10px;
+    text-align: left;
+    border-left: 2px solid #3BD4DB;
+    margin-top: 12px;
+
+}
+
+
+.right_content_top_right{
+    float:left;
+    height:24px;
+    width:150px;
+    margin-top:13px;
+    text-align: right;
+}
+
+.right_content_center{
+    height:100px;
+    width:600px;
+    margin-left:18px;
+    text-align: left;
+    border-left: 3px solid #3BD4DB;
+    font-size: 12px;
+    padding-left: 20px;
+    display: inline-block;
+}
+
+
+.right_content_bottom{
+    height:22px;
+    width:600px;
+    text-align: right;
+
+}
+.right_content_bottom a{
+    text-decoration: none;
+    color:#027db4;
+
+}
+
+
+/*主题内容翻页*/
+#right_content_footer{
+    width:750px;
+    height:105px;
+}
+#right_content_footer_left{
+    float:left;
+    padding-top:40px;
+    padding-left:200px;
+}
+#right_content_footer_right{
+    float:left;
+    font-size:14px;
+    color:black;
+    padding-top:38px;
+    padding-left:90px;
+}
+.jump{
+    width:32px;
+    height:16px;
+}
+#right_content_footer_left a{
+    font-size:14px;
+    text-decoration: none;
+    color:black;
+}
+#right_content_footer_left a:hover{
+
+    text-decoration: underline;
+}
+
+
+/*我要投稿*/
+#right_content_submit{
+    float:left;
+    text-align: left;
+    width:650px;
+    margin-top:10px;
+    margin-left:27px;
+    margin-bottom:10px;
+    border-left:3px solid #3bd4db;
+    font-size:14px;
+    color:#333333;
+    padding-left:20px;
+}
+#right_content_submit_form{
+    float:left;
+    width:750px;
+    margin-left:27px;
+
+}
+#form_1{
+    float:left;
+    text-align: left;
+    height:40px;
+    width:750px;
+}
+#form_2{
+    float:left;
+    text-align: left;
+    height:240px;
+    width:750px;
+    font-family: "Microsoft YaHei UI";
+    font-size:14px;
+}
+#form_3{
+    margin-top:15px;
+    float:left;
+    text-align: right;
+    height:50px;
+    width:660px;
+    font-size:13px;
+    color:#333333;
+
+
+
+}
+.form_title{
+    width:420px;
+    height: 25px;
+}
+.form_content{
+    width:654px;
+    height: 231px;
+}
+.form_submit{
+    width:187px;
+    height: 29px;
+    border-radius: 5px;
+    background-color: #027db4;
+    color:white;
+    border:none;
+}
+
+.main_pad{
+    width:1000px;
+    height:100px;
+    background-color: white;
+}
+
+.main_content{
+    width: 1000px;
+    height: 833px;
+    background-color: white;
+}
+
+.rank_area{
+    border-width: 0px;
+    top: 15px;
+    height: 20px;
+    position: relative;
+    z-index: 1;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    margin-right: 80px;
+    padding: 0;
+    text-align: right;
+
+}
+
+.rank_box{
+    display: inline-block;
+    height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/*搜索框*/
+.box_area{
+    border-width: 0px;
+    top: 15px;
+    width: 600px;
+    height: 29px;
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.search_box{
+    width: 343px;
+    height: 29px;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(170, 170, 170, 1);
+    border-radius: 10px 0 0 10px;
+    display: inline-block;
+    zoom:1;
+    border-right:none;
+}
+
+.search_box_btn{
+    cursor: pointer;
+    width: 57px;
+    height: 29px;
+    padding: 0;
+    background-color: #0095e7;
+    border-radius: 0 10px 10px 0;
+    font-size: 12px;
+    color: #fff;
+    box-shadow: none;
+    font-weight: 400;
+    border: none;
+    outline: 0;
+    display: inline-block;
+    -webkit-appearance: none;
+    position: absolute;
+}
+.search_box_text{
+    width: 320px;
+    height: 25px;
+    border: none;
+    font-size: 12px;
+}
+
+/*点赞收藏*/
+.btn-thumbsup{
+    border-width:0px;
+    background:url(../image/thumbsup1.png) no-repeat 0 0;
+    background-size:20px 20px;
+    padding: 15px;
+    margin-left: 30px;
+    padding-right: 0px;
+    display: inline-block;
+}
+
+.btn-thumbsup-01{
+    border-width:0px;
+    background:url(../image/thumbsup2.png) no-repeat 0 0;
+    background-size:20px 20px;
+    padding: 15px;
+    margin-left: 30px;
+    padding-right: 0px;
+    display: inline-block;
+}
+
+.btn-favorite{
+    border-width:0px;
+    background:url(../image/favorite1.png) no-repeat 0 0;
+    background-size:20px 20px;
+    padding: 15px;
+    margin-left: 15px;
+    padding-right: 0px;
+    display: inline-block;
+}
+
+.btn-favorite-01{
+    border-width:0px;
+    background:url(../image/favorite2.png) no-repeat 0 0;
+    background-size:20px 20px;
+    padding: 15px;
+    margin-left: 15px;
+    padding-right: 0px;
+    display: inline-block;
+}
+
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.wrapper{
+    width: 1024px;
+    margin: 50px auto 0 auto;
+}
+.wrapper>div{
+    float: left;
+    margin-right: 20px;
+}
+.wrapper::after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+
+.select-tree-wrap{
+    width:180px;
+    min-height:36px;
+    text-align: left;
+}
+
+.drop-down-wrap{
+    display: none;
+}
+.drop-down-wrap .noresults{
+    display:none;
+    padding: 10px 0;
+    font-size: 12px;
+    color:#ccc;
+    text-align: center;
+}
+.drop-down-wrap .handle-left-icons{
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+}
+.drop-down-wrap .title-group-name{
+    display: inline-block;
+    font-size: 14px;
+}
+.drop-down-wrap .handle-checkbox{
+    text-align: center;
+    width: 30px;
+    display: inline-block;
+}
+
+.drop-down-wrap .keyword-search{
+    padding:10px;
+    width: 100%;
+    border-top:1px solid #ccc;
+    box-sizing: border-box;
+    position: relative;
+}
+.drop-down-wrap .keyword-search input{
+    width: 100%;
+    outline: 0;
+    padding: 0 30px 0 10px;
+    height:36px;
+    border:1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.drop-down-wrap .keyword-search .search-icons{
+    width:20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    top:16px;
+    color:#ccc;
+}
+
+.drop-down-wrap .select-tree-list{
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+}
+.drop-down-wrap .select-tree-list li{
+    list-style-type: none;
+}
+
+.drop-down-wrap .title-container{
+    line-height: 36px;
+    padding: 0 20px
+}
+
+
+.drop-down-wrap .select-tree-list li .tree-sub-body ul{
+    padding:0;
+}
+.drop-down-wrap .select-tree-list li .tree-sub-body ul li{
+    line-height:36px;
+}
+
+.drop-down-wrap .select-tree-list li .tree-sub-body ul li .title-container{
+    padding-left: 30px
+}
+.drop-down-wrap .select-tree-list li .tree-sub-body ul li .tree-sub-body ul li .title-container{
+    padding-left: 35px;
+}
+
+
+.actived_li{
+    color: #0095e7;
+}
+
+.contribute_btn{
+    position: fixed;
+    width: 15px;
+    height: 80px;
+    margin-left: 768px;
+    margin-top: 55px;
+    font-size: 15px;
+    color: white;
+    background-color: #0095e7;
+    padding: 10px 8px;
+    border-radius: 10px 0 0 10px;
+}
+.contribute_btn:hover{
+    background-color: #027DB4;
+}
+.sort-link{
+	display: inline-block; 
+	font-size: 12px;
+}
+.sort-link.active{
+	display: inline-block; 
+	font-size: 12px;
+	color:#027DB4;
+}

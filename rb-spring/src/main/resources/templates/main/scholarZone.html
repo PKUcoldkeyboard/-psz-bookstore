@@ -1,0 +1,437 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>学术研讨</title>
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{main/styles/scolarzone_list.css}">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        canvas{z-index:-1;position:absolute;}
+        #index_footer{
+            border-top:10px solid #e9e9ee ;
+            overflow:hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!--导航栏-->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <center>
+        <div id="BBS_teacher_main">
+            <div id="BBS_teacher_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div id="BBS_teacher_main_content">
+                <!--主题内容在此写入-->
+                <div id="content">
+                    <div class="main_pad">
+                        <div class="box_area">
+                        	<form action="##"id="searchForm"onsubmit="return false;">
+                            <div class="search_box">
+                                <input type="text" class="search_box_text" autocomplete="off" style="outline: none" name="keyword" id="keyword">
+                            </div>
+                            <button type="submit" class="search_box_btn" onclick="search()">搜索</button>
+                            <div id="float" class="contribute_btn">
+                                <a href="contribute_template.html" style="color: white">我要投稿</a>
+                            </div>
+                            <input type="hidden" name="sort" id="sort">
+                            <input type="hidden" name="pageNumber"id="pageNumber">
+                            </form>
+                        </div>
+                        <div class="rank_area">
+                            <div class="rank_box">
+                                <a class="sort-link active"id="default" href="#"onclick="byDefault();">默认</a>
+                            </div>
+                            <div class="rank_box" style="border-left: 2px solid #3BD4DB">
+                                <a class="sort-link" id="time" href="#"onclick="byTime();">&nbsp;按时间↓</a>
+                            </div>
+                            <div class="rank_box" style="border-left: 2px solid #3BD4DB">
+                                <a class="sort-link" id="popularity"href="#"onclick="byPopularity();">&nbsp;按热度↓</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main_content">
+                        <div id="BBS_teacher_main_content_left">
+                            <div id="left_area">
+                                <div class="left_content">
+                                    <br>
+                                    <p style="font-size: 15px; display: inline-block;"><strong>筛选</strong></p>
+                                    <p style="width: 40px;display: inline-block"></p>
+                                    <button type="submit" style="width: 50px;display: inline-block;border-radius: 5px;background-color: #0095e7;border: none;color: #ffffff;font-size: 12px;cursor: pointer">确定</button>
+                                    <div id="justAnInputBox2" class="select-tree-wrap">
+                                        <div class="drop-down-wrap" style="display: block;">
+                                            <div _id="comboxulcontainer">
+                                                <ul class="select-tree-list" _id="selectUl">
+                                                    <li data-name="经验分享" data-id="A01">
+                                                        <div data-name="经验分享" data-id="A01" class="title-container" role="parent">
+                                                            <span tag="closeitem" class="handle-left-icons">
+                                                                <i class="fa fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="title-group-name">经验分享</span>
+                                                        </div>
+                                                        <div class="tree-sub-body" style="display: block;">
+                                                            <ul>
+                                                                <li data-name="按发布者" data-id="B01">
+                                                                    <div data-name="按发布者" data-id="B01" class="title-container" role="parent">
+                                                                        <span tag="closeitem" class="handle-left-icons">
+                                                                            <i class="fa fa-caret-down"></i>
+                                                                        </span>
+                                                                        <span class="title-group-name">按发布者</span>
+                                                                    </div>
+                                                                    <div class="tree-sub-body">
+                                                                        <ul>
+                                                                            <li data-name="老师" data-id="C01">
+                                                                                <div data-name="老师" data-id="C01" class="title-container">
+                                                                                    <span tag="closeitem" class="handle-left-icons"></span>
+                                                                                    <span class="handle-checkbox">
+                                                                                        <input data-id="C01" type="checkbox" value="老师" name="author" class="jingyan" style="cursor: pointer" onclick="jingyan_onclick(this)" />
+                                                                                    </span>
+                                                                                    <span class="title-group-name">老师</span>
+                                                                                </div>
+                                                                            </li>
+                                                                            <li data-name="学生" data-id="C02">
+                                                                                <div data-name="学生" data-id="C02" class="title-container">
+                                                                                    <span tag="closeitem" class="handle-left-icons"></span>
+                                                                                    <span class="handle-checkbox">
+                                                                                        <input data-id="C02" type="checkbox" value="学生" name="author" class="jingyan" style="cursor: pointer" onclick="jingyan_onclick(this)" />
+                                                                                    </span>
+                                                                                    <span class="title-group-name">学生</span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="按内容" data-id="B02">
+                                                                    <div data-name="按内容" data-id="B02" class="title-container" role="parent">
+                                                                        <span tag="closeitem" class="handle-left-icons">
+                                                                            <i class="fa fa-caret-down"></i>
+                                                                        </span>
+                                                                        <span class="title-group-name">按内容</span>
+                                                                    </div>
+                                                                    <div class="tree-sub-body">
+                                                                        <ul>
+                                                                            <li data-name="挑战杯" data-id="C03">
+                                                                                <div data-name="挑战杯" data-id="C03" class="title-container">
+                                                                                    <span tag="closeitem" class="handle-left-icons"></span>
+                                                                                    <span class="handle-checkbox">
+                                                                                        <input data-id="C03" type="checkbox" value="挑战杯" name="content" class="jingyan" style="cursor: pointer" onclick="jingyan_onclick(this)" />
+                                                                                    </span>
+                                                                                    <span class="title-group-name">挑战杯</span>
+                                                                                </div>
+                                                                            </li>
+                                                                            <li data-name="本科生科研" data-id="C04">
+                                                                                <div data-name="本科生科研" data-id="C04" class="title-container" style="padding-right: 10px">
+                                                                                    <span tag="closeitem" class="handle-left-icons"></span>
+                                                                                    <span class="handle-checkbox">
+                                                                                        <input data-id="C04" type="checkbox" value="本科生科研" name="content" class="jingyan" style="cursor: pointer" onclick="jingyan_onclick(this)" />
+                                                                                    </span>
+                                                                                    <span class="title-group-name">本科生科研</span>
+                                                                                </div>
+                                                                            </li>
+                                                                            <li data-name="其他" data-id="C05">
+                                                                                <div data-name="其他" data-id="C05" class="title-container">
+                                                                                    <span tag="closeitem" class="handle-left-icons"></span>
+                                                                                    <span class="handle-checkbox">
+                                                                                        <input data-id="C05" type="checkbox" value="其他" name="content" class="jingyan" style="cursor: pointer" onclick="jingyan_onclick(this)" />
+                                                                                    </span>
+                                                                                    <span class="title-group-name">其他</span>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="全选" data-id="B03">
+                                                                    <div data-name="全选" data-id="B03" class="title-container" style="padding-left: 2px">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B03" type="checkbox" value="jingyanAll" name="jingyanAll" style="cursor: pointer" onclick="jingyanAll_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">全选</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                    <br>
+                                                    <li data-name="会议期刊发表经验" data-id="A02">
+                                                        <div data-name="会议期刊发表经验" data-id="A02" class="title-container" role="parent">
+                                                            <span tag="closeitem" class="handle-left-icons">
+                                                                <i class="fa fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="title-group-name">会议期刊发表经验</span>
+                                                        </div>
+                                                        <div class="tree-sub-body">
+                                                            <ul>
+                                                                <li data-name="学术会议" data-id="B04">
+                                                                    <div data-name="学术会议" data-id="B04" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B04" type="checkbox" value="学术会议" name="qikan" style="cursor: pointer" onclick="qikan_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">学术会议</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="国内期刊" data-id="B05">
+                                                                    <div data-name="国内期刊" data-id="B05" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B05" type="checkbox" value="国内期刊" name="qikan" style="cursor: pointer" onclick="qikan_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">国内期刊</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="国外期刊" data-id="B06">
+                                                                    <div data-name="国外期刊" data-id="B06" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B06" type="checkbox" value="国外期刊" name="qikan" style="cursor: pointer" onclick="qikan_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">国外期刊</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="全选" data-id="B07">
+                                                                    <div data-name="全选" data-id="B07" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B07" type="checkbox" value="qikanAll" name="qikanAll" style="cursor: pointer" onclick="qikanAll_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">全选</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                    <br>
+                                                    <li data-name="公告" data-id="A03">
+                                                        <div data-name="公告" data-id="A03" class="title-container" role="parent">
+                                                            <span tag="closeitem" class="handle-left-icons">
+                                                                <i class="fa fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="title-group-name">公告</span>
+                                                        </div>
+                                                        <div class="tree-sub-body">
+                                                            <ul>
+                                                                <li data-name="通知" data-id="B08">
+                                                                    <div data-name="通知" data-id="B08" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B08" type="checkbox" value="通知" name="gonggao" style="cursor: pointer" onclick="gonggao_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">通知</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="规定" data-id="B09">
+                                                                    <div data-name="规定" data-id="B09" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B09" type="checkbox" value="规定" name="gonggao" style="cursor: pointer" onclick="gonggao_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">规定</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-name="全选" data-id="B10">
+                                                                    <div data-name="全选" data-id="B10" class="title-container">
+                                                                        <span tag="closeitem" class="handle-left-icons"></span>
+                                                                        <span class="handle-checkbox">
+                                                                            <input data-id="B10" type="checkbox" value="gonggaoAll" name="gonggaoAll" style="cursor: pointer" onclick="gonggaoAll_onclick(this)" />
+                                                                        </span>
+                                                                        <span class="title-group-name">全选</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 帖子区 -->
+                        <div id="BBS_teacher_main_content_right">
+                            <div id="right_content_pad"></div>
+                            <div class="right_content" th:each="article:${articles}">
+                                <div class="right_content_top">
+                                    <a href="" target="_blank">
+                                        <p class="right_content_top_left"><strong>
+                                            [[${article.title}]]</strong></p>
+                                    </a>
+                                    <div class="right_content_top_center">
+                                        <p style="margin-top: 3px;font-size: 14px;">
+                                        	[[${article.author}]]
+                                        	[[${article.postTime.substring(0,10)}]]
+                                        </p>
+                                    </div>
+                                    <div class="right_content_top_right">
+                                        <div class="btn-thumbsup" style="width: 5px" id="" value=""></div>
+                                        <div class="btn-favorite" style="width: 5px" id="" value=""></div>
+                                    </div>
+                                    <div class="right_content_center">
+                                        <p style="margin-top: 0px; display: inline-block; width: 500px; height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        	[[${article.content.length()>120?article.content.substring(0,120)+"......":article.content}]]
+                                        </p>
+                                        <p style="display: inline-block; width: 92px"></p>
+                                        <p style="display: inline-block; color: #3BD4DB"><strong>#</strong></p>
+                                        <p style="display: inline-block"><strong class="type">[[${article.typeAsWord}]]</strong></p>
+                                        <p style="display: inline-block; width:430px"></p>
+                                        <a href="#" style="display: inline-block; color: #027DB4;"><strong>>>查看更多</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 页码 -->
+                    <center>
+                        <div th:replace="main/pageNumber::pageNumber"></div>
+                    </center>
+                </div>
+            </div>
+    </center>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+<script>
+
+var default_flag = 1;
+var time_flag = 0;
+var popularity_flag = 0;
+var defaul = document.getElementById("default");
+var time = document.getElementById("time");
+var popularity = document.getElementById("popularity");
+var sort = document.getElementById("sort");
+
+function byDefault() {
+    if (default_flag == 0) {
+        defaul.style.color = "#027DB4";
+        sort.value = "0";
+        time.innerHTML = "&nbsp;按时间↓";
+        time.style.color = "#7f7f7f";
+        popularity.innerHTML = "&nbsp;按热度↓";
+        popularity.style.color = "#7f7f7f";
+        default_flag = 1;
+        time_flag = 0;
+        popularity_flag = 0;
+    }
+    search();
+}
+
+function byTime() {
+    if (time_flag == 0) {
+        time.style.color = "#027DB4";
+        time.innerHTML = "&nbsp;按时间↓";
+        sort.value = '1';
+        defaul.style.color = "#7f7f7f";
+        defaul.innerHTML = "默认";
+        popularity.innerHTML = "&nbsp;按热度↓";
+        popularity.style.color = "#7f7f7f";
+        default_flag = 0;
+        time_flag = 1;
+        popularity_flag = 0;
+    } else if (time_flag == 1) {
+        time.innerHTML = "&nbsp;按时间↑";
+        sort.value = '2';
+        time_flag = 2;
+    } else if (time_flag == 2) {
+        time.innerHTML = "&nbsp;按时间↓";
+        sort.value = '1';
+        time_flag = 1;
+    }
+    search();
+}
+
+function byPopularity() {
+    if (popularity_flag == 0) {
+        popularity.style.color = "#027DB4";
+        popularity.innerHTML = "&nbsp;按热度↓";
+        sort.value = '3';
+        defaul.style.color = "#7f7f7f";
+        defaul.innerHTML = "默认";
+        time.innerHTML = "&nbsp;按时间↓";
+        time.style.color = "#7f7f7f";
+        default_flag = 0;
+        time_flag = 0;
+        popularity_flag = 1;
+    } else if (popularity_flag == 1) {
+        popularity.innerHTML = "&nbsp;按热度↑";
+        sort.value = '4';
+        popularity_flag = 2;
+    } else if (popularity_flag == 2) {
+        popularity.innerHTML = "&nbsp;按热度↓";
+        sort.value = '3';
+        popularity_flag = 1;
+    }
+    search();
+}
+function search() {
+	
+    var params = $("#searchForm").serialize();
+    var url = "/elastic/search";
+    $.ajax({
+        type: "get",
+        url: url,
+        data: params,
+        success: function(result) {
+            if (result.resultCode == 200) {
+				var articles=result.data.content;
+				var str='<div id="right_content_pad"></div>';
+				for(var i=0;i<articles.length;i++){
+					str+='<!--第'+(i+1)+'条信息--><div class="right_content"><div class="right_content_top"><a href="" target="_blank"> <p class="right_content_top_left"><strong>'
+					+articles[i].title+'</strong></p></a><div class="right_content_top_center"><p style="margin-top: 3px;font-size: 14px;">'
+					+articles[i].author+' '+articles[i].postTime.substring(0,10)+'</p></div><div class="right_content_top_right"><div class="btn-thumbsup" style="width: 5px" id="" value=""></div>'
+					+'<div class="btn-favorite" style="width: 5px" id="" value=""></div></div><div class="right_content_center"><p style="margin-top: 0px; display: inline-block; width: 500px; '
+					+'height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
+					
+					if(articles[i].content.length>120){
+						str+=articles[i].content.substring(0,120)+'......';
+					}else{
+						str+=articles[i].content;
+					}
+					str+='</p> <p style="display: inline-block; width: 92px"></p><p style="display: inline-block; color: #3BD4DB"><strong>#</strong></p>'
+					+'<p style="display: inline-block"><strong class="type">'+articles[i].typeAsWord+'</strong></p><p style="display: inline-block; width:430px"></p>'
+					+'<a href="#" style="display: inline-block; color: #027DB4;"><strong>>>查看更多</strong></a></div></div></div>';
+				}
+				$("#BBS_teacher_main_content_right").html(str);
+            } else {
+                Swal.fire({
+                    text: result.message,
+                    icon: 'error',
+                    confirmButtonText: '确定',
+                });
+            }
+        },
+        error: function() {
+        	var str='<div id="right_content_pad"></div>';
+        	$("#BBS_teacher_main_content_right").html(str); 	
+        }
+    });
+}
+</script>
+
+</html>
