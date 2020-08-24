@@ -33,27 +33,29 @@
                 <div id="content">
                     <div class="main_pad">
                         <div class="box_area">
-                        	<form action="##"id="searchForm"onsubmit="return false;">
-                            <div class="search_box">
-                                <input type="text" class="search_box_text" autocomplete="off" style="outline: none" name="keyword" id="keyword">
-                            </div>
-                            <button type="submit" class="search_box_btn" onclick="search()">搜索</button>
-                            <div id="float" class="contribute_btn">
-                                <a href="contribute_template.html" style="color: white">我要投稿</a>
-                            </div>
-                            <input type="hidden" name="sort" id="sort">
-                            <input type="hidden" name="pageNumber"id="pageNumber">
+                            <form action="##" id="searchForm" onsubmit="return false;">
+                                <div class="search_box">
+                                    <input type="text" class="search_box_text" autocomplete="off" style="outline: none" name="keyword" id="keyword">
+                                </div>
+                                <button type="submit" class="search_box_btn" onclick="search()">搜索</button>
+                                <div id="float" class="contribute_btn">
+                                    <a href="contribute_template.html" style="color: white">我要投稿</a>
+                                </div>
+                                <input type="hidden" name="sort" id="sort">
+                                <input type="hidden" name="pageNumber" id="pageNumber">
+                                <div id="input_filters">
+                                </div>
                             </form>
                         </div>
                         <div class="rank_area">
                             <div class="rank_box">
-                                <a class="sort-link active"id="default" href="#"onclick="byDefault();">默认</a>
+                                <a class="sort-link active" id="default" href="#" onclick="byDefault();">默认</a>
                             </div>
                             <div class="rank_box" style="border-left: 2px solid #3BD4DB">
-                                <a class="sort-link" id="time" href="#"onclick="byTime();">&nbsp;按时间↓</a>
+                                <a class="sort-link" id="time" href="#" onclick="byTime();">&nbsp;按时间↓</a>
                             </div>
                             <div class="rank_box" style="border-left: 2px solid #3BD4DB">
-                                <a class="sort-link" id="popularity"href="#"onclick="byPopularity();">&nbsp;按热度↓</a>
+                                <a class="sort-link" id="popularity" href="#" onclick="byPopularity();">&nbsp;按热度↓</a>
                             </div>
                         </div>
                     </div>
@@ -64,7 +66,7 @@
                                     <br>
                                     <p style="font-size: 15px; display: inline-block;"><strong>筛选</strong></p>
                                     <p style="width: 40px;display: inline-block"></p>
-                                    <button type="submit" style="width: 50px;display: inline-block;border-radius: 5px;background-color: #0095e7;border: none;color: #ffffff;font-size: 12px;cursor: pointer">确定</button>
+                                    <button type="submit"onclick="search()"style="width: 50px;display: inline-block;border-radius: 5px;background-color: #0095e7;border: none;color: #ffffff;font-size: 12px;cursor: pointer">确定</button>
                                     <div id="justAnInputBox2" class="select-tree-wrap">
                                         <div class="drop-down-wrap" style="display: block;">
                                             <div _id="comboxulcontainer">
@@ -262,12 +264,12 @@
                                 <div class="right_content_top">
                                     <a href="" target="_blank">
                                         <p class="right_content_top_left"><strong>
-                                            [[${article.title}]]</strong></p>
+                                                [[${article.title}]]</strong></p>
                                     </a>
                                     <div class="right_content_top_center">
                                         <p style="margin-top: 3px;font-size: 14px;">
-                                        	[[${article.author}]]
-                                        	[[${article.postTime.substring(0,10)}]]
+                                            [[${article.author}]]
+                                            [[${article.postTime.substring(0,10)}]]
                                         </p>
                                     </div>
                                     <div class="right_content_top_right">
@@ -276,7 +278,7 @@
                                     </div>
                                     <div class="right_content_center">
                                         <p style="margin-top: 0px; display: inline-block; width: 500px; height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        	[[${article.content.length()>120?article.content.substring(0,120)+"......":article.content}]]
+                                            [[${article.content.length()>120?article.content.substring(0,120)+"......":article.content}]]
                                         </p>
                                         <p style="display: inline-block; width: 92px"></p>
                                         <p style="display: inline-block; color: #3BD4DB"><strong>#</strong></p>
@@ -290,7 +292,29 @@
                     </div>
                     <!-- 页码 -->
                     <center>
-                        <div th:replace="main/pageNumber::pageNumber"></div>
+                        <div class="pagenumber" id="pagenumber">
+                            <!-- 首页 -->
+                            <span>
+                                <a href="#">首页</a>
+                            </span>
+                            <!-- 上一页 -->
+                            <span>
+                                <a href="#">上一页</a>
+                            </span>
+                            <!-- 中间页 -->
+                            <span th:each="page:${#numbers.sequence(0,articles.totalPages-1)}">
+                                <a onclick="page(this)" href="#" th:text="${page+1}" th:if="${page ne articles.pageable.pageNumber}"></a>
+                                <a href="" th:text="${page+1}" th:if="${page eq articles.pageable.pageNumber}" style="border-bottom:1px solid #027DB4"></a>
+                            </span>
+                            <!-- 下一页 -->
+                            <span>
+                                <a href="#">下一页</a>
+                            </span>
+                            <!-- 尾页 -->
+                            <span>
+                                <a href="#">尾页</a>
+                            </span>
+                        </div>
                     </center>
                 </div>
             </div>
@@ -318,7 +342,6 @@ window.onload = function() {
 }
 </script>
 <script>
-
 var default_flag = 1;
 var time_flag = 0;
 var popularity_flag = 0;
@@ -328,6 +351,7 @@ var popularity = document.getElementById("popularity");
 var sort = document.getElementById("sort");
 
 function byDefault() {
+    $("#pageNumber").val(0);
     if (default_flag == 0) {
         defaul.style.color = "#027DB4";
         sort.value = "0";
@@ -343,6 +367,7 @@ function byDefault() {
 }
 
 function byTime() {
+    $("#pageNumber").val(0);
     if (time_flag == 0) {
         time.style.color = "#027DB4";
         time.innerHTML = "&nbsp;按时间↓";
@@ -367,6 +392,7 @@ function byTime() {
 }
 
 function byPopularity() {
+    $("#pageNumber").val(0);
     if (popularity_flag == 0) {
         popularity.style.color = "#027DB4";
         popularity.innerHTML = "&nbsp;按热度↓";
@@ -389,8 +415,196 @@ function byPopularity() {
     }
     search();
 }
+
+function jingyanAll_onclick(obj) {
+    var jingyans = document.getElementsByName("jingyan");
+    for (var i = 0; i < jingyans.length; i++) {
+        jingyans[i].checked = obj.checked;
+    }
+}
+
+function jingyan_onclick(obj) {
+    var jingyans = document.getElementsByClassName("jingyan");
+    var jingyanAll = document.getElementsByName("jingyanAll");
+    if (obj.checked == false)
+        jingyanAll[0].checked = false;
+    else {
+        var j = 1;
+        for (var i = 0; i < jingyans.length; i++) {
+            if (jingyans[i].checked == false) {
+                j = 2;
+                break;
+            }
+        }
+        if (j == 1)
+            jingyanAll[0].checked = true;
+    }
+}
+
+function qikanAll_onclick(obj) {
+    var qikans = document.getElementsByName("qikan");
+    for (var i = 0; i < qikans.length; i++) {
+        qikans[i].checked = obj.checked;
+    }
+}
+
+function qikan_onclick(obj) {
+    var qikans = document.getElementsByName("qikan");
+    var qikanAll = document.getElementsByName("qikanAll");
+    if (obj.checked == false)
+        qikanAll[0].checked = false;
+    else {
+        var j = 1;
+        for (var i = 0; i < qikans.length; i++) {
+            if (qikans[i].checked == false) {
+                j = 2;
+                break;
+            }
+        }
+        if (j == 1)
+            qikanAll[0].checked = true;
+    }
+}
+
+function gonggaoAll_onclick(obj) {
+    var gonggaos = document.getElementsByName("gonggaos");
+    for (var i = 0; i < gonggaos.length; i++) {
+        gonggaos[i].checked = obj.checked;
+    }
+}
+
+function gonggao_onclick(obj) {
+    var gonggaos = document.getElementsByName("gonggao");
+    var gonggaoAll = document.getElementsByName("gonggaoAll");
+    if (obj.checked == false)
+        gonggaoAll[0].checked = false;
+    else {
+        var j = 1;
+        for (var i = 0; i < gonggaos.length; i++) {
+            if (gonggaos[i].checked == false) {
+                j = 2;
+                break;
+            }
+        }
+        if (j == 1)
+            gonggaoAll[0].checked = true;
+    }
+}
+
+function createFilter() {
+    var str = '';
+    var author = document.getElementsByName("author");
+    var content = document.getElementsByName("content");
+    var qikan = document.getElementsByName("qikan");
+    var gonggao = document.getElementsByName("gonggao");
+    var jingyanAll = document.getElementsByName("jingyanAll")[0];
+    var qikanAll = document.getElementsByName("qikanAll")[0];
+    var gonggaoAll = document.getElementsByName("gonggaoAll")[0];
+    var filter_array=new Array();
+    
+    var author_flag=false;
+    var content_flag=false;
+    
+    for(var i=0;i<author.length;i++){
+    	if(author[i].checked==true){
+    		author_flag=true;
+    		break;
+    	}
+    }
+    
+    for(var i=0;i<content.length;i++){
+    	if(content[i].checked==true){
+    		content_flag=true;
+    		break;
+    	}
+    }   
+    
+    if(qikanAll.checked==true){
+    	filter_array.push("201","202","203");
+    }else{
+    	for(var i=0;i<qikan.length;i++){
+    		if(qikan[i].checked==true){
+    			var type=qikan[i].value;
+    			if(type=="学术会议"){
+    				filter_array.push("201");
+    			}else if(type=="国内期刊"){
+    				filter_array.push("202");
+    			}else{
+    				filter_array.push("203");
+    			}
+    		}
+    	}
+    }
+    
+    if(gonggaoAll.checked==true){
+    	filter_array.push("301","302");
+    }else{
+    	for(var i=0;i<gonggao.length;i++){
+    		if(gonggao[i].checked==true){
+    			var type=gonggao[i].value;
+    			if(type=="通知"){
+    				filter_array.push("301");
+    			}else{
+    				filter_array.push("302");
+    			}
+    		}
+    	}
+    }
+    
+    if(jingyanAll.checked==true){
+    	filter_array.push("101","102","103","111","112","113");
+    }else{
+		if(author_flag==true&&content_flag==false){
+			if(author[0].checked==true){
+				filter_array.push("101","102","103");
+			}
+			if(author[1].checked==true){
+				filter_array.push("111","112","113");
+			}
+		}else if(author_flag==false&&content_flag==true){
+			if(content[0].checked==true){
+				filter_array.push("101","111");
+			}
+			if(content[1].checked==true){
+				filter_array.push("102","112");
+			}
+			if(content[2].checked==true){
+				filter_array.push("103","113");
+			}
+		}else if(author_flag==true&&content_flag==true){
+			if(author[0].checked==true){
+				filter_array.push("101","102","103");
+			}
+			if(author[1].checked==true){
+				filter_array.push("111","112","113");
+			}
+			if(content[0].checked==false){
+				filter_array=filter_array.filter(item=>{return item!="101"}).filter(item=>{return item!="111"});
+			}
+			if(content[1].checked==false){
+				filter_array=filter_array.filter(item=>{return item!="102"}).filter(item=>{return item!="112"});
+			}
+			if(content[2].checked==false){
+				filter_array=filter_array.filter(item=>{return item!="103"}).filter(item=>{return item!="113"});
+			}
+		}
+    }
+    
+    for(var i=0;i<filter_array.length;i++){
+    	str+='<input type="hidden" name="filters" value="'+filter_array[i]+'">';
+    }
+    
+    $("#input_filters").html(str);
+}
+
+function page(data) {
+    $("#pageNumber").val(data.innerText - 1);
+    search();
+}
+
 function search() {
 	
+	createFilter();
     var params = $("#searchForm").serialize();
     var url = "/elastic/search";
     $.ajax({
@@ -399,25 +613,44 @@ function search() {
         data: params,
         success: function(result) {
             if (result.resultCode == 200) {
-				var articles=result.data.content;
-				var str='<div id="right_content_pad"></div>';
-				for(var i=0;i<articles.length;i++){
-					str+='<!--第'+(i+1)+'条信息--><div class="right_content"><div class="right_content_top"><a href="" target="_blank"> <p class="right_content_top_left"><strong>'
-					+articles[i].title+'</strong></p></a><div class="right_content_top_center"><p style="margin-top: 3px;font-size: 14px;">'
-					+articles[i].author+' '+articles[i].postTime.substring(0,10)+'</p></div><div class="right_content_top_right"><div class="btn-thumbsup" style="width: 5px" id="" value=""></div>'
-					+'<div class="btn-favorite" style="width: 5px" id="" value=""></div></div><div class="right_content_center"><p style="margin-top: 0px; display: inline-block; width: 500px; '
-					+'height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
-					
-					if(articles[i].content.length>120){
-						str+=articles[i].content.substring(0,120)+'......';
-					}else{
-						str+=articles[i].content;
-					}
-					str+='</p> <p style="display: inline-block; width: 92px"></p><p style="display: inline-block; color: #3BD4DB"><strong>#</strong></p>'
-					+'<p style="display: inline-block"><strong class="type">'+articles[i].typeAsWord+'</strong></p><p style="display: inline-block; width:430px"></p>'
-					+'<a href="#" style="display: inline-block; color: #027DB4;"><strong>>>查看更多</strong></a></div></div></div>';
-				}
-				$("#BBS_teacher_main_content_right").html(str);
+                var articles = result.data.content;
+                var str = '<div id="right_content_pad"></div>';
+                for (var i = 0; i < articles.length; i++) {
+                    str += '<!--第' + (i + 1) + '条信息--><div class="right_content"><div class="right_content_top"><a href="" target="_blank"> <p class="right_content_top_left"><strong>' +
+                        articles[i].title + '</strong></p></a><div class="right_content_top_center"><p style="margin-top: 3px;font-size: 14px;">' +
+                        articles[i].author + ' ' + articles[i].postTime.substring(0, 10) + '</p></div><div class="right_content_top_right"><div class="btn-thumbsup" style="width: 5px" id="" value=""></div>' +
+                        '<div class="btn-favorite" style="width: 5px" id="" value=""></div></div><div class="right_content_center"><p style="margin-top: 0px; display: inline-block; width: 500px; ' +
+                        'height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
+
+                    if (articles[i].content.length > 120) {
+                        str += articles[i].content.substring(0, 120) + '......';
+                    } else {
+                        str += articles[i].content;
+                    }
+                    str += '</p> <p style="display: inline-block; width: 92px"></p><p style="display: inline-block; color: #3BD4DB"><strong>#</strong></p>' +
+                        '<p style="display: inline-block"><strong class="type">' + articles[i].typeAsWord + '</strong></p><p style="display: inline-block; width:430px"></p>' +
+                        '<a href="#" style="display: inline-block; color: #027DB4;"><strong>>>查看更多</strong></a></div></div></div>';
+                }
+                $("#BBS_teacher_main_content_right").html(str);
+
+                //生成页数
+                var pageStr = '<!-- 首页 --><span><a href="#">首页</a></span><!-- 上一页 --><span><a href="#">上一页</a></span>' +
+                    '<!-- 中间页 -->';
+
+                var pageNow = result.data.pageable.pageNumber + 1;
+                var totalPages = result.data.totalPages;
+                for (var i = 1; i <= totalPages; i++) {
+                    pageStr += '<span><a href="#"';
+                    if (i == pageNow) {
+                        pageStr += 'style="border-bottom:1px solid #027DB4"';
+                    } else {
+                        pageStr += 'onclick="page(this)"';
+                    }
+                    pageStr += '>' + i + '</a></span>';
+                }
+                pageStr += '<!-- 下一页 --><span><a href="#">下一页</a></span>';
+                $("#pagenumber").html(pageStr);
+
             } else {
                 Swal.fire({
                     text: result.message,
@@ -427,8 +660,8 @@ function search() {
             }
         },
         error: function() {
-        	var str='<div id="right_content_pad"></div>';
-        	$("#BBS_teacher_main_content_right").html(str); 	
+            var str = '<div id="right_content_pad"></div>';
+            $("#BBS_teacher_main_content_right").html(str);
         }
     });
 }

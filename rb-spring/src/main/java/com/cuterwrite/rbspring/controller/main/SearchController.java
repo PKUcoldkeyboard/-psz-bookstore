@@ -2,7 +2,6 @@ package com.cuterwrite.rbspring.controller.main;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -86,8 +85,7 @@ public class SearchController {
 									   @RequestParam(name = "filters" ,required = false)List<String>filters,
 									   @RequestParam(name = "pageNumber",required = false,defaultValue = "0")Integer pageNumber,
 									   @RequestParam(name = "pageSize",required = false,defaultValue = "10")Integer pageSize,
-									   @RequestParam(name = "sort" ,required = false,defaultValue = "0")Integer sort,
-									   HttpServletRequest request){
+									   @RequestParam(name = "sort" ,required = false,defaultValue = "0")Integer sort){
 		Page<Article>articlePage=elasticService.search(keyword, filters,pageNumber,pageSize,sort);
 		return ResultGenerator.genSuccessResult(articlePage);
 	}
