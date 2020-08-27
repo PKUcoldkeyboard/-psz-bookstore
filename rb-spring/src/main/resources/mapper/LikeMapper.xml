@@ -9,24 +9,31 @@
   <sql id="Base_Column_List">
     like_id, user_account, post_id
   </sql>
+  <!-- 多条件查询 -->
+  <select id="selectByAccountAndPostId" parameterType="java.util.Map" resultMap="BaseResultMap">
+	select 
+    <include refid="Base_Column_List" />
+    from `like`
+    where user_account = #{userAccount,jdbcType=VARCHAR} and post_id = #{postId,jdbcType=INTEGER}
+  </select> 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from like
+    from `like`
     where like_id = #{likeId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from like
+    delete from `like`
     where like_id = #{likeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cuterwrite.rbspring.entity.Like">
-    insert into like (like_id, user_account, post_id
+    insert into `like` (like_id, user_account, post_id
       )
     values (#{likeId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.cuterwrite.rbspring.entity.Like">
-    insert into like
+    insert into `like`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="likeId != null">
         like_id,
@@ -51,7 +58,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.Like">
-    update like
+    update `like`
     <set>
       <if test="userAccount != null">
         user_account = #{userAccount,jdbcType=VARCHAR},
@@ -63,7 +70,7 @@
     where like_id = #{likeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.Like">
-    update like
+    update `like`
     set user_account = #{userAccount,jdbcType=VARCHAR},
       post_id = #{postId,jdbcType=INTEGER}
     where like_id = #{likeId,jdbcType=INTEGER}

@@ -9,6 +9,15 @@
   <sql id="Base_Column_List">
     collect_id, user_account, post_id
   </sql>
+  
+   <!-- 多条件查询 -->
+  <select id="selectByAccountAndPostId" parameterType="map" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from collect
+  	where user_account=#{userAccount,jdbcType=VARCHAR} and post_id=#{postId,jdbcType=INTEGER}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

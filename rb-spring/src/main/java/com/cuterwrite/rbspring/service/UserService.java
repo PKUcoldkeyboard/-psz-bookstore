@@ -16,4 +16,14 @@ public interface UserService {
 	 * 用户登录
 	 */
 	String login(String userAccount,String password,HttpSession session);
+	
+	/*
+	 * 用户点赞
+	 */
+	String like(String userAccount,int postId);
+	
+	/*
+	 * 用户收藏
+	 */
+	String collect(String userAccount,int postId);
 }

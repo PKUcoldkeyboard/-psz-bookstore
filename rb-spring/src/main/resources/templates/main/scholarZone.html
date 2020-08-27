@@ -273,8 +273,10 @@
                                         </p>
                                     </div>
                                     <div class="right_content_top_right">
-                                        <div class="btn-thumbsup" style="width: 5px" id="" value=""></div>
-                                        <div class="btn-favorite" style="width: 5px" id="" value=""></div>
+                                        <div onclick="praise(this)"  th:if="${isLike[article.id]}"class="btn-thumbsup-01 btn-thumbsup" style="width: 5px" id="thumbsup"th:value="${article.id}"></div>
+                                        <div onclick="praise(this)"  th:if="not ${isLike[article.id]}"class="btn-thumbsup" style="width: 5px" id="thumbsup"th:value="${article.id}"></div>
+                                        <div onclick="collect(this)" th:if="${isCollect[article.id]}"class="btn-favorite-01 btn-favorite" style="width: 5px" id="favorite"th:value="${article.id}"></div>
+                                        <div onclick="collect(this)" th:if="not ${isCollect[article.id]}"class="btn-favorite" style="width: 5px" id="favorite"th:value="${article.id}"></div>
                                     </div>
                                     <div class="right_content_center">
                                         <p style="margin-top: 0px; display: inline-block; width: 500px; height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -662,6 +664,37 @@ function search() {
         error: function() {
             var str = '<div id="right_content_pad"></div>';
             $("#BBS_teacher_main_content_right").html(str);
+        }
+    });
+}
+
+function praise(data){
+	var url="/praise";
+	var params='userAccount='+[[${session.user.userAccount}]]+'&postId='+data.getAttribute("value");
+	 $.ajax({
+        type: "get",
+        url: url,
+        data: params,
+        success: function(result) {
+        	$(data).toggleClass("btn-thumbsup-01");
+        },
+        error:function(){
+        	
+        }
+    });
+}
+function collect(data){
+	var url="/collect";
+	var params='userAccount='+[[${session.user.userAccount}]]+'&postId='+data.getAttribute("value");
+	 $.ajax({
+        type: "get",
+        url: url,
+        data: params,
+        success: function(result) {
+        	$(data).toggleClass("btn-favorite-01");
+        },
+        error:function(){
+        	
         }
     });
 }
