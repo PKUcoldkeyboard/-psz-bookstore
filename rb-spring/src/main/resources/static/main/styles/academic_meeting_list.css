@@ -1,0 +1,76 @@
+
+.lt{
+    float: left;
+}
+
+.rt{
+    float: right;
+}
+
+/*主体内容部分*/
+#index_main{
+    height: auto;
+    margin-bottom: 60px;
+}
+
+#index_main_content{
+    border:0;
+    text-align:left;
+    height:auto;
+}
+
+.content{
+    width: 830px;
+    zoom: 0;
+    overflow: auto;
+    background-color: white;
+    margin-top: 40px;
+    padding-right: 85px;
+    padding-left: 85px;
+}
+
+.header{
+    margin-top: 20px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    border-bottom: 1px solid #797979;
+}
+
+.title{
+    text-align: left;
+    font-size: 16px;
+}
+
+.list_part{
+    height: 300px;
+    border-bottom: 1px dashed #d7d7d7;
+}
+
+.cover{
+    width: 160px;
+}
+
+.cover img{
+    width: 120px;
+    height: auto;
+    margin-top: 24px;
+}
+
+.info{
+    width: 670px;
+    text-align: left;
+}
+
+.info p{
+    font-size: 13px;
+    margin: 11px 0 0 0;
+}
+
+.info a{
+    color: #027db4;
+}
+
+.meeting_name{
+    font-size: 15px;
+    margin-top: 24px;
+}

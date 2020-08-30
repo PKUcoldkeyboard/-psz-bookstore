@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>外文期刊</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/journal_list.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <center>
+        <div id="index_main">
+            <div id="index_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div class="content">
+                <div class="header">
+                    <div class="title">
+                        外文期刊
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="list_part" th:each="periodicalFo:${periodicalFos.list}">
+                        <div class="cover lt">
+                            <img th:src="@{'main/image/periodical_en/'+${periodicalFo.pefoId}+'.jpg'}" th:alt="${periodicalFo.pefoName}">
+                        </div>
+                        <div class="info rt">
+                            <div class="journal_name"><a href="#">[[${periodicalFo.pefoName}]]
+                                </a></div>
+	                        <p>官网链接：<a th:href="${periodicalFo.pefoOfficialWebsiteLink}">[[${periodicalFo.pefoOfficialWebsiteLink}]]</a></p>
+	                        <p>投稿入口：<a th:href="${periodicalFo.pefoSubmissionEntry}">[[${periodicalFo.pefoSubmissionEntry}]]</a></p>
+	                        <p>投稿要求：<a th:href="${periodicalFo.pefoSubmissionRequirements}">[[${periodicalFo.pefoSubmissionRequirements}]]</a></p>
+	                        <p>影响因子：[[${periodicalFo.pefoComprehensiveInfluencingFactors}]]</p>
+	                        <p>发表总篇数：[[${periodicalFo.pubnumTot}]]</p>
+	                        <p>近三年发表篇数：[[${periodicalFo.pubnum3years}]]</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页 -->
+                <center>
+                    <div th:replace="main/pageNumber::pageNumber(pageNumber=${periodicalFos.pageNumber},totalPages=${periodicalFos
+                	.totalPages},paramUrl='',url='/worldMeeting')"></div>
+                </center>
+            </div>
+    </center>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

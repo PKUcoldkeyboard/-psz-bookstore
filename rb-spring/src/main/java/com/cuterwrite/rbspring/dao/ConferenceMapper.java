@@ -1,6 +1,9 @@
 package com.cuterwrite.rbspring.dao;
 
 import com.cuterwrite.rbspring.entity.Conference;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ConferenceMapper extends MyBatisBaseDao<Conference, Integer> {
+	List<Conference>selectAll();
 }

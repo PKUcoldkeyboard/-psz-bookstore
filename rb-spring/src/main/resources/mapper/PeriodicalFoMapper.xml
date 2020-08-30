@@ -15,6 +15,12 @@
     pefo_id, pefo_name, pefo_official_website_link, pefo_comprehensive_influencing_factors, 
     pefo_submission_entry, pefo_submission_requirements, pubnum_tot, pubnum_3years
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from periodical_fo
+    where pefo_id is not null
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

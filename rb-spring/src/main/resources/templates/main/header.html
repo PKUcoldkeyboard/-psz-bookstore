@@ -10,15 +10,15 @@
     <div id="index_navigation_1"></div>
     <div id="index_navigation_2">
         <p class="navigation_text">
-            <a href="" target="_top">导师</a>
+            <a th:href="@{/teacherList}" target="_top">导师</a>
         </p>
     </div>
     <div id="index_navigation_3">
         <p class="navigation_text">会议期刊</p>
         <div id="index_navigation_3_1">
-            <a href="" target="_top">学术会议</a>
-            <a href="" target="_top">外文期刊</a>
-            <a href="" target="_top">中文期刊</a>
+            <a th:href="@{/academicMeeting}" target="_top">学术会议</a>
+            <a th:href="@{/worldMeeting}" target="_top">外文期刊</a>
+            <a th:href="@{/chineseMeeting}" target="_top">中文期刊</a>
         </div>
     </div>
     <div id="index_navigation_4">
@@ -31,7 +31,7 @@
         <div id="index_navigation_5_1">
             <a href="" target="">良师益友</a>
             <a href="" target="">科研我要说</a>
-            <a href="" target="">IM公告墙</a>
+            <a th:href="@{/scholarZone}" target="">IM公告墙</a>
         </div>
     </div>
     <div id="index_navigation_6">

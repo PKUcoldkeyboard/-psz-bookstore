@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>学术会议</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/academic_meeting_list.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <center>
+        <div id="index_main">
+            <div id="index_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div class="content">
+                <div class="header">
+                    <div class="title">
+                        学术会议
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="list_part" th:each="conference:${conferences.list}">
+                        <div class="cover lt">
+                            <img th:src="@{'main/image/conference/'+${conference.confId}+'.png'}" alt="${conference.confName}">
+                        </div>
+                        <div class="info rt">
+                            <div class="meeting_name"><a href="#">
+                                </a></div>
+                            <p>官网链接：<a href="${conference.confOfficialWebsiteLink}">
+                                    [[${conference.confOfficialWebsiteLink}]]</a></p>
+                            <p>本届会议链接：<a href="${conference.confCurrentLink}>">
+                                    [[${conference.confCurrentLink}]]</a></p>
+                            <p>下届会议链接：<a href="${conference.confNextLink}">
+                                    [[${conference.confNextLink}]]</a></p>
+                            <p>下届时间：
+                                [[${conference.confNextTime}]]
+                            </p>
+                            <p>下届地点：
+                                [[${conference.confNextPlace}]]
+                            </p>
+                            <p>参会指南：<a href="${conference.ConfAttendeesGuide}">
+                                [[${conference.ConfAttendeesGuide}]]</a></p>
+                            <p>发表总篇数：
+                                [[${conference.pubnumTot}]]
+                            </p>
+                            <p style="display: inline-block">近三年发表篇数：
+                                [[${conference.pubnum3years}]]
+                            </p>
+                            <p style="display: inline-block;float: right"><a href="#>">查看ddl>></a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页 -->
+                <center>
+                    <div th:replace="main/pageNumber::pageNumber(pageNumber=${conferences.pageNumber},totalPages=${conferences
+                	.totalPages},paramUrl='',url='/academicMeeting')"></div>
+                </center>
+            </div>
+    </center>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

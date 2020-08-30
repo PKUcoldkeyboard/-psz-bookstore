@@ -17,6 +17,12 @@
     conf_id, conf_name, conf_official_website_link, conf_current_link, conf_next_link, 
     conf_next_time, conf_next_place, conf_attendees_guide, pubnum_tot, pubnum_3years
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from conference
+    where conf_id is not null
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
