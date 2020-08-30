@@ -22,7 +22,7 @@ public class TeacherController {
 	@GetMapping("/teacherList")
 	public String getTeacherPage(@RequestParam(name="initial",required = false)String initial,
 								 @RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
-								 @RequestParam(name="pageSize",required = false,defaultValue = "10")Integer pageSize,
+								 @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
 								 Model model) {
 		Page<TeacherWithBLOBs>teacherList=teacherService.getList(initial,pageNumber,pageSize);
 		List<Character>letter=new ArrayList<>();
