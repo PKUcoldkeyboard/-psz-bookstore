@@ -1,0 +1,64 @@
+.character_filter{
+	margin-top:15px;
+	margin-left:176px;
+	font-size:15px;
+}
+
+.teacher_brief{
+	margin-top:20px;
+}
+
+/*单元格自动缩进*/
+.teacher_brief td{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.see_detail{
+	margin-top:6px;
+	right:0px;
+	position:absolute;
+	color:#02A7F0;
+	font-size:14px;
+}
+
+.teacher_picture{
+	vertical-align:top;
+	padding-right:14px;
+}
+
+.teacher_picture img{
+	width:90px;
+	height:90px;
+}
+
+.teacher_brief table{
+	left:50px;
+	position:relative;
+}
+
+.teacher_name{
+	font-size:15px;
+	margin-top:5px;
+	color:#000000;
+}
+
+.teacher_title{
+	font-size:12px;
+	padding-left:0px;
+}
+
+.teacher_info{
+	font-size:13px;
+}
+
+.teacher_briefHR{
+	margin-top:15px;
+	margin-left:42px;
+	height:1px;
+	border:none;
+	width:772px;
+	border-top:1px dashed #D7D7D7;
+}

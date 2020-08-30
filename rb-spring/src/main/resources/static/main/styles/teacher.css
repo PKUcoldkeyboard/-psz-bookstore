@@ -1,0 +1,32 @@
+/*主体div*/
+#teacher_main_content{
+    width:858px;
+    height:auto;
+    margin:0 auto;
+    background-color: white;
+	border:0px;
+	text-align:left;
+}
+
+.teacher_head_title{
+	padding-top:20px;
+	padding-left:37px;
+	font-size:16px;
+}
+
+.teacher_head_title a{
+	color:#7F7F7F;
+}
+
+.teacher_head_title a:hover{
+	color:#027DB4;
+}
+
+.teacher_headHR{
+	margin-top:15px;
+	margin-left:30px;
+	height:0px;
+	border:none;
+	width:796px;
+	border-top:1px solid #797979;
+}

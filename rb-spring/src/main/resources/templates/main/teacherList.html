@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>导师</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/teacher.css}">
+    <link rel="stylesheet" th:href="@{main/styles/teacher_list.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <center>
+        <!--此处为页面主题内容-->
+        <div id="index_main">
+            <!--导航栏-->
+            <center>
+                <div th:replace="main/header::header"></div>
+            </center>
+            <div id="index_main_pad">
+                <!--填充空间，不写入内容-->
+            </div>
+            <div id="teacher_main_content">
+                <!--主题内容在此写入-->
+                <p class="teacher_head_title">导师信息</p>
+                <HR class="teacher_headHR" />
+                <div class="character_filter">根据首字母筛选：
+                	<a th:href="@{'/teacherList?initial='+${letter}}" th:each="letter:${letter}"th:style="${#httpServletRequest.getQueryString()!=null and #httpServletRequest.getQueryString().charAt(8) eq letter}?'color: #0084ff':''">[[${letter}]] </a>
+                	<a th:href="@{/teacherList}" th:if="${initial}">清除筛选</a>
+                </div>
+                <div class="teacher_brief" th:each="teacher:${teacherList.list}">
+                    <table>
+                        <tr>
+                            <th rowspan="2" class="teacher_picture">
+                                <img th:src="@{'main/image/'+${teacher.teName}+'.jpg'}">
+                            </th>
+                            <td style="width:657px; height:22px; padding-top:5px;">
+                                <a href="#" target="_blank" class="teacher_name">
+                                   [[${teacher.teName}]]
+                                </a>
+                                <span class="teacher_title"> [[${teacher.teTitle}]]</span>
+                                <a th:href="@{'/teacherDetail?teId='+${teacher.teId}}" target="_blank" class="see_detail">>>>查看详情</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:649px; height:130px; padding-top:9px;">
+                                <span class="teacher_info">
+                                    <b>所在部门：</b> [[${teacher.teSection}]]&nbsp;&nbsp;&nbsp;&nbsp;<b>联系方式：</b>[[${teacher.teContact}]]<br />
+                                    <b>研究方向：</b> [[${teacher.teField}]]<br />
+                                    <b>现有课题：</b> [[${teacher.teTopic}]]<br />
+                                    <b>学生要求：</b> [[${teacher.teRequirements}]]<br />
+                                    <b>学生负责人：</b> [[${teacher.teStudent}]]<br />
+                                    <b>总名额：</b> [[${teacher.teQuotaTot}]]<br />
+                                    <b style="color:#027DB4">已提交申请数：</b><span> [[${teacher.teIntentionTot}]]</span>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <HR class="teacher_briefHR" />
+                <!-- 页码 -->
+                <center>
+                	<div th:replace="main/pageNumber::pageNumber(pageNumber=${teacherList.pageNumber},totalPages=${teacherList
+                	.totalPages},paramUrl=${'initial='+(initial==null?'':initial)},url='/teacher_list')"></div>
+                </center>
+            </div>
+        </div>
+    </center>
+    <!-- 底栏 -->
+    <p></p>
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

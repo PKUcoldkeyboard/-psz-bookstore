@@ -23,6 +23,19 @@
   <sql id="Blob_Column_List">
     te_field, te_topic, te_requirements, te_student
   </sql>
+  <select id="selectByInitial" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+  	select
+  	<include refid="Base_Column_List" />
+  	,
+  	<include refid="Blob_Column_List" />
+    from teacher
+    <where>
+    	<if test="initial!=null">
+    		te_initial=#{initial,jdbcType=VARCHAR} and
+    	</if>
+    	te_id is not null
+    </where>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
