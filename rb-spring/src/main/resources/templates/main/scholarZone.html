@@ -332,6 +332,15 @@
 <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
 <script th:src="@{main/js/index.js}"></script>
 <script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
 window.onload = function() {
     index_navigation();
 

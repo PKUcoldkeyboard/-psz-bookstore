@@ -35,8 +35,9 @@
         </div>
     </div>
     <div id="index_navigation_6">
-        <p class="navigation_text">
-            <a href="" target="_top">个人中心</a>
+        <p class="navigation_text"th:object="${session.user}">
+            <a th:href="@{/login}"th:if="not ${session.user}" target="_top">个人中心</a>
+            <a th:href="@{*{userType} eq '学生'?'/studentZone':'/teacherZone'}" th:if="${session.user}" target="_top">个人中心</a>
         </p>
     </div>
     <div id="index_navigation_7"></div>

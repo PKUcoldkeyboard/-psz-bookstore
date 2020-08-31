@@ -14,6 +14,19 @@
   <sql id="Base_Column_List">
     apply_id, stu_id, stu_name, te_id, te_name, apply_topic, apply_condition, apply_date
   </sql>
+  <select id="selectByExample" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from apply
+  	<where>
+  		<if test="stuId!=null">
+  			and stu_id=#{stuId}
+  		</if>
+  		<if test="teId!=null">
+  			and te_id=#{teId} and apply_condition like '已%'
+  		</if>
+  	</where>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

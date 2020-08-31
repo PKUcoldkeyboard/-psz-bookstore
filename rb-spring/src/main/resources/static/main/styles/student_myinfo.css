@@ -1,0 +1,82 @@
+/*主体内容部分*/
+#index_main {
+	width: 1001px;
+	min-width: 1001px;
+	max-width: 1001px;
+	margin: 0 auto;
+}
+#index_main_pad {
+	width: 1000px;
+	height: 154px;
+}
+/*主体div*/
+#index_main_content {
+	margin-top: 0px;
+	border: 1px solid rgba(215, 215, 215, 1);
+	width: 460px;
+	height: 642px;
+	background-color: white;
+}
+.main_header {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+#box_line {
+	margin-left: 62px;
+	margin-top: 40px;
+	width: 337px;
+	height: 425px;
+	background-color: rgba(255, 255, 255, 0);
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(215, 215, 215, 1);
+}
+#box_line img {
+	margin-top: 30px;
+	margin-left: 133px;
+	width: 72px;
+	height: 72px;
+}
+#myinfo_btn {
+	margin-left: 160px;
+	margin-top: 30px;
+	border-width: 0px;
+	width: 140px;
+	height: 40px;
+	background: inherit;
+	background-color: rgba(1, 84, 120, 1);
+	border-radius: 5px;
+	font-size: 15px;
+	display: flex;
+	color: white;
+	align-self: center;
+	padding-left: 40px;
+	box-sizing: border-box;
+	cursor: pointer;
+	line-height: 38px;
+}
+#myinfo_content {
+	margin-left: 90px;
+	margin-top: 40px;
+}
+#myinfo_content p {
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+/*底栏*/
+#index_footer {
+	position: relative;
+	height: 110px;
+	width: 1000px;
+	min-height: 110px;
+	min-width: 1000px;
+	max-height: 110px;
+	max-width: 1000px;
+	font-size: 13px;
+	color: #7F7F7F;
+	background-color: white;
+	vertical-align: middle;
+	text-align: center;
+	margin: 50px auto auto auto;
+	border-bottom: 8px solid #e9e9ee;
+}

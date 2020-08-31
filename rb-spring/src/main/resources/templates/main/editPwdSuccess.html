@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>修改密码</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/edit_pwd_success.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+        canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='3')"></div>
+        <!--修改密码展示部分开始-->
+        <div id="index_main_content">
+            <div class="main_header">修改密码</div>
+            <HR align=center width=430px color=#797979 SIZE=1>
+            <div class="success_img_div">
+				<img class="success_img" th:src="@{main/image/success.png}">
+			</div>
+			<div class="success_text">
+				<p>您的密码已修改成功！</p>
+			</div>
+			<div class="back_btn_div">
+				<a th:href="@{${session.user.userType} eq '学生'?'/studentZone':'/teacherZone'}">
+					<button class="back_btn">返回个人中心首页</button>
+				</a>
+			</div>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

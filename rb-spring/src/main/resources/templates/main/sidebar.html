@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+<div th:fragment="sidebar(select)" th:object="${session.user}" class="sidebar">
+	<div class="sidebar_head">
+		<img th:src="@{main/image/sidebar_icon1.png}"/>
+		<a>账号管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '1'?'background-color: #F7F6F6':''">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{*{userType} eq '学生'?'/studentZone':'/teacherZone'}">我的资料</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '2'?'background-color: #F7F6F6':''" th:if="*{userType} ne '学生'">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/teacherEditInfo}">修改资料</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '3'?'background-color: #F7F6F6':''">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/editPassword}">修改密码</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '4'?'background-color: #F7F6F6':''" th:if="*{userType} eq '学生'">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/myApply}">我的申请</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '5'?'background-color: #F7F6F6':''">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/myPost}">我的帖子</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '6'?'background-color: #F7F6F6':''">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/myCollect}">我的收藏</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_head">
+		<img th:src="@{main/image/sidebar_icon2.png}"/>
+		<a>消息中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '7'?'background-color: #F7F6F6':''" th:if="*{userType} ne '学生'">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/myApply}">收到申请</a>
+				</span>
+			</p>
+		</div>
+	</div>
+	<div class="sidebar_list" th:style="${select} eq '8'?'border-bottom: 1px solid rgba(215, 215, 215, 1);background-color: #F7F6F6':'border-bottom: 1px solid rgba(215, 215, 215, 1);'">
+		<div class="sidebar_list_text">
+			<p>
+				<span>
+					<a th:href="@{/mailBox}">收件箱</a>
+					<span class="unread_number">2</span>
+				</span>
+			</p>
+		</div>
+	</div>
+</div>
+
+</html>

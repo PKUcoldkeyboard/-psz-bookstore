@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>基本资料</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/student_myinfo.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='1')"></div>
+        <!--我的资料展示部分开始-->
+        <div id="index_main_content">
+            <div class="main_header">基本资料</div>
+            <HR align=center width=420px color=#797979 SIZE=1>
+            <div id="box_line">
+                <img th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}" />
+                <div id="myinfo_content" th:object="${student}">
+                    <p>学号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[*{stuId}]]</p>
+                    <p>姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[*{stuName}]]</p>
+                    <p>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[*{stuGender}]]</p>
+                    <p>年级:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[*{stuGrade}]]</p>
+                    <p>专业:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[*{stuMajor}]]</p>
+                    <p>发帖数:&nbsp;&nbsp;&nbsp;&nbsp;[[${totalPosts}]]</p>
+                    <p>获赞数:&nbsp;&nbsp;&nbsp;&nbsp;[[${totalLikes}]]</p>
+                </div>
+            </div>
+            <a th:href="@{/studentEditInfo}">
+                <button id="myinfo_btn">修改资料</button>
+            </a>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

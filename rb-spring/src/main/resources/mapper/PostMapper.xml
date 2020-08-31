@@ -22,6 +22,20 @@
   <sql id="Blob_Column_List">
     post_content
   </sql>
+  <!-- 发帖数 -->
+  <select id="getTotalPosts" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select
+  	count(*)
+  	from post
+  	where user_account=#{userAccount}
+  </select>
+   <!-- 获赞数 -->
+  <select id="getTotalLikes" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select
+  	IFNULL(sum(post_like_num),0)
+  	from post
+  	where user_account=#{userAccount}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

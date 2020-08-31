@@ -1,6 +1,7 @@
 package com.cuterwrite.rbspring.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,18 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cuterwrite.rbspring.common.ServiceResultEnum;
+import com.cuterwrite.rbspring.dao.ApplyMapper;
 import com.cuterwrite.rbspring.dao.CollectMapper;
 import com.cuterwrite.rbspring.dao.LikeMapper;
 import com.cuterwrite.rbspring.dao.PostMapper;
 import com.cuterwrite.rbspring.dao.StudentMapper;
 import com.cuterwrite.rbspring.dao.UserMapper;
+import com.cuterwrite.rbspring.entity.Apply;
 import com.cuterwrite.rbspring.entity.Collect;
 import com.cuterwrite.rbspring.entity.Like;
 import com.cuterwrite.rbspring.entity.Post;
 import com.cuterwrite.rbspring.entity.Student;
 import com.cuterwrite.rbspring.entity.User;
 import com.cuterwrite.rbspring.service.UserService;
+import com.cuterwrite.rbspring.util.Page;
 import com.cuterwrite.rbspring.util.PasswordEncrypter;
+import com.github.pagehelper.PageHelper;
 
 
 @Service
@@ -40,6 +45,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	PostMapper postMapper;
+	
+	@Autowired
+	ApplyMapper applyMapper;
 	
 	@Override
 	public String register(User user,Student student) {
@@ -114,6 +122,38 @@ public class UserServiceImpl implements UserService{
 			collectMapper.deleteByPrimaryKey(collect.getCollectId());
 			return "取消收藏";
 		}
+	}
+
+	@Override
+	public Student getStudent(String userAccount) {
+		return studentMapper.selectByPrimaryKey(userAccount);
+	}
+
+	@Override
+	public String changePwd(String userAccount,String oldPassword,String newPassword) {
+		User user=userMapper.selectByPrimaryKey(userAccount);
+		if(PasswordEncrypter.verify(oldPassword,user.getPassword())) {
+			String hash=PasswordEncrypter.encrypt(newPassword);
+			user.setPassword(hash);
+			userMapper.updateByPrimaryKeySelective(user);
+			return ServiceResultEnum.SUCCESS.getResult();
+		}
+		return ServiceResultEnum.DB_ERROR.getResult();
+	}
+
+	@Override
+	public Page<Apply> getApplyList(User user, Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		Map<String, Object>map=new HashMap<>();
+		String id=user.getUserAccount();
+		String type=user.getUserType();
+		if("学生".equals(type)) {
+			map.put("stuId", id);
+		}else {
+			map.put("teId", id);
+		}
+		List<Apply>applyList=applyMapper.selectByExample(map);
+		return Page.restPage(applyList);
 	}
 	
 }

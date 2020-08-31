@@ -1,0 +1,94 @@
+/*主体内容部分*/
+#index_main {
+	width: 1001px;
+	min-width: 1001px;
+	max-width: 1001px;
+	margin: 0 auto;
+}
+#index_main_pad {
+	width: 1000px;
+	height: 154px;
+}
+/*主体div*/
+#index_main_content {
+	border: 1px solid rgba(215, 215, 215, 1);
+	width: 468px;
+	height: 375px;
+	background-color: white;
+	margin: 0 auto;
+	margin-bottom: 100px;
+}
+.main_header {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+#editpwd_content {
+	margin-top: 40px;
+}
+#editpwd_content table {
+	font-size: 14px;
+	margin: 0 auto;
+}
+#editpwd_content tr{
+	height: 50px;
+}
+#editpwd_content .tr-label{
+	width: 100px;
+}
+#editpwd_content .tr-input{
+	width: 100px;
+}
+#editpwd_content input::-webkit-input-placeholder{
+	color:#AAAAAA;
+	font-style:italic;
+	width: 200px;
+}
+#editpwd_content input:-moz-placeholder{
+	color:#AAAAAA;
+	font-style:italic;
+	width: 200px;
+}
+#editpwd_content input::-moz-placeholder{
+	color:#AAAAAA;
+	font-style:italic;
+	width: 200px;
+}
+#editpwd_content input:-ms-input-placeholder{
+	color:#AAAAAA;
+	font-style:italic;
+	width: 200px;
+}
+            
+#editpwd_btn {
+	margin-left: 160px;
+	margin-top: 40px;
+	border-width: 0px;
+	width: 140px;
+	height: 40px;
+	background: inherit;
+	background-color: rgba(1, 84, 120, 1);
+	border-radius: 5px;
+	font-size: 15px;
+	display: flex;
+	color: white;
+	align-self: center;
+	padding-left: 40px;
+	box-sizing: border-box;
+	cursor: pointer;
+	line-height: 38px;
+}
+/*底栏*/
+#index_footer {
+	position: relative;
+	height: 110px;
+	width: 1000px;
+	min-height: 110px;
+	min-width: 1000px;
+	max-height: 110px;
+	max-width: 1000px;
+	font-size: 13px;
+	color: #7F7F7F;
+	background-color: white;
+	text-align: center;
+	margin: 50px auto auto auto;
+}

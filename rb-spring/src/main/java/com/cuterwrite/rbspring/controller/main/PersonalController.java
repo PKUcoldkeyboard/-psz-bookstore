@@ -1,15 +1,17 @@
 package com.cuterwrite.rbspring.controller.main;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cuterwrite.rbspring.common.ServiceResultEnum;
+import com.cuterwrite.rbspring.dao.PostMapper;
 import com.cuterwrite.rbspring.entity.Result;
 import com.cuterwrite.rbspring.entity.Student;
 import com.cuterwrite.rbspring.entity.User;
@@ -22,8 +24,11 @@ import cn.hutool.core.util.StrUtil;
 @Controller
 public class PersonalController {
 	
-	@Resource
+	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PostMapper postMapper;
 	
 	@GetMapping({"/register","register.html"})
 	public String registerPage() {
@@ -106,5 +111,63 @@ public class PersonalController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:header";
+	}
+	
+	/*
+	 * 学生个人中心
+	 */
+	@GetMapping("/studentZone")
+	public String getStudentZone(Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		model.addAttribute("student",userService.getStudent(userAccount));
+		model.addAttribute("totalPosts",postMapper.getTotalPosts(userAccount));
+		model.addAttribute("totalLikes",postMapper.getTotalLikes(userAccount));
+		return "main/studentZone";
+	}
+	/*
+	 * 个人中心修改密码界面
+	 */
+	@GetMapping("/editPassword")
+	public String editPassword() {
+		return "main/editPassword";
+	}
+	/*
+	 * 修改密码成功页面
+	 */
+	@GetMapping("/editPwdSuccess")
+	public String editPwdSuccess() {
+		return "main/editPwdSuccess";
+	}
+	/*
+	 * 我的申请
+	 */
+	@GetMapping("/myApply")
+	public String getMyApply(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
+							 @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
+							 Model model,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		model.addAttribute("applyList",userService.getApplyList(user, pageNumber, pageSize));
+		return "main/myApply";
+	}
+	
+	/*
+	 * 修改密码
+	 */
+	@PostMapping("/changePwd")
+	@ResponseBody
+	public Result changePwd(@RequestParam("old_pwd")String oldPassword,
+							@RequestParam("new_pwd")String newPassword,
+							HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		String changeResult=userService.changePwd(userAccount, oldPassword, newPassword);
+		//修改成功
+		if(ServiceResultEnum.SUCCESS.getResult().equals(changeResult)) {
+			user.setPassword(PasswordEncrypter.encrypt(newPassword));
+			session.setAttribute("user",user);
+			return ResultGenerator.genSuccessResult();
+		}
+		return ResultGenerator.genFailResult(changeResult);
 	}
 }

@@ -21,7 +21,7 @@ public class MeetingController {
 	
 	@GetMapping("/academicMeeting")
 	public String getAcademicPage(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
-								  @RequestParam(name="pageSize",required = false,defaultValue = "10")Integer pageSize,
+								  @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
 								  Model model) {
 		Page<Conference>conferences=meetingService.getConference(pageNumber, pageSize);
 		model.addAttribute("conferences",conferences);
@@ -30,7 +30,7 @@ public class MeetingController {
 	
 	@GetMapping("/worldMeeting")
 	public String getWorldMeeting(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
-			  					  @RequestParam(name="pageSize",required = false,defaultValue = "10")Integer pageSize,
+			  					  @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
 			  					  Model model) {
 		Page<PeriodicalFo>periodicalFos=meetingService.getPeriodicalFo(pageNumber, pageSize);
 		model.addAttribute("periodicalFos",periodicalFos);
@@ -39,7 +39,7 @@ public class MeetingController {
 	
 	@GetMapping("/chineseMeeting")
 	public String getChinesMeeting(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
-								   @RequestParam(name="pageSize",required = false,defaultValue = "10")Integer pageSize,
+								   @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
 								   Model model) {
 		Page<PeriodicalCn>periodicalCns=meetingService.getPeriodicalCn(pageNumber, pageSize);
 		model.addAttribute("periodicalCns",periodicalCns);

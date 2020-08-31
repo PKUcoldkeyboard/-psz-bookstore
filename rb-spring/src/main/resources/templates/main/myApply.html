@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>[[${session.user.userType eq '学生'?'我的申请':'收到申请'}]]</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/student_myapply.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='1')"></div>
+        <!--我的申请展示部分开始-->
+        <div id="index_main_content">
+            <div class="main_header">[[${session.user.userType eq '学生'?'我的申请':'收到申请'}]]</div>
+            <HR align=center width=580px color=#797979 SIZE=1>
+            <div class="item_list">
+                <div class="item" th:each="apply:${applyList.list}">
+                    <img th:src="@{(${session.user.userType} ne '学生')?'main/image/avatar/'+${apply.stuId}+'.jpg':'main/image/'+${apply.teName}+'.jpg'}">
+                    <div class="right_area">
+                        <h th:if="${session.user.userType} ne '学生'">申请学生：[[${apply.stuName}]]</h>
+                        <h th:if="${session.user.userType} eq '学生'">目标导师：[[${apply.teName}]]</h>
+                        <p><a>申请状态：[[${apply.applyCondition}]]</a><a>申请时间：[[${#dates.format(apply.applyDate,'yyyy-MM-dd HH:mm:ss')}]]</a>
+                        <a href="#">查看详情</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- 页码 -->
+            <center>
+                <div th:replace="main/pageNumber::pageNumber(pageNumber=${applyList.pageNumber},totalPages=${applyList
+        	.totalPages},paramUrl='',url='/myApply')"></div>
+            </center>
+        </div>
+        <!-- 底栏 -->
+        <center>
+            <div th:replace="main/footer::footer"></div>
+        </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>
