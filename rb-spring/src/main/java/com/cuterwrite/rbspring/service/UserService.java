@@ -1,8 +1,11 @@
 package com.cuterwrite.rbspring.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import com.cuterwrite.rbspring.entity.Apply;
+import com.cuterwrite.rbspring.entity.Post;
 import com.cuterwrite.rbspring.entity.Student;
 import com.cuterwrite.rbspring.entity.User;
 import com.cuterwrite.rbspring.util.Page;
@@ -43,4 +46,15 @@ public interface UserService {
 	 * 获取申请列表
 	 */
 	Page<Apply>getApplyList(User user,Integer pageNumber,Integer pageSize);
+	
+	/*
+	 * 获取我的帖子列表
+	 */
+	Page<Post>getPostList(Map<String, Object> map,Integer pageNumber,Integer pageSize);
+	
+	/*
+	 * 获取我的收藏列表
+	 */
+	Page<Post>getCollectList(Map<String, Object> map,Integer pageNumber,Integer pageSize);
+	
 }

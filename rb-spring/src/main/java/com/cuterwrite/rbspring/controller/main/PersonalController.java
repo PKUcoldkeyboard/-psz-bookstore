@@ -1,5 +1,8 @@
 package com.cuterwrite.rbspring.controller.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cuterwrite.rbspring.common.ServiceResultEnum;
 import com.cuterwrite.rbspring.dao.PostMapper;
+import com.cuterwrite.rbspring.dao.StudentMapper;
 import com.cuterwrite.rbspring.entity.Result;
 import com.cuterwrite.rbspring.entity.Student;
 import com.cuterwrite.rbspring.entity.User;
@@ -29,6 +33,9 @@ public class PersonalController {
 	
 	@Autowired
 	private PostMapper postMapper;
+	
+	@Autowired
+	private StudentMapper studentMapper;
 	
 	@GetMapping({"/register","register.html"})
 	public String registerPage() {
@@ -110,7 +117,7 @@ public class PersonalController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:header";
+		return "redirect:index";
 	}
 	
 	/*
@@ -152,6 +159,41 @@ public class PersonalController {
 	}
 	
 	/*
+	 * 我的帖子
+	 */
+	@GetMapping("/myPost")
+	public String getMyPost(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
+							@RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
+							@RequestParam(name="rank",required = false,defaultValue = "hot")String rank,
+							Model model,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		Map<String, Object>map=new HashMap<>();
+		map.put("userAccount", userAccount);
+		map.put("rank", rank);
+		model.addAttribute("posts",userService.getPostList(map, pageNumber, pageSize));
+		model.addAttribute("rank",rank);
+		return "main/Mypost";
+	}
+	
+	/*
+	 * 我的收藏
+	 */
+	@GetMapping("/myCollect")
+	public String getMyCollect(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
+							   @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
+							   @RequestParam(name="rank",required = false,defaultValue = "hot")String rank,
+							   Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		Map<String, Object>map=new HashMap<>();
+		map.put("userAccount", userAccount);
+		map.put("rank", rank);
+		model.addAttribute("posts",userService.getCollectList(map, pageNumber, pageSize));
+		model.addAttribute("rank",rank);
+		return "main/MyCollect";
+	}
+	/*
 	 * 修改密码
 	 */
 	@PostMapping("/changePwd")
@@ -169,5 +211,43 @@ public class PersonalController {
 			return ResultGenerator.genSuccessResult();
 		}
 		return ResultGenerator.genFailResult(changeResult);
+	}
+	
+	/*
+	 * 学生修改资料
+	 */
+	@GetMapping("/studentEditInfo")
+	public String getStudentEditInfo(Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		model.addAttribute("student",studentMapper.selectByPrimaryKey(userAccount));
+		return "main/studentEditInfo";
+	}
+	
+	/*
+	 * 修改基本信息
+	 */
+	@PostMapping("/editStudent")
+	@ResponseBody
+	public Result editStudent(@RequestParam(name = "gender")String gender,
+							  @RequestParam(name = "grade")String grade,
+							  @RequestParam(name = "major")String major,
+							  HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		Student student=studentMapper.selectByPrimaryKey(userAccount);
+		student.setStuGender(gender);
+		student.setStuGrade(grade);
+		student.setStuMajor(major);
+		studentMapper.updateByPrimaryKeySelective(student);
+		return ResultGenerator.genSuccessResult();
+	}
+	
+	/*
+	 * 更换头像页面
+	 */
+	@GetMapping("/uploadAvatar")
+	public String uploadAvatar() {
+		return "main/uploadAvatar";
 	}
 }

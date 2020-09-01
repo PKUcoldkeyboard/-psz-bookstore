@@ -27,7 +27,7 @@
         <!--填充空间，不写入内容-->
         <div id="index_main_pad"></div>
         <!--个人空间侧导航栏  -->
-        <div th:replace="main/sidebar::sidebar(select='1')"></div>
+        <div th:replace="main/sidebar::sidebar(select='4')"></div>
         <!--我的申请展示部分开始-->
         <div id="index_main_content">
             <div class="main_header">[[${session.user.userType eq '学生'?'我的申请':'收到申请'}]]</div>

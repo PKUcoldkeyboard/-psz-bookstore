@@ -76,6 +76,7 @@ function validCN_ENString2_18(str) {
     }
 }
 
+
 /**
  * 正则匹配2-100位的中英文字符串
  *

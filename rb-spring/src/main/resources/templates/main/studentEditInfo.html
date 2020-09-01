@@ -1,0 +1,147 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>修改资料</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/student_edit_info.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+        canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='1')"></div>
+        <!--展示部分开始-->
+        <div id="index_main_content">
+            <div class="main_header">
+                <a th:href="@{/studentZone}">我的资料</a>
+                &nbsp;>&nbsp;修改资料
+            </div>
+            <HR align=center width=420px color=#797979 SIZE=1>
+            <div id="box_line" style="position: relative;">
+                <img th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}" />
+                <!-- 上传照片 -->
+                <a th:href="@{/uploadAvatar}" title="上传头像" style="position: absolute; left: 47px; top: 47px;">
+                    <img th:src="@{main/image/camera.png}" style="width: 25px; height: 25px;">
+                </a>
+                <div id="myinfo_content">
+                    <form action="##" id="editForm">
+                        <p>学号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${student.stuId}]]</p>
+                        <p>姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${student.stuName}]]</p>
+                        <p>性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        	<input name="gender" th:checked="${student.stuGender} eq 男" type="radio" value="男" style="vertical-align:middle;margin-top:-2px;margin-bottom:1px;"/>男
+                        	<input name="gender" th:checked="${student.stuGender} eq 女" type="radio" value="女" style="vertical-align:middle;margin-top:-2px;margin-bottom:1px;"/>女
+                        </p>
+                        <p>年级:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input name="grade" id="grade" type="text" th:value="${student.stuGrade}" style="width: 100px">
+                        </p>
+                        <p>专业:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input name="major" id="major" type="text" th:value="${student.stuMajor}" style="width: 130px">
+                        </p>                       
+                    </form>
+                </div>
+            </div>
+            <button type="submit" id="myinfo_btn" onclick="editInfo()">确认修改</button>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{main/js/validation.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+
+function editInfo() {
+	var grade=$("#grade").val();
+	var major=$("#major").val();
+	if(!validCN_ENString2_18(grade)){
+		Swal.fire({
+			text:'请输入正确的年级格式(如:2018级本/硕/博)',
+			icon:'error',
+			confirmButtonText:'确定',
+		});
+		return false;
+	}
+	if(!validCN_ENString2_18(major)){
+		Swal.fire({
+			text:'请输入正确的专业格式(最少2位，最多18位)',
+			icon:'error',
+			confirmButtonText:'确定',
+		});
+		return false;
+	}
+	var params=$("#editForm").serialize();
+	var url="/editStudent";
+	$.ajax({
+		type:'post',
+		url:url,
+		data:params,
+		success:function(result){
+			if(result.resultCode==200){
+				Swal.fire({
+					icon:'success',
+					title:'修改成功',
+					confirmButtonText:'确定',
+				});
+			}else{
+				Swal.fire({
+					text:result.message,
+					icon:'error',
+					confirmButtonText:'确定',
+				});
+			};
+		},
+		error:function(){
+			Swal.fire({
+				text:'操作失败',
+				icon:'error',
+				confirmButtonText:'确定',
+			});
+		}
+	});
+}
+</script>
+
+</html>

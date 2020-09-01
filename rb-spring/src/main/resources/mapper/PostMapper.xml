@@ -22,6 +22,35 @@
   <sql id="Blob_Column_List">
     post_content
   </sql>
+  <!-- 联合collect表 -->
+  <select id="selectWithCollect" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select 
+    *
+    from post,collect
+  	where collect.user_account=#{userAccount}
+  	and post.post_id=collect.post_id
+  	<if test="rank=='time'.toString()">
+  		order by post_date DESC
+  	</if>
+  	<if test="rank=='hot'.toString()">
+  		order by post_like_num+post_collect_num DESC
+  	</if>
+  </select>
+  <!-- 条件查询 -->
+  <select id="selectByExample" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from post
+  	where user_account=#{userAccount}
+  	<if test="rank=='time'.toString()">
+  		order by post_date DESC
+  	</if>
+  	<if test="rank=='hot'.toString()">
+  		order by post_like_num+post_collect_num DESC
+  	</if>
+  </select>
   <!-- 发帖数 -->
   <select id="getTotalPosts" parameterType="java.lang.String" resultType="java.lang.Integer">
   	select

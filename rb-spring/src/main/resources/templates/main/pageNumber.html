@@ -15,16 +15,16 @@
             <a th:href="@{${url}+'?pageNumber='+${pageNumber-1}}+${paramUrl}">上一页</a>
         </span>
         <!-- 中间页-->
-        <span th:each="i:${#numbers.sequence(1,totalPages)}">
-            <a th:style="${pageNumber==i}?'border-bottom: 1px solid #027DB4':''" th:if="${totalPages ne 0}" th:href="@{${url}+'?pageNumber='+${i}}+${paramUrl}">[[${i}]]</a>
+        <span th:each="i:${#numbers.sequence(1,totalPages==0?1:totalPages)}">
+            <a th:style="${pageNumber==i}?'border-bottom: 1px solid #027DB4':''" th:href="@{${url}+'?pageNumber='+${i}}+${paramUrl}">[[${i}]]</a>
         </span>
         <!-- 下一页 -->
         <span>
-            <a th:href="@{${url}+'?pageNumber='+${pageNumber+1}}+${paramUrl}">下一页</a>
+            <a th:href="@{${url}+'?pageNumber='+${(pageNumber+1>totalPages)?totalPages:(pageNumber+1)}+${paramUrl}}">下一页</a>
         </span>
         <!-- 尾页 -->
         <span>
-            <a href="">尾页</a>
+            <a th:href="@{${url}+'?pageNumber='+${totalPages==0?1:totalPages}+${paramUrl}}">尾页</a>
         </span>
     </form>
 </div>

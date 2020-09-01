@@ -22,7 +22,7 @@
         </div>
     </div>
     <div id="index_navigation_4">
-        <a href="">
+        <a th:href="@{/index}">
             <img th:src="@{main/image/ResearchBubbling.png}" width="110px">
         </a>
     </div>
@@ -68,13 +68,17 @@
     <script>
     function logout() {
         Swal.fire({
-            text: '是否退出登录',
-            icon: 'info',
+        	title:'退出登录',
+            icon: 'warning',
+            showCancelButton:true,
             confirmButtonText: '确定',
+            cancelButtonText:'取消',
         }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 window.location.href = '/logout';
-            }
+            }else if (flag.dismiss===Swal.DismissReason.cancel){
+
+            }           
         });
     }
     </script>

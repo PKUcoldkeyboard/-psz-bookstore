@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>我的帖子</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/my_post.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='5')"></div>
+        <!--展示部分开始-->
+        <div id="index_main_content">
+            <div class="main_header">
+                <a class="active_rank" th:if="${rank} eq 'hot' or ${rank} eq null" style="margin-left: 370px">按热度</a>
+                <a class="normal_rank" th:if="${rank} eq 'hot' or ${rank} eq null" th:href="@{/myPost?rank=time}">按时间</a>
+                <a class="normal_rank" th:if="${rank} ne 'hot' and ${rank} ne null" style="margin-left: 370px" th:href="@{/myPost?rank=hot}">按热度</a>
+                <a class="active_rank" th:if="${rank} ne 'hot' and ${rank} ne null" >按时间</a>
+            </div>
+            <HR align=center width=580px color=#797979 SIZE=1>
+            <div class="post_list">
+                <div class="post" th:each="post:${posts.list}">
+                    <img th:src="@{main/image/user_picture.png}"/>
+                    <a style="font-size: 14px; color: black; position: absolute; left: 24px; top: 60px">
+                        [[${post.postAuthor}]]
+                    </a>
+                    <div class="right_area">
+                        <div class="right_area_title">
+                            <a style="color: #027DB4">[[${post.postTitle}]]</a>
+                        </div>
+                        <div class="right_area_info">
+                            <a>[[${post.postContent.substring(0,post.postContent.length()>20?20:post.postContent.length())}]]</a>
+                        </div>
+                        <img th:src="@{main/image/like.png}"/>
+                        <span>[[${post.postLikeNum}]]</span>
+                        <img style="left: 460px" th:src="@{main/image/star.png}">
+                        <span style="left: 500px">[[${post.postCollectNum}]]</span>
+                        <br>
+                        <p>
+                            <a>[[${#dates.format(post.postDate,'yyyy-MM-dd HH:mm:ss')}]]</a>
+                            <a href="#" style="color: #027DB4">查看详情</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- 页码 -->
+            <center>
+                <div th:replace="main/pageNumber::pageNumber(pageNumber=${posts.pageNumber},totalPages=${posts
+        	.totalPages},paramUrl=${'&rank='+(rank==null?'':rank)},url='/myPost')"></div>
+            </center>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

@@ -1,0 +1,144 @@
+/*主体内容部分*/
+#index_main{
+    width:1001px;
+    min-width: 1001px;
+    max-width:1001px;
+    margin:0 auto;
+}
+#index_main_pad{
+    width:1000px;
+    height:154px;
+}
+/*主体div*/
+#index_main_content{
+	margin-top: 0px;
+    border:1px solid rgba(215, 215, 215, 1);
+    width:620px;
+   	height:auto;
+	min-height: 300px;
+    background-color: white;
+}
+.main_header {
+	margin-left: 20px;
+	margin-top: 15px;
+}
+.active_rank{
+	color: #fff;
+	margin-left: 20px;
+	cursor: pointer;
+	padding:3px 5px 3px 5px;
+	text-align: center;
+	width: 80px;
+	height: 26px;
+	font-size: 14px;
+	border-radius: 2px;
+	background-color: rgba(33,110,247,0.71);
+}
+.active_rank:hover{
+	color: #fff;
+}
+.normal_rank{
+	color: #333333;
+	margin-left: 20px;
+	cursor: pointer;
+	padding:3px 5px 3px 5px;
+	text-align: center;
+	width: 80px;
+	height: 26px;
+	font-size: 14px;
+	border-radius: 2px;
+}
+.normal_rank:hover{
+	background-color: rgba(33,110,247,0.2);
+}
+.post_list{
+	width: 560px;
+	height:auto;
+	min-height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.post{
+	position: relative;
+	width: 560px;
+	height: 90px;
+	margin-top: 20px;
+	border-bottom: 1px dashed #D7D7D7;
+}
+.post img{
+	margin-left: 20px;
+	width: 50px;
+	height: 50px;
+	float: left;
+}
+.post:nth-last-of-type(1)
+{
+	border-bottom:none;
+}
+.right_area{
+	margin-top: 5px;
+	width: 460px;
+	height: 70px;
+	float: right;
+	
+}
+.right_area p{
+	line-height: 1.6em;
+	margin-top: 5px;
+}
+.right_area a{
+	font-size: 14px;
+	color: #333333;
+	margin-right: 20px;
+}
+.right_area img{
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top:55px;
+	left: 400px;
+}
+.right_area span{
+	font-size: 14px;
+	color: #333333;
+	position: absolute;
+	top:55px;
+	left: 440px;
+}
+.right_area_title{
+	height: 22px;
+	overflow: hidden;
+}
+.right_area_title a{
+	font-size: 14px;
+	font-weight: bold;
+	color: #027DB4;
+}
+.right_area_info{
+	margin-top: 2px;
+	width: 250px;
+	height: 20px;
+	overflow: hidden;
+	float: left;
+}
+.right_area_info a{
+	font-size: 14px;
+	color: #333333;
+	margin-right: 20px;
+}
+/*底栏*/
+#index_footer{
+    position: relative;
+    height:110px;
+    width:1000px;
+    min-height: 110px;
+    min-width: 1000px;
+    max-height: 110px;
+    max-width: 1000px;
+    font-size: 13px;
+    color: #7F7F7F;
+    background-color: white;
+    text-align: center;
+    margin:50px auto auto auto;
+	border-bottom:8px solid #e9e9ee;
+}

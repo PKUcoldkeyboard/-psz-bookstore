@@ -155,5 +155,19 @@ public class UserServiceImpl implements UserService{
 		List<Apply>applyList=applyMapper.selectByExample(map);
 		return Page.restPage(applyList);
 	}
+
+	@Override
+	public Page<Post> getPostList(Map<String,Object>map,Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		List<Post>postList=postMapper.selectByExample(map);
+		return Page.restPage(postList);
+	}
+
+	@Override
+	public Page<Post> getCollectList(Map<String, Object> map, Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		List<Post>collectList=postMapper.selectWithCollect(map);
+		return Page.restPage(collectList);
+	}
 	
 }
