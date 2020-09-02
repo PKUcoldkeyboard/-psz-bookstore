@@ -32,8 +32,8 @@
         <div id="index_main_content">
             <div class="main_header">
                 <a class="active_rank" th:if="${rank} eq 'hot' or ${rank} eq null" style="margin-left: 370px">按热度</a>
-                <a class="normal_rank" th:if="${rank} eq 'hot' or ${rank} eq null" th:href="@{/myPost?rank=time}">按时间</a>
-                <a class="normal_rank" th:if="${rank} ne 'hot' and ${rank} ne null" style="margin-left: 370px" th:href="@{/myPost?rank=hot}">按热度</a>
+                <a class="normal_rank" th:if="${rank} eq 'hot' or ${rank} eq null" th:href="@{/myCollect?rank=time}">按时间</a>
+                <a class="normal_rank" th:if="${rank} ne 'hot' and ${rank} ne null" style="margin-left: 370px" th:href="@{/myCollect?rank=hot}">按热度</a>
                 <a class="active_rank" th:if="${rank} ne 'hot' and ${rank} ne null" >按时间</a>
             </div>
             <HR align=center width=580px color=#797979 SIZE=1>

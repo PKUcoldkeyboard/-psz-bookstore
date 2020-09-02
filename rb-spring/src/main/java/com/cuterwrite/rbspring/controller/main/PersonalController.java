@@ -1,5 +1,8 @@
 package com.cuterwrite.rbspring.controller.main;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ import com.cuterwrite.rbspring.service.UserService;
 import com.cuterwrite.rbspring.util.PasswordEncrypter;
 import com.cuterwrite.rbspring.util.ResultGenerator;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 
 @Controller
@@ -249,5 +253,24 @@ public class PersonalController {
 	@GetMapping("/uploadAvatar")
 	public String uploadAvatar() {
 		return "main/uploadAvatar";
+	}
+	
+	/*
+	 * 上传头像
+	 */
+	@PostMapping("/uploadAvatar")
+	@ResponseBody
+	public Result handleAvatarUpload(@RequestParam(name = "imgData")String dataURL,
+									HttpSession session) throws IOException{
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		String imgName=userAccount+".jpg";
+		String path=System.getProperty("user.dir")+"/src/main/resources/static/main/image/avatar/"+imgName;
+		String base64=dataURL.substring(dataURL.indexOf(",")+1);
+		FileOutputStream write=new FileOutputStream(new File(path));
+		byte[]decoderBytes=Base64.decode(base64);
+		write.write(decoderBytes);
+		write.close();
+		return ResultGenerator.genSuccessResult();
 	}
 }

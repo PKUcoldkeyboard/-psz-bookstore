@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{main/styles/cropper.css}">
     <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
     <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="stylesheet" th:href="@{webjars/cropperjs/2.0.0-alpha.1/dist/cropper.css}">
     <link rel="icon" th:href="@{main/image/logo.png}">
     <style>
         canvas {
@@ -31,7 +32,7 @@
         <!--更换头像部分开始-->
         <div class="container">
             <div class="upload-box">
-                <div class="cropper-modal">
+                <div class="cropper-modal" style="background-color: #fff;opacity:1;">
                     <div class="overlay"></div>
                     <div class="modal">
                         <div class="modal-head">
@@ -44,20 +45,8 @@
                         <div class="modal-content clearfix">
                             <div class="img-clip-wrap">
                                 <div class="container-bg">
-                                    <div class="img-container">
-                                        <img id="clip_src_img" :src="img" @load="srcImgLoaded"/>
-                                        <div class="shadow-box"></div>
-                                        <div class="crop-wrap" @mousedown="wrapMouseDown">
-                                            <div class="shadow-box" :style="recStyle">
-                                            	<img :src="img" class="shadow-img" :style="imgStyle">
-                                            </div>
-                                            <div class="crop-box" @mousedown="boxMouseDown" :class="showBox ? 'show' :''" :style="recStyle">
-                                                <span class="drap-point point-lt" @mousedown="pointMouseDown('drag-lt', $event)"></span>
-                                                <span class="drap-point point-lb" @mousedown="pointMouseDown('drag-lb', $event)"></span>
-                                                <span class="drap-point point-rt" @mousedown="pointMouseDown('drag-rt', $event)"></span>
-                                                <span class="drap-point point-rb" @mousedown="pointMouseDown('drag-rb', $event)"></span>
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <img id="clip_src_img" src="" />
                                     </div>
                                 </div>
                                 <label for="file_input" class="first-change-lb">
@@ -74,15 +63,15 @@
                             </div>
                             <div class="border-line"></div>
                             <div class="img-preview-wrap">
-                                <div class="pre-container" style="background-image:url()">
-                                    <img id="clip_res_img" :src="img" style="display:none"/>
+                                <div class="pre-container">
+                                    <img id="clip_res_img" th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}" />
                                 </div>
                                 <div class="pre-info">当前头像</div>
                             </div>
                         </div>
                         <p class="descript">请选择图片上传:大小180*180像素支持JPG、PNG等格式，图片需小于2M</p>
                         <div class="modal-footer">
-                            <input type="button" value="更新" class="modal-btn btn-confirm">
+                            <input type="button" value="更新" class="modal-btn btn-confirm" onclick="crop()">
                         </div>
                     </div>
                 </div>
@@ -99,6 +88,8 @@
 <script th:src="@{main/js/index.js}"></script>
 <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
 <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script th:src="@{/webjars/cropperjs/2.0.0-alpha.1/dist/cropper.js}"></script>
+<script th:src="@{/webjars/jquery-cropper/1.0.0/dist/jquery-cropper.js}"></script>
 <script>
 $(document).ready(function() {
     //粒子背景特效
@@ -119,6 +110,95 @@ window.onload = function() {
         change_index_navigation();
     }
 }
+
+function initCropper(image, input) {
+    var $image = image;
+    var options = {
+        aspectRatio: 1,
+        viewMode: 3,
+        preview: '.pre-container',
+
+    };
+    $image.cropper(options);
+    var $inputImage = input;
+    var uploadedImageURL;
+    var URL = window.URL || window.webkitURL;
+    if (URL) {
+        $inputImage.change(function() {
+            var files = this.files;
+            var file;
+            if (!$image.data('cropper')) {
+                return;
+            }
+            if (files && files.length) {
+                file = files[0];
+                //判断是否是图片文件
+                if (/^image\/\w+$/.test(file.type)) {
+                    //如果URL已经存在就先释放
+                    if (uploadedImageURL) {
+                        URL.revokeObjectURL(uploadedImageURL);
+                    }
+                    uploadedImageURL = URL.createObjectURL(file);
+                    //销毁cropper后更改src属性再重新创建cropper
+                    $image.cropper("destroy").attr('src', uploadedImageURL).cropper(options);
+                    $inputImage.val('');
+                    $(".first-change-lb")[0].style = "display:none";
+                    $(".reset-img")[0].style = "";
+                    $(".pre-info")[0].innerHTML = "预览头像";
+                } else {
+                    Swal.fire({
+                        text: '请选择一个图像文件',
+                        icon: 'error',
+                        confirmButtonText: '确定'
+                    });
+                }
+            }
+        });
+    } else {
+        $inputImage.prop('disabled', true).addClass('disabled');
+    }
+}
+//上传到服务器
+function crop() {
+
+    var photo = $("#clip_src_img").cropper('getCroppedCanvas', {
+        width: 180,
+        height: 180
+    }).toDataURL('image/jpg');
+
+    $.ajax({
+        url: '/uploadAvatar',
+        type: 'post',
+        data: {
+            'imgData': photo
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.resultCode == 200) {
+                Swal.fire({
+                    text: '更换成功',
+                    icon: 'success',
+                    confirmButtonText: '确定'
+                }).then((flag)=>{
+                	var time_reload=setInterval(function(){
+                		location.reload();	
+                	},3000);
+                	time_reload();
+                });
+            } else {
+                Swal.fire({
+                    text: '操作失败',
+                    icon: 'error',
+                    confirmButtonText: '确定'
+                })
+            }
+        }
+
+    })
+}
+$(function() {
+    initCropper($("#clip_src_img"), $("#file_input"));
+});
 </script>
 
 </html>

@@ -134,6 +134,18 @@
 		    <artifactId>pagehelper-spring-boot-starter</artifactId>
 		    <version>1.2.10</version>
 		</dependency>	
+		<!-- jquery-cropper -->			
+		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>jquery-cropper</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		<!-- cropperjs -->			
+		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>cropperjs</artifactId>
+		    <version>2.0.0-alpha.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

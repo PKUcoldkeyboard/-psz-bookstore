@@ -43,7 +43,7 @@
     <div id="index_navigation_7"></div>
     <div id="index_navigation_8">
         <div id="index_navigation_8_1_login" th:if="${session.user}">
-            <a href="javascript:void(0);" onclick="javascript:logout()"> <img th:src="@{'/main/image/avatar/'+${session.user.userAccount}+'.jpg'}" width="50px" height="50px">
+            <a href="javascript:void(0);" onclick="javascript:logout()"> <img th:src="@{'/main/image/avatar/'+${session.user.userAccount}+'.jpg?random='+${T(java.lang.Math).random()}}" width="50px" height="50px">
                 <div id="index_navigation_8_1_login_2">
                     <span>退出&nbsp;&nbsp;<br>登录&nbsp;&nbsp;
                     </span>
