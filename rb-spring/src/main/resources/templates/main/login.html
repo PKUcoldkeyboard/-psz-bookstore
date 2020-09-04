@@ -66,14 +66,6 @@
 	    		});
 				return false;
     		}
-    		if(!validUserAccount(userAccount)){
-    			Swal.fire({
-	    			text:'请输入正确的学号',
-	    			icon:'error',
-	    			confirmButtonText:'确定',
-	    		});
-    			return false;
-    		}
     		var password=$("#password").val();
     		if(isNull(password)){
     			Swal.fire({

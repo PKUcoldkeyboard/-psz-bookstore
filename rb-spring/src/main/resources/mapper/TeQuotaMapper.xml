@@ -10,6 +10,12 @@
   <sql id="Base_Column_List">
     te_id, quota_no, quota_num, intention_num
   </sql>
+  <select id="selectByTeId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from te_quota
+    where te_id = #{teId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeQuotaKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,0 +1,184 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>收件箱</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/mail_box.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+        canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='8')"></div>
+        <!--收件箱主题部分开始-->
+        <div id="index_main_content">
+            <div class="main_content_title_div">
+                <div class="about_me main_content_title">
+                    <img th:src="@{main/image/about_me.png}">
+                    <a th:href="@{/mailBox?module=1}">与我相关<span class="unread_number" th:style="'opacity:'+${unreadApply>0?100:0}+'%;'">[[${unreadApply}]]</span></a>
+                </div>
+                <div class="system_notice main_content_title">
+                    <img th:src="@{main/image/system_notice.png}">
+                    <a th:href="@{/mailBox?module=2}">系统公告<span class="unread_number" th:style="'opacity:'+${unreadNotice>0?100:0}+'%;'">[[${unreadNotice}]]</span></a>
+                </div>
+                <hr style="margin-top: -14px;" />
+            </div>
+            <div id="about_me" class="content_part" th:if="${module} eq 1">
+                <div class="all_read">
+                    <button type="button" onclick="setRead()">全部设为已读</button>
+                </div>
+                <div class="about_me_notice" th:each="stuApply:${stuApplyList.list}">
+                    <div class="notice_title_div">
+                        <img th:src="@{main/image/notice_sign.png}">
+                        <div class="notice_title">
+                            <span>申请进度通知</span>
+                        </div>
+                    </div>
+                    <div class="notice_content_div">
+                        <div class="unread_point" th:style="${stuApply.stapCondition}?'opacity:0':''"></div>
+                        <div class="notice_content">
+                            <span>[[${stuApply.teName}]]老师已查看您的申请！</span>
+                        </div>
+                        <div class="notice_date">
+                            <span>[[${#dates.format(stuApply.stapDate,'yyyy-MM-dd')}]]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about_me_notice" th:each="teApply:${teApplyList.list}">
+                    <div class="notice_title_div">
+                        <img th:src="@{main/image/notice_sign.png}">
+                        <div class="notice_title">
+                            <span>收到申请通知</span>
+                        </div>
+                    </div>
+                    <div class="notice_content_div">
+                        <div class="unread_point" th:style="${teApply.teapCondition}?'opacity:0':''"></div>
+                        <div class="notice_content">
+                            <span>您收到[[${teApply.stuName}]]同学的入组申请，请及时查看并处理。</span>
+                        </div>
+                        <div class="notice_date">
+                            <span>[[${#dates.format(teApply.teapDate,'yyyy-MM-dd')}]]</span>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <div th:replace="main/pageNumber::pageNumber(pageNumber=${session.user.userType=='学生'?stuApplyList.pageNumber:teApplyList.pageNumber},totalPages=${session.user.userType=='学生'?stuApplyList.totalPages:teApplyList
+	        	.totalPages},paramUrl=${'&module='+(module==null?'':module)},url='/mailBox')"></div>
+                </center>
+            </div>
+            <div id="system_notice" class="content_part" th:if="${module} eq 2">
+                <div class="all_read">
+                    <button type="button" onclick="setNoticesRead()">全部设为已读</button>
+                </div>
+                <div class="system_notice_div" th:each="notice:${noticeList.list}">
+                    <div class="system_notice_title_div">
+                        <div class="unread_point" th:style="${notice.usnoCondition}?'opacity:0':''"></div>
+                        <span class="system_notice_title">系统公告 /[[${notice.postTitle}]]</span>
+                    </div>
+                    <div class="system_notice_content_div">
+                        <div class="system_notice_content">
+                            <span>[[${notice.postContent.length()>10?notice.postContent.substring(0,10):notice.postContent}]]......</span>
+                        </div>
+                        <div class="system_notice_date">
+                            <span>[[${#dates.format(notice.postDate,'yyyy-MM-dd')}]]</span>
+                            <a href="">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 页码 -->
+                <center>
+                    <div th:replace="main/pageNumber::pageNumber(pageNumber=${noticeList.pageNumber},totalPages=${noticeList
+	        	.totalPages},paramUrl=${'&module='+(module==null?'':module)},url='/mailBox')"></div>
+                </center>
+            </div>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script language="javascript" th:inline="javascript">
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+
+function setRead(){
+	$.ajax({
+		type:'post',
+		url:'/setRead',
+		data:'',
+		success:function(result){
+			if(result.resultCode==200){
+				location.reload();
+			}else{
+				Swal.fire({
+					text:result.message,
+					icon:'error',
+					confirmButtonText:'确定',
+				});
+			};
+		}
+	});
+}
+
+function setNoticesRead(){
+	$.ajax({
+		type:'post',
+		url:'/setNoticesRead',
+		data:'',
+		success:function(result){
+			if(result.resultCode==200){
+				location.reload();
+			}else{
+				Swal.fire({
+					text:result.message,
+					icon:'error',
+					confirmButtonText:'确定',
+				});
+			};
+		}
+	});
+}
+</script>
+
+</html>

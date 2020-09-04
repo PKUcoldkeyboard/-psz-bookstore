@@ -12,6 +12,19 @@
   <sql id="Base_Column_List">
     user_account, apply_id, stap_date, stap_condition, te_id, te_name
   </sql>
+  <select id="getUnread" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from stu_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+    and stap_condition = 0
+  </select>
+  <select id="selectByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stu_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.StuApplyKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -75,6 +88,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByUserAccount" parameterType="java.lang.String">
+  	update stu_apply
+  	set stap_condition=1
+  	where user_account=#{userAccount}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.StuApply">
     update stu_apply
     <set>

@@ -25,7 +25,7 @@
     <!--此处为页面主题内容-->
     <center>
         <div id="BBS_teacher_main">
-            <div id="BBS_teacher_main_pad">
+            <div id="BBS_teacher_main_pad" th:value="${session.user.userAccount}">
                 <!--填充空间，不写入内容-->
             </div>
             <div id="BBS_teacher_main_content">
@@ -629,8 +629,8 @@ function search() {
                 for (var i = 0; i < articles.length; i++) {
                     str += '<!--第' + (i + 1) + '条信息--><div class="right_content"><div class="right_content_top"><a href="" target="_blank"> <p class="right_content_top_left"><strong>' +
                         articles[i].title + '</strong></p></a><div class="right_content_top_center"><p style="margin-top: 3px;font-size: 14px;">' +
-                        articles[i].author + ' ' + articles[i].postTime.substring(0, 10) + '</p></div><div class="right_content_top_right"><div class="btn-thumbsup" style="width: 5px" id="" value=""></div>' +
-                        '<div class="btn-favorite" style="width: 5px" id="" value=""></div></div><div class="right_content_center"><p style="margin-top: 0px; display: inline-block; width: 500px; ' +
+                        articles[i].author + ' ' + articles[i].postTime.substring(0, 10) + '</p></div><div class="right_content_top_right"><div class="btn-thumbsup"onclick="praise(this)" style="width: 5px" id="thumbsup" value="'+articles[i].id+'"></div>' +
+                        '<div class="btn-favorite" onclick="collect(this)" style="width: 5px" id="favorite" value="'+articles[i].id+'"></div></div><div class="right_content_center"><p style="margin-top: 0px; display: inline-block; width: 500px; ' +
                         'height:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
 
                     if (articles[i].content.length > 120) {
@@ -660,8 +660,7 @@ function search() {
                     pageStr += '>' + i + '</a></span>';
                 }
                 pageStr += '<!-- 下一页 --><span><a href="#">下一页</a></span>';
-                $("#pagenumber").html(pageStr);
-
+                $("#pagenumber").html(pageStr);            
             } else {
                 Swal.fire({
                     text: result.message,
@@ -673,19 +672,48 @@ function search() {
         error: function() {
             var str = '<div id="right_content_pad"></div>';
             $("#BBS_teacher_main_content_right").html(str);
-        }
+        },
+        
     });
 }
-
+function isLike(e){
+	$.ajax({
+		type:'get',
+		url:'/isLike',
+		data:'id='+e.attr('value'),
+		succeess:function(result){
+			if(result.resultCode==200){
+				e.addClass('btn-thumbsup-01');
+			}
+		}
+	})
+}
+function isCollect(e){
+	$.ajax({
+		type:'get',
+		url:'/isCollect',
+		data:'id='+e.attr('value'),
+		succeess:function(result){
+			if(result.resultCode==200){
+				e.addClass('btn-favorite-01');
+			}
+		}
+	})
+}
 function praise(data){
 	var url="/praise";
-	var params='userAccount='+[[${session.user.userAccount}]]+'&postId='+data.getAttribute("value");
+	var params='userAccount='+$("#BBS_teacher_main_pad").attr("value")+'&postId='+data.getAttribute("value");
 	 $.ajax({
         type: "get",
         url: url,
         data: params,
         success: function(result) {
         	$(data).toggleClass("btn-thumbsup-01");
+        	Swal.fire({
+        		text:result.message,
+        		icon:'success',
+        		confirmButtonText:'确定'
+        	});
         },
         error:function(){
         	
@@ -694,13 +722,18 @@ function praise(data){
 }
 function collect(data){
 	var url="/collect";
-	var params='userAccount='+[[${session.user.userAccount}]]+'&postId='+data.getAttribute("value");
+	var params='userAccount='+$("#BBS_teacher_main_pad").attr("value")+'&postId='+data.getAttribute("value");
 	 $.ajax({
         type: "get",
         url: url,
         data: params,
         success: function(result) {
         	$(data).toggleClass("btn-favorite-01");
+        	Swal.fire({
+        		text:result.message,
+        		icon:'success',
+        		confirmButtonText:'确定'
+        	});
         },
         error:function(){
         	

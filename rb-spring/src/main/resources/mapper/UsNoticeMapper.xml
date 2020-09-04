@@ -6,9 +6,31 @@
     <id column="post_id" jdbcType="INTEGER" property="postId" />
     <result column="usno_condition" jdbcType="BIT" property="usnoCondition" />
   </resultMap>
+  <resultMap id="Extra" type="com.cuterwrite.rbspring.entity.PostExtra">
+    <id column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="usno_condition" jdbcType="BIT" property="usnoCondition" />
+    <result column="post_title" jdbcType="VARCHAR" property="postTitle" />
+    <result column="post_content" jdbcType="VARCHAR" property="postContent" />
+    <result column="post_Date" jdbcType="TIMESTAMP" property="postDate" />
+  </resultMap>
   <sql id="Base_Column_List">
     user_account, post_id, usno_condition
   </sql>
+  <select id="getUnread" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from us_notice
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+    and usno_condition = 0
+  </select>
+ <select id="selectByUserAccount" parameterType="java.lang.String" resultMap="Extra">
+    select 
+    post.post_id as post_id, usno_condition, post_title, post_content, post_date
+    from us_notice,post
+    where us_notice.user_account = #{userAccount,jdbcType=VARCHAR}
+    and us_notice.post_id = post.post_id 
+    ORDER BY post_date DESC
+  </select>
   <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.UsNoticeKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -52,6 +74,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByUserAccount" parameterType="java.lang.String">
+  	update us_notice
+  	set usno_condition=1
+  	where user_account=#{userAccount}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.UsNotice">
     update us_notice
     <set>

@@ -14,13 +14,19 @@ import com.cuterwrite.rbspring.dao.ApplyMapper;
 import com.cuterwrite.rbspring.dao.CollectMapper;
 import com.cuterwrite.rbspring.dao.LikeMapper;
 import com.cuterwrite.rbspring.dao.PostMapper;
+import com.cuterwrite.rbspring.dao.StuApplyMapper;
 import com.cuterwrite.rbspring.dao.StudentMapper;
+import com.cuterwrite.rbspring.dao.TeApplyMapper;
+import com.cuterwrite.rbspring.dao.UsNoticeMapper;
 import com.cuterwrite.rbspring.dao.UserMapper;
 import com.cuterwrite.rbspring.entity.Apply;
 import com.cuterwrite.rbspring.entity.Collect;
 import com.cuterwrite.rbspring.entity.Like;
 import com.cuterwrite.rbspring.entity.Post;
+import com.cuterwrite.rbspring.entity.PostExtra;
+import com.cuterwrite.rbspring.entity.StuApply;
 import com.cuterwrite.rbspring.entity.Student;
+import com.cuterwrite.rbspring.entity.TeApply;
 import com.cuterwrite.rbspring.entity.User;
 import com.cuterwrite.rbspring.service.UserService;
 import com.cuterwrite.rbspring.util.Page;
@@ -48,6 +54,15 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	ApplyMapper applyMapper;
+	
+	@Autowired
+	StuApplyMapper stuApplyMapper;
+	
+	@Autowired
+	TeApplyMapper teApplyMapper;
+	
+	@Autowired
+	UsNoticeMapper usNoticeMapper;
 	
 	@Override
 	public String register(User user,Student student) {
@@ -168,6 +183,27 @@ public class UserServiceImpl implements UserService{
 		PageHelper.startPage(pageNumber,pageSize);
 		List<Post>collectList=postMapper.selectWithCollect(map);
 		return Page.restPage(collectList);
+	}
+
+	@Override
+	public Page<StuApply> getStuApply(String userAccount, Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		List<StuApply>stuApplyList=stuApplyMapper.selectByUserAccount(userAccount);
+		return Page.restPage(stuApplyList);
+	}
+
+	@Override
+	public Page<TeApply> getTeApply(String userAccount, Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		List<TeApply>teApplyList=teApplyMapper.selectByUserAccount(userAccount);
+		return Page.restPage(teApplyList);
+	}
+
+	@Override
+	public Page<PostExtra> getPostAndNotice(String userAccount, Integer pageNumber, Integer pageSize) {
+		PageHelper.startPage(pageNumber,pageSize);
+		List<PostExtra>notices=usNoticeMapper.selectByUserAccount(userAccount);
+		return Page.restPage(notices);
 	}
 	
 }

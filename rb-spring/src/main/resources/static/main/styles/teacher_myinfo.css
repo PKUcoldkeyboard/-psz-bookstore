@@ -1,0 +1,98 @@
+/*主体内容部分*/
+#index_main {
+	width: 1001px;
+	min-width: 1001px;
+	max-width: 1001px;
+	margin: 0 auto;
+}
+#index_main_pad {
+	width: 1000px;
+	height: 154px;
+}
+/*主体div*/
+.index_main_content {
+	margin-top: 0px;
+	border: 1px solid rgba(215, 215, 215, 1);
+	width: 820px;
+	height: auto;
+	background-color: white;
+	margin: 0 180px 20px 180px;
+	text-align: left;
+}
+.main_header {
+	margin-left: 30px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+#box_line {
+	margin-left: 62px;
+	margin-top: 40px;
+	width: 337px;
+	height: 425px;
+	background-color: rgba(255, 255, 255, 0);
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(215, 215, 215, 1);
+}
+#box_line img {
+	margin-top: 30px;
+	margin-left: 133px;
+	width: 72px;
+	height: 72px;
+}
+.edit_info_btn{
+	position: absolute;
+	width: 15px;
+	height: 80px;
+	margin-left: 788px;
+	margin-top: 55px;
+	font-size: 15px;
+	color: #7f7f7f;
+	background-color: white;
+	border: rgb(215, 215, 215) 1px solid;
+	padding: 10px 8px;
+	border-radius: 10px 0 0 10px;
+}
+.edit_info_btn:hover{
+	background-color: #f2f2f2;
+}
+.part_content {
+	margin-left: 50px;
+	margin-top: 30px;
+	margin-right: 50px;
+}
+.part_content p {
+	font-size: 14px;
+	margin-bottom: 20px;
+	margin-left: 22px;
+}
+.teacher_detail_div{
+	margin: 15px 22px;
+}
+.teacher_detail_div_title{
+	font-weight: bold;
+}
+.teacher_detail_div_text td{
+	width: 150px;
+}
+.teacher_detail_div p{
+	margin: 10px 0 0 0;
+	font-size: 15px;
+}
+/*底栏*/
+#index_footer {
+	position: relative;
+	height: 110px;
+	width: 1000px;
+	min-height: 110px;
+	min-width: 1000px;
+	max-height: 110px;
+	max-width: 1000px;
+	font-size: 13px;
+	color: #7F7F7F;
+	background-color: white;
+	vertical-align: middle;
+	text-align: center;
+	margin: 50px auto auto auto;
+	border-bottom: 8px solid #e9e9ee;
+}

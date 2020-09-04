@@ -6,7 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import com.cuterwrite.rbspring.entity.Apply;
 import com.cuterwrite.rbspring.entity.Post;
+import com.cuterwrite.rbspring.entity.PostExtra;
+import com.cuterwrite.rbspring.entity.StuApply;
 import com.cuterwrite.rbspring.entity.Student;
+import com.cuterwrite.rbspring.entity.TeApply;
 import com.cuterwrite.rbspring.entity.User;
 import com.cuterwrite.rbspring.util.Page;
 
@@ -56,5 +59,20 @@ public interface UserService {
 	 * 获取我的收藏列表
 	 */
 	Page<Post>getCollectList(Map<String, Object> map,Integer pageNumber,Integer pageSize);
+	
+	/*
+	 * 获取学生申请列表
+	 */
+	Page<StuApply>getStuApply(String userAccount,Integer pageNumber,Integer pageSize);
+	
+	/*
+	 * 获取老师申请列表
+	 */
+	Page<TeApply>getTeApply(String userAccount,Integer pageNumber,Integer pageSize);
+	
+	/*
+	 * 获取与申请有关的消息和系统通知
+	 */
+	Page<PostExtra>getPostAndNotice(String userAccount,Integer pageNumber,Integer pageSize);
 	
 }

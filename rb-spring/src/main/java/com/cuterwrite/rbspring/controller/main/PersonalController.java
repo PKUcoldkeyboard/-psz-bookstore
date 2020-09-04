@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,10 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cuterwrite.rbspring.common.ServiceResultEnum;
+import com.cuterwrite.rbspring.dao.CourseMapper;
 import com.cuterwrite.rbspring.dao.PostMapper;
+import com.cuterwrite.rbspring.dao.StuApplyMapper;
 import com.cuterwrite.rbspring.dao.StudentMapper;
+import com.cuterwrite.rbspring.dao.TeApplyMapper;
+import com.cuterwrite.rbspring.dao.TeQuotaMapper;
+import com.cuterwrite.rbspring.dao.TeacherDetailMapper;
+import com.cuterwrite.rbspring.dao.TeacherMapper;
+import com.cuterwrite.rbspring.dao.UsNoticeMapper;
 import com.cuterwrite.rbspring.entity.Result;
 import com.cuterwrite.rbspring.entity.Student;
+import com.cuterwrite.rbspring.entity.TeQuota;
+import com.cuterwrite.rbspring.entity.Teacher;
+import com.cuterwrite.rbspring.entity.TeacherDetail;
+import com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs;
+import com.cuterwrite.rbspring.entity.TeacherWithBLOBs;
 import com.cuterwrite.rbspring.entity.User;
 import com.cuterwrite.rbspring.service.UserService;
 import com.cuterwrite.rbspring.util.PasswordEncrypter;
@@ -28,6 +41,9 @@ import com.cuterwrite.rbspring.util.ResultGenerator;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 @Controller
 public class PersonalController {
@@ -40,6 +56,27 @@ public class PersonalController {
 	
 	@Autowired
 	private StudentMapper studentMapper;
+	
+	@Autowired
+	private StuApplyMapper stuApplyMapper;
+	
+	@Autowired
+	private TeApplyMapper teApplyMapper;
+	
+	@Autowired
+	private UsNoticeMapper usNoticeMapper;
+	
+	@Autowired
+	private TeacherMapper teacherMapper;
+	
+	@Autowired
+	private TeacherDetailMapper teacherDetailMapper;
+	
+	@Autowired
+	private TeQuotaMapper teQuotaMapper;
+	
+	@Autowired
+	private CourseMapper courseMapper;
 	
 	@GetMapping({"/register","register.html"})
 	public String registerPage() {
@@ -136,6 +173,22 @@ public class PersonalController {
 		model.addAttribute("totalLikes",postMapper.getTotalLikes(userAccount));
 		return "main/studentZone";
 	}
+	
+	/*
+	 * 老师个人中心
+	 */
+	@GetMapping("/teacherZone")
+	public String getTeacherZone(Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		model.addAttribute("teacher",teacherMapper.selectByPrimaryKey(userAccount));
+		model.addAttribute("teDetail",teacherDetailMapper.selectByPrimaryKey(userAccount));
+		model.addAttribute("teQuotaList",teQuotaMapper.selectByTeId(userAccount));
+		model.addAttribute("courses",courseMapper.selectByTeId(userAccount));
+		model.addAttribute("totalPosts",postMapper.getTotalPosts(userAccount));
+		model.addAttribute("totalLikes",postMapper.getTotalLikes(userAccount));
+		return "main/teacherZone";
+	}
 	/*
 	 * 个人中心修改密码界面
 	 */
@@ -229,6 +282,22 @@ public class PersonalController {
 	}
 	
 	/*
+	 * 老师修改资料
+	 */
+	@GetMapping("/teacherEditInfo")
+	public String getTeacherEditInfo(Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		model.addAttribute("teacher",teacherMapper.selectByPrimaryKey(userAccount));
+		model.addAttribute("teDetail",teacherDetailMapper.selectByPrimaryKey(userAccount));
+		model.addAttribute("teQuotaList",teQuotaMapper.selectByTeId(userAccount));
+		model.addAttribute("courses",courseMapper.selectByTeId(userAccount));
+		model.addAttribute("totalPosts",postMapper.getTotalPosts(userAccount));
+		model.addAttribute("totalLikes",postMapper.getTotalLikes(userAccount));
+		return "main/teacherEditInfo";
+	}
+	
+	/*
 	 * 修改基本信息
 	 */
 	@PostMapping("/editStudent")
@@ -244,6 +313,33 @@ public class PersonalController {
 		student.setStuGrade(grade);
 		student.setStuMajor(major);
 		studentMapper.updateByPrimaryKeySelective(student);
+		return ResultGenerator.genSuccessResult();
+	}
+	
+	/*
+	 * 修改老师资料
+	 */
+	@PostMapping("/editTeacher")
+	@ResponseBody
+	public Result editTeacher(@RequestParam("teacher")String teacher,
+							  @RequestParam("teacher_detail")String teDetail,
+							  @RequestParam("te_quota")String teQuota,
+							  HttpSession session) {
+		String userAccount=((User)session.getAttribute("user")).getUserAccount();
+		TeacherWithBLOBs record1=JSONUtil.toBean(teacher,TeacherWithBLOBs.class);
+		TeacherDetailWithBLOBs record2=JSONUtil.toBean(teDetail, TeacherDetailWithBLOBs.class);
+		List<TeQuota>quotaList=JSONUtil.parseArray(teQuota).toList(TeQuota.class);
+		record1.setTeId(userAccount);
+		record2.setTeId(userAccount);
+		teacherMapper.updateByPrimaryKeySelective(record1);
+		teacherDetailMapper.updateByPrimaryKeySelective(record2);
+		
+		for(TeQuota q:quotaList) {
+			q.setTeId(userAccount);
+			teQuotaMapper.updateByPrimaryKeySelective(q);
+		}
+		
+		
 		return ResultGenerator.genSuccessResult();
 	}
 	
@@ -271,6 +367,53 @@ public class PersonalController {
 		byte[]decoderBytes=Base64.decode(base64);
 		write.write(decoderBytes);
 		write.close();
+		return ResultGenerator.genSuccessResult();
+	}
+	/*
+	 * 收件箱页面
+	 */
+	@GetMapping("/mailBox")
+	public String getMailBox(@RequestParam(name="pageNumber",required = false,defaultValue = "1")Integer pageNumber,
+			   				 @RequestParam(name="pageSize",required = false,defaultValue = "5")Integer pageSize,
+			   				 @RequestParam(name="module",required = false,defaultValue = "1")Integer module,
+			   				 Model model,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		model.addAttribute("stuApplyList",userService.getStuApply(userAccount, pageNumber, pageSize));
+		model.addAttribute("teApplyList",userService.getTeApply(userAccount, pageNumber, pageSize));
+		model.addAttribute("noticeList",userService.getPostAndNotice(userAccount, pageNumber, pageSize));
+		model.addAttribute("module",module);
+		
+		String userType=user.getUserType();
+		if(userType.equals("学生")) {
+			model.addAttribute("unreadApply",stuApplyMapper.getUnread(userAccount));
+		}else {
+			model.addAttribute("unreadApply",teApplyMapper.getUnread(userAccount));
+		}
+		model.addAttribute("unreadNotice",usNoticeMapper.getUnread(userAccount));
+		return "main/mailBox";
+	}
+	
+	@PostMapping("/setRead")
+	@ResponseBody
+	public Result setRead(HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		String userType=user.getUserType();
+		if(userType.equals("学生")) {
+			stuApplyMapper.updateByUserAccount(userAccount);
+		}else {
+			teApplyMapper.updateByUserAccount(userAccount);
+		}
+		return ResultGenerator.genSuccessResult();
+	}
+	
+	@PostMapping("/setNoticesRead")
+	@ResponseBody
+	public Result setNoticesRead(HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		usNoticeMapper.updateByUserAccount(userAccount);
 		return ResultGenerator.genSuccessResult();
 	}
 }

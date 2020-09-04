@@ -19,6 +19,15 @@
   <sql id="Blob_Column_List">
     course_pre, course_intro
   </sql>
+  <select id="selectByTeId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    course.course_id, course_name, course_credit, course_teacher, course_type, course_language
+    ,
+    course_pre, course_intro
+    from course,te_course
+    where te_course.te_id=#{teId}
+    and te_course.course_id=course.course_id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

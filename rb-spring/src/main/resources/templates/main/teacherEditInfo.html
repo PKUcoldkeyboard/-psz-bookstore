@@ -1,0 +1,513 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>收件箱</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/edit_teacher_info.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{main/css/pagenumber.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+        canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+	<center>
+		<div id="index_main">
+	        <!--填充空间，不写入内容-->
+	        <div id="index_main_pad"></div>
+	        <!--个人空间侧导航栏  -->
+	        <div th:replace="main/sidebar::sidebar(select='2')"></div>
+			<div id="teacher_main_content">
+				<!--主题内容在此写入-->
+				<div class="main_header">修改资料</div>
+				<HR align=center width=740px color=#797979 SIZE=1>
+				<div style="float: right; margin-right: 106px; margin-top: 37px;">
+					<img th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}" style="width: 144px; height: 144px;" />
+					<center>
+						<!--上传照片功能-->
+						<button type="button" class="edit_photo_button" style="background-color: white; width: 140px; height: 28px;"
+						onclick="window.location.href='/uploadAvatar'">点击重新上传照片</button>
+					</center>
+				</div>
+				<div class="check_example">
+					<a href="#" target="_blank" style="cursor: pointer;">查看填写示例</a>
+				</div>
+				<div style="font-size: 20px; margin-left: 72px; margin-top: 42px;">
+					<b>[[${teacher.teName}]]</b>
+				</div>
+				<div style="font-size: 15px; margin-left: 72px; margin-top: 15px; line-height: 1.7em" id="basic-info">
+					<b>性别：</b>
+					[[${teDetail.teGender}]]
+					<br />
+					<b>职称：</b>
+					<input type="text" th:value="${teacher.teTitle}" db-table="teacher" db-field="te_title">
+					<a style="color: red; margin-left: 5px">*</a>
+					<br />
+					<b>职务：</b>
+					<input type="text" th:value="${teDetail.tePost}" db-table="teacher_detail" db-field="te_post">
+					<a style="color: red; margin-left: 5px">*</a>
+					<br />
+					<b>所在部门：</b>
+					<input type="text" th:value="${teacher.teSection}" db-table="teacher" db-field="te_section">
+					<a style="color: red; margin-left: 5px">*</a>
+					<br />
+					<b>联系方式：</b>
+					<input type="text" th:value="${teacher.teContact}" db-table="teacher" db-field="te_contact">
+					<a style="color: red; margin-left: 5px">*</a>
+					<br />
+					<b>学生负责人：</b>
+					<input type="text" th:value="${teacher.teStudent}" id="student_text" db-table="teacher" db-field="te_student">
+					<a style="color: red; margin-left: 5px">*</a>
+					<p id="student_reminder" class="remind_word">
+						注：1.组内的学生代表的姓名及联系方式（邮箱或微信）
+						<br>
+						2.学生负责人将作为想报名的学生与您之间的中介，同学们可能会先尝试和学生负责人交流获得更针对性的信息后才正式开始报名流程
+					</p>
+					<br>
+					<b>网站：</b>
+					<input type="text" th:value="${teDetail.teWebsite}" id="web_text" db-table="teacher_detail" db-field="te_website">
+					<a id="web_reminder" class="remind_word">
+						<br>
+						注：指您的实验室、课题组等的官网
+					</a>
+				</div>
+				<!--研究方向-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						研究方向
+						<a style="color: red; margin-left: 5px">*</a>
+						<a id="domain_reminder" class="remind_word">
+							<br>
+							注：1.请不要使用过于专业的词汇，可以具备适当的概括性
+							<br>
+							2.以中文为主，如果觉得中文无法准确表达，可以用英文作补充
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px" id="domain_text" db-table="teacher" db-field="te_field">[[${teacher.teField}]]</textarea>
+					</div>					
+				</div>
+				<!--现有课题-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						现有课题
+						<a style="color: red; margin-left: 5px">*</a>
+						<a id="title_reminder" class="remind_word">
+							<br>
+							注：1.指目前正在进行中的且招收本科生的课题方向
+							<br>
+							2.需要相对具体，如果可以的话，请尽量避免过于专深的词汇
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="title_text" db-table="teacher" db-field="te_topic">[[${teacher.teTopic}]]</textarea>
+					</div>
+				</div>
+				<!--学生要求-->
+				<div class="teacher_detail_div">
+					<a name="zhaosheng" style="color: #000000;">
+						<div class="teacher_detail_div_title">
+							学生要求
+							<a style="color: red; margin-left: 5px">*</a>
+							<a id="request_reminder" class="remind_word">
+								<br>
+								注：1.指希望来报名的学生能具有的课程、知识、技术等方面的基础
+								<br>
+								2.如文理背景、先修课程、编程语言、年级等
+								<br>
+								3.推荐使用具体可量化的标准，不推荐写“认真学习，努力工作”等十分模糊的要求
+								<br>
+								4.此字段将起到预选的作用，学生通过此字段自我评估是否适合报名，请认真对待
+							</a>
+						</div>
+					</a>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="request_text" db-table="teacher"
+							db-field="te_requirements">[[${teacher.teRequirements}]]</textarea>
+					</div>
+				</div>
+				<!--招生名额-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						招生名额
+						<a style="color: red; margin-left: 5px">*</a>
+						<a id="num_reminder" class="remind_word">
+							<br>
+							注：不填视为不限量，包括总名额和各个课题方向的名额
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<table id="quota-table">
+							<tr>
+								<td>
+									<div>
+										总名额:<input type="text" th:value="${teacher.teQuotaTot}" style="width: 20px; height: 20px" id="num_text" db-table="teacher"db-field="te_quota_tot">人
+									</div>
+									<div th:each="quota:${teQuotaList}">
+										课题[[${quota.quotaNo}]]:<input type="text" th:value="${quota.quotaNum}" style="width: 20px; height: 20px" th:id="'num'+${quota.quotaNo}" db-table="te_quota" th:db-quota-no="${quota.quotaNo}">人
+									</div>
+								</td>
+								<td>
+									<div>
+										已提交申请数：<span style="color: #D9001B">[[${teacher.teIntentionTot}]]</span>
+									</div>
+									<div th:each="quota:${teQuotaList}">
+										已提交申请数：<span style="color: #D9001B">[[${quota.intentionNum}]]</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<br>
+						<a style="color: #555555; font-size: 14px">
+							注：1.请注意与现有课题中的序号相对应
+							<br>
+							2.如果人数不限请填-1
+						</a>
+					</div>
+				</div>
+				<!--组会频率-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						组会频率
+						<a style="color: red; margin-left: 5px">*</a>
+						<a id="frequency_reminder" class="remind_word">
+							<br>
+							注：1.这可能会成为学生判断您的push程度或者放养程度的依据
+							<br>
+							2.不填则该字段为空
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px" id="frequency_text" db-table="teacher_detail" db-field="te_frequency">[[${teDetail.teFrequency}]]</textarea>
+					</div>
+				</div>
+				<!--开设课程-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">开设课程</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<table>
+						 	<tr th:each="course:${courses}">
+                            	<td style="width:100px;">
+                                    [[${course.courseId}]]
+                                </td>
+                                <td style="width:240px;">
+                                    [[${course.courseName}]]
+                                </td>
+                            </tr>
+						</table>
+					</div>
+				</div>
+				<!--教育背景-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">教育背景</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" db-table="teacher_detail" db-field="te_education">[[${teDetail.teEducation}]]</textarea>
+					</div>
+				</div>
+				<!--工作经历-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">工作经历</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" db-table="teacher_detail" db-field="te_career">[[${teDetail.teCareer}]]</textarea>
+					</div>
+				</div>
+				<!--社会兼职-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">社会兼职</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" db-table="teacher_detail"
+							db-field="te_social_appointments">[[${teDetail.teSocialAppointments}]]</textarea>
+					</div>
+				</div>
+				<!--获奖情况-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">获奖情况</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" db-table="teacher_detail" db-field="te_awards">[[${teDetail.teAwards}]]</textarea>
+					</div>
+				</div>
+				<!--代表著作-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						代表著作
+						<a id="book_reminder" class="remind_word">
+							<br>
+							注：仅提供标题，或以引文格式
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="book_text" db-table="teacher_detail"
+							db-field="te_works">[[${teDetail.teWorks}]]</textarea>
+					</div>
+				</div>
+				<!--学术论文-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						学术论文
+						<a id="essay_reminder" class="remind_word">
+							<br>
+							注：1.仅提供标题，或以引文格式
+							<br>
+							2.数量不足时我们可能会使用您的最新论文和高被引论文作为补充
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="essay_text" db-table="teacher_detail"
+							db-field="te_papers"> [[${teDetail.tePapers}]]</textarea>
+					</div>
+				</div>
+				<!--科研项目-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						科研项目
+						<a id="project_reminder" class="remind_word">
+							<br>
+							注：指您曾做过的有代表性的科研项目
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="project_text" db-table="teacher_detail"
+							db-field="te_project">[[${teDetail.teProject}]]</textarea>
+					</div>
+				</div>
+				<!--其他-->
+				<div class="teacher_detail_div">
+					<div class="teacher_detail_div_title">
+						其他
+						<a id="else_reminder" class="remind_word">
+							<br>
+							注：指您想补充的信息，如本科生培养计划等
+						</a>
+					</div>
+					<HR />
+					<div class="teacher_detail_div_text">
+						<textarea required="required" maxlength="200" style="width: 500px; height: 60px" id="else_text" db-table="teacher_detail"
+							db-field="te_others">[[${teDetail.teOthers}]]</textarea>
+					</div>
+				</div>
+				<center>
+					<a href="#">
+						<!--保存修改功能-->
+						<div class="teacher_detail_div_button" onclick="submitChange()">确认修改</div>
+					</a>
+				</center>
+				<div style="height: 31px; width: 200px;"></div>
+			</div>
+	    </div>
+    </center>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script language="javascript" th:inline="javascript">
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+
+	function $(id) {
+		return document.getElementById(id);
+	}
+}
+$("#domain_text").focus(function() {
+	$("#domain_reminder").show();
+}).blur(function() {
+	$("#domain_reminder").hide();
+})
+$("#title_text").focus(function() {
+	$("#title_reminder").show();
+}).blur(function() {
+	$("#title_reminder").hide();
+})
+$("#request_text").focus(function() {
+	$("#request_reminder").show();
+}).blur(function() {
+	$("#request_reminder").hide();
+})
+$("#num_text").focus(function() {
+	$("#num_reminder").show();
+}).blur(function() {
+	$("#num_reminder").hide();
+})
+$("#num1").focus(function() {
+	$("#num_reminder").show();
+}).blur(function() {
+	$("#num_reminder").hide();
+})
+$("#num2").focus(function() {
+	$("#num_reminder").show();
+}).blur(function() {
+	$("#num_reminder").hide();
+})
+$("#num3").focus(function() {
+	$("#num_reminder").show();
+}).blur(function() {
+	$("#num_reminder").hide();
+})
+$("#num4").focus(function() {
+	$("#num_reminder").show();
+}).blur(function() {
+	$("#num_reminder").hide();
+})
+$("#frequency_text").focus(function() {
+	$("#frequency_reminder").show();
+}).blur(function() {
+	$("#frequency_reminder").hide();
+})
+$("#student_text").focus(function() {
+	$("#student_reminder").show();
+}).blur(function() {
+	$("#student_reminder").hide();
+})
+$("#web_text").focus(function() {
+	$("#web_reminder").show();
+}).blur(function() {
+	$("#web_reminder").hide();
+})
+$("#book_text").focus(function() {
+	$("#book_reminder").show();
+}).blur(function() {
+	$("#book_reminder").hide();
+})
+$("#essay_text").focus(function() {
+	$("#essay_reminder").show();
+}).blur(function() {
+	$("#essay_reminder").hide();
+})
+$("#project_text").focus(function() {
+	$("#project_reminder").show();
+}).blur(function() {
+	$("#project_reminder").hide();
+})
+$("#else_text").focus(function() {
+	$("#else_reminder").show();
+}).blur(function() {
+	$("#else_reminder").hide();
+})
+</script>
+
+<script>
+	var data={
+		teacher:{},
+		teacher_detail:{},
+		te_quota:[]
+	};
+	function submitChange(){
+		// 招生名额格式验证
+		for (var i = 0; i < $("#quota-table input").length; i++) {
+			var c = $("#quota-table input").eq(i);
+			if (c.val() == null || c.val() == "" || !/^\d+$/.test(c.val()))
+				c.val(-1);
+		}
+		
+
+		// 把填写的内容转换为data对象
+		var basicInfoInputs = $("#basic-info").find("input");
+		fillData(basicInfoInputs);
+		var textareas = $(".teacher_detail_div").find("textarea");
+		fillData(textareas);
+		var quotas = $("#quota-table").find("input");
+		for (var i = 0; i < quotas.length; i++) {
+			var c = quotas.eq(i);
+			if (c.attr("db-table") != "te_quota")
+				data[c.attr("db-table")][c.attr("db-field")] = c.val();
+			else {
+				var obj = {};
+				obj['quota_no'] = c.attr("db-quota-no");
+				obj['quota_num'] = c.val();
+				data['te_quota'].push(obj);
+			}
+		}
+		
+		// 把data转化为json
+		var jsonTeacher = JSON.stringify(data['teacher']);
+		var jsonTeacherDetail = JSON.stringify(data['teacher_detail']);
+		var jsonTeQuota = JSON.stringify(data['te_quota']);
+		
+		var params={
+				teacher : jsonTeacher,
+				teacher_detail : jsonTeacherDetail,
+				te_quota : jsonTeQuota
+		};
+		
+		var url="/editTeacher";
+		$.ajax({
+			data:params,
+			url:url,
+			type:'post',
+			success:function(result){
+				if(result.resultCode==200){
+					 Swal.fire({
+		                    text: '修改成功',
+		                    icon: 'success',
+		                    confirmButtonText: '确定'
+		                });
+				}else{
+					Swal.fire({
+	                    text: '操作失败',
+	                    icon: 'error',
+	                    confirmButtonText: '确定'
+	                });
+				}
+			},
+			error:function(){
+				
+			}
+		});
+		
+	}
+	
+	function fillData(source){
+		for(var i=0;i<source.length;i++){
+			var c=source.eq(i);
+			data[c.attr("db-table")][c.attr("db-field")]=c.val();
+		}
+	}
+</script>
+
+</html>

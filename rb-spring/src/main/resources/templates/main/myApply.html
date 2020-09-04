@@ -34,7 +34,7 @@
             <HR align=center width=580px color=#797979 SIZE=1>
             <div class="item_list">
                 <div class="item" th:each="apply:${applyList.list}">
-                    <img th:src="@{(${session.user.userType} ne '学生')?'main/image/avatar/'+${apply.stuId}+'.jpg':'main/image/'+${apply.teName}+'.jpg'}">
+                    <img th:src="@{(${session.user.userType} ne '学生')?'main/image/avatar/'+${apply.stuId}+'.jpg':'main/image/avatar/'+${apply.teId}+'.jpg'}">
                     <div class="right_area">
                         <h th:if="${session.user.userType} ne '学生'">申请学生：[[${apply.stuName}]]</h>
                         <h th:if="${session.user.userType} eq '学生'">目标导师：[[${apply.teName}]]</h>

@@ -2,6 +2,9 @@ package com.cuterwrite.rbspring.dao;
 
 import com.cuterwrite.rbspring.entity.TeQuota;
 import com.cuterwrite.rbspring.entity.TeQuotaKey;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TeQuotaMapper extends MyBatisBaseDao<TeQuota, TeQuotaKey> {
+	List<TeQuota>selectByTeId(String teId);
 }

@@ -1,6 +1,9 @@
 package com.cuterwrite.rbspring.dao;
 
 import com.cuterwrite.rbspring.entity.Course;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CourseMapper extends MyBatisBaseDao<Course, String> {
+	List<Course>selectByTeId(String teId);
 }

@@ -1,0 +1,227 @@
+<html>
+
+<head>
+    <meta content="text/html" charset="UTF-8">
+    <title>我的资料</title>
+    <link rel="stylesheet" th:href="@{main/css/index.css}">
+    <link rel="stylesheet" th:href="@{main/styles/teacher_myinfo.css}">
+    <link rel="stylesheet" th:href="@{main/css/personalcenter.css}">
+    <link rel="stylesheet" th:href="@{webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <link rel="icon" th:href="@{main/image/logo.png}">
+    <style>
+    canvas {
+        z-index: -1;
+        position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <center>
+        <div th:replace="main/header::header"></div>
+    </center>
+    <!--此处为页面主题内容-->
+    <div id="index_main">
+        <!--填充空间，不写入内容-->
+        <div id="index_main_pad"></div>
+        <!--个人空间侧导航栏  -->
+        <div th:replace="main/sidebar::sidebar(select='1')"></div>
+        <!--我的资料展示部分开始-->
+        <div class="index_main_content">
+            <div class="main_header">账号信息</div>
+            <HR align=center width=760px color=#797979 SIZE=1>
+            <div class="part_content">
+                <p>发帖数： [[${totalPosts}]]</p>
+                <p>获赞数： [[${totalLikes}]]</p>
+            </div>
+        </div>
+        <div class="index_main_content">
+            <div id="float" class="edit_info_btn">
+                <a th:href="@{/teacherEditInfo}">修改资料</a>
+            </div>
+            <div class="main_header">个人资料</div>
+            <HR align=center width=760px color=#797979 SIZE=1>
+            <div class="part_content">
+                <div style="float:right; margin-right:56px; margin-top:0px;"><img th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}" style="width:144px; height:144px;" /></div>
+                <div class="teacher_detail_div">
+                    <div style="font-size:20px;margin-bottom:15px"><b>[[${teacher.teName}]]</b></div>
+                    <div>
+                        <p><b>性别：</b>[[${teDetail.teGender}]]</p>
+                        <p><b>职称：</b>[[${teacher.teTitle}]]</p>
+                        <p><b>职务：</b>[[${teDetail.tePost}]]</p>
+                        <p><b>所在部门：</b>[[${teacher.teSection}]]</p>
+                        <p><b>联系方式：</b>[[${teacher.teContact}]]</p>
+                        <p><b>学生负责人：</b>[[${teacher.teStudent}]]</p>
+                        <p><b>网站：</b>[[${teDetail.teWebsite}]]</p>
+                    </div>
+                </div>
+                <!--研究方向-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">研究方向</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text">[[${teacher.teField}]]</div>
+                </div>
+                <!--现有课题-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">现有课题</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teacher.teTopic}]]
+                    </div>
+                </div>
+                <!--学生要求-->
+                <div class="teacher_detail_div">
+                    <a name="zhaosheng" style="color:#000000;">
+                        <div class="teacher_detail_div_title">学生要求</div>
+                    </a>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teacher.teRequirements}]]
+                    </div>
+                </div>
+                <!--招生名额-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">招生名额</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text">
+                        <table>
+                        	<tr>
+                        		<td>总名额:[[${teacher.teQuotaTot==-1?'不限':teacher.teQuotaTot}]]</td>
+                        		<td>已提交申请数：<span style="color:#D9001B">[[${teacher.teIntentionTot}]]</span></td>
+                        	</tr>
+                        	<tr th:each="quota:${teQuotaList}">
+                        		<td>课题[[${quota.quotaNo}]]:[[${quota.quotaNum==-1?'不限':quota.quotaNum}]]</td>
+                        		<td>已提交申请数：<span style="color:#D9001B">[[${quota.intentionNum}]]</span></td>
+                        	</tr>
+                        </table>
+                    </div>
+                </div>
+                <!--组会频率-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">组会频率</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text">
+                        [[${teDetail.teFrequency}]]
+                    </div>
+                </div>
+                <!--开设课程-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">开设课程</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text">
+                        <table>
+                            <tr th:each="course:${courses}">
+                            	<td style="width:100px;">
+                                    [[${course.courseId}]]
+                                </td>
+                                <td>
+                                    [[${course.courseName}]]
+                                </td>
+                                <td>
+                                    <a href="" target="_blank">>>>查看详情</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!--教育背景-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">教育背景</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                       	[[${teDetail.teEducation}]]
+                    </div>
+                </div>
+                <!--工作经历-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">工作经历</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teDetail.teCareer}]]
+                    </div>
+                </div>
+                <!--社会兼职-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">社会兼职</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teDetail.teSocialAppointments}]]
+                    </div>
+                </div>
+                <!--获奖情况-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">获奖情况</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                       	[[${teDetail.teAwards}]]
+                    </div>
+                </div>
+                <!--代表著作-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">代表著作</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                       	[[${teDetail.teWorks}]]
+                    </div>
+                </div>
+                <!--学术论文-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">学术论文</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                       [[${teDetail.tePapers}]]
+                    </div>
+                </div>
+                <!--科研项目-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">科研项目</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teDetail.teProject}]]
+                    </div>
+                </div>
+                <!--其他-->
+                <div class="teacher_detail_div">
+                    <div class="teacher_detail_div_title">其他</div>
+                    <HR color=#797979 SIZE=1 />
+                    <div class="teacher_detail_div_text" style="white-space: pre-line">
+                        [[${teDetail.teOthers}]]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底栏 -->
+    <center>
+        <div th:replace="main/footer::footer"></div>
+    </center>
+</body>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{main/js/Particleground.js}"></script>
+<script th:src="@{main/js/index.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+<script>
+$(document).ready(function() {
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: 'white',
+        lineColor: 'white'
+    });
+});
+</script>
+<script>
+window.onload = function() {
+    index_navigation();
+
+    window.onresize = function() {
+        index_navigation();
+    }
+    window.onscroll = function() {
+        change_index_navigation();
+    }
+}
+</script>
+
+</html>

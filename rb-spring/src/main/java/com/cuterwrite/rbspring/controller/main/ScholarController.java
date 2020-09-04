@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cuterwrite.rbspring.common.ServiceResultEnum;
 import com.cuterwrite.rbspring.dao.CollectMapper;
 import com.cuterwrite.rbspring.dao.LikeMapper;
 import com.cuterwrite.rbspring.entity.Article;
@@ -105,5 +106,34 @@ public class ScholarController {
 	public Result<Object>collect(@RequestParam(name = "userAccount")String userAccount,
 								@RequestParam(name = "postId") Integer postId){
 		return ResultGenerator.genSuccessResult(userService.collect(userAccount, postId));
+	}
+	
+	@GetMapping("/isLike")
+	@ResponseBody
+	public Result isLike(@RequestParam("id")Integer id,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		Map<String,Object>map=new HashMap<>();
+		map.put("userAccount", userAccount);
+		map.put("postId", id);
+		Like like=likeMapper.selectByAccountAndPostId(map);
+		if(like!=null) {
+			return ResultGenerator.genSuccessResult();
+		}
+		return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXISTS.getResult());
+	}
+	@GetMapping("/isCollect")
+	@ResponseBody
+	public Result isCollect(@RequestParam("id")Integer id,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		String userAccount=user.getUserAccount();
+		Map<String,Object>map=new HashMap<>();
+		map.put("userAccount", userAccount);
+		map.put("postId", id);
+		Collect collect=collectMapper.selectByAccountAndPostId(map);
+		if(collect!=null) {
+			return ResultGenerator.genSuccessResult();
+		}
+		return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXISTS.getResult());
 	}
 }

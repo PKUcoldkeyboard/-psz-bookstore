@@ -39,7 +39,7 @@
                     <table>
                         <tr>
                             <th rowspan="2" class="teacher_picture">
-                                <img th:src="@{'main/image/'+${teacher.teName}+'.jpg'}">
+                                <img th:src="@{'main/image/avatar/'+${teacher.teId}+'.jpg'}">
                             </th>
                             <td style="width:657px; height:22px; padding-top:5px;">
                                 <a href="#" target="_blank" class="teacher_name">
@@ -57,7 +57,7 @@
                                     <b>现有课题：</b> [[${teacher.teTopic}]]<br />
                                     <b>学生要求：</b> [[${teacher.teRequirements}]]<br />
                                     <b>学生负责人：</b> [[${teacher.teStudent}]]<br />
-                                    <b>总名额：</b> [[${teacher.teQuotaTot}]]<br />
+                                    <b>总名额：</b> [[${teacher.teQuotaTot==-1?'不限':teacher.teQuotaTot}]]<br />
                                     <b style="color:#027DB4">已提交申请数：</b><span> [[${teacher.teIntentionTot}]]</span>
                                 </span>
                             </td>

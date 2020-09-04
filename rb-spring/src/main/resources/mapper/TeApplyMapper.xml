@@ -12,6 +12,19 @@
   <sql id="Base_Column_List">
     user_account, apply_id, teap_date, teap_condition, stu_id, stu_name
   </sql>
+  <select id="getUnread" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    count(*)
+    from te_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+    and teap_condition = 0
+  </select>
+  <select id="selectByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from te_apply
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="com.cuterwrite.rbspring.entity.TeApplyKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -75,6 +88,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByUserAccount" parameterType="java.lang.String">
+  	update te_apply
+  	set teap_condition=1
+  	where user_account=#{userAccount}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.rbspring.entity.TeApply">
     update te_apply
     <set>

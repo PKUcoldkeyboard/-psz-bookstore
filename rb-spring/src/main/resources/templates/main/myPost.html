@@ -39,7 +39,7 @@
             <HR align=center width=580px color=#797979 SIZE=1>
             <div class="post_list">
                 <div class="post" th:each="post:${posts.list}">
-                    <img th:src="@{main/image/user_picture.png}"/>
+                    <img th:src="@{'main/image/avatar/'+${session.user.userAccount}+'.jpg'}"/>
                     <a style="font-size: 14px; color: black; position: absolute; left: 24px; top: 60px">
                         [[${post.postAuthor}]]
                     </a>
@@ -77,6 +77,7 @@
 <script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
 <script th:src="@{main/js/Particleground.js}"></script>
 <script th:src="@{main/js/index.js}"></script>
+<script th:src="@{main/js/mail_box.js}"></script>
 <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
 <script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
 <script>
