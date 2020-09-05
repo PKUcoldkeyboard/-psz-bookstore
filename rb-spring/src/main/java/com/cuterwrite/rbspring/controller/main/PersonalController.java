@@ -30,8 +30,6 @@ import com.cuterwrite.rbspring.dao.UsNoticeMapper;
 import com.cuterwrite.rbspring.entity.Result;
 import com.cuterwrite.rbspring.entity.Student;
 import com.cuterwrite.rbspring.entity.TeQuota;
-import com.cuterwrite.rbspring.entity.Teacher;
-import com.cuterwrite.rbspring.entity.TeacherDetail;
 import com.cuterwrite.rbspring.entity.TeacherDetailWithBLOBs;
 import com.cuterwrite.rbspring.entity.TeacherWithBLOBs;
 import com.cuterwrite.rbspring.entity.User;
@@ -41,8 +39,6 @@ import com.cuterwrite.rbspring.util.ResultGenerator;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
 @Controller

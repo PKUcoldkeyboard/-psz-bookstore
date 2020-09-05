@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>管理员首页</title>
+    <link rel="stylesheet" th:href="@{/admin/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/admin/css/admin_index.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.css}">
+    <style>
+    body {
+        overflow: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div th:replace="admin/common/navigation::navigation"></div>
+    <div th:replace="admin/common/sidebar::sidebar"></div>
+    <section class="rt_wrap content mCustomScrollbar">
+        <div class="rt_content">
+            <div id="BBS_main_top">
+                <div id="BBS_main_teacher">
+                    <div id="BBS_main_teacher_icon">
+                        <img th:src="@{image/admin_index1.png}" height="180px" weight="180px">
+                    </div>
+                    <div id="BBS_main_teacher_content">
+                        <h1 style="font-weight:900px;font-size:30px;margin-left:120px;">
+                            日常管理维护
+                        </h1>
+                        <p style="margin-top:30px;margin-left:20px;margin-right:20px;">
+                            &nbsp&nbsp&nbsp&nbsp包含审核帖子、意见收集反馈共两个页面，用于日常管理维护。
+                        </p>
+                    </div>
+                </div>
+                <div id="BBS_main_research">
+                    <div id="BBS_main_research_icon">
+                        <img th:src="@{image/admin_index2.png}" height="180px" weight="180px">
+                    </div>
+                    <div id="BBS_main_research_content">
+                        <h1 style="font-weight:900px;font-size:30px;margin-left:150px;">
+                            帐号管理
+                        </h1>
+                        <p style="margin-top:30px;margin-left:20px;margin-right:20px;">
+                            &nbsp&nbsp&nbsp&nbsp包含添加新账号、修改密码、管理员信息管理共三个页面，用于管理账号。
+                        </p>
+                    </div>
+                </div>
+                <div id="BBS_main_IMnotice">
+                    <div id="BBS_main_IMnotice_icon">
+                        <img th:src="@{image/admin_index3.png}" height="180px" weight="180px">
+                    </div>
+                    <div id="BBS_main_IMnotice_content">
+                        <h1 style="font-weight:900px;font-size:30px;margin-left:150px;">
+                            内容管理
+                        </h1>
+                        <p style="margin-top:15px;margin-left:20px;margin-right:20px;">
+                            &nbsp&nbsp&nbsp&nbsp包含用户信息管理、学生信息管理、导师信息管理、课程信息管理、申请表管理、帖子管理、中文期刊信息管理、外文期刊信息管理、学术会议信息管理、数据库备份管理共十个页面，用于管理内容。
+                        </p>
+                    </div>
+                </div>
+                <div id="BBS_main_suggestionBox">
+                    <div id="BBS_main_suggestionBox_icon">
+                        <img th:src="@{image/admin_index4.png}" height="180px" weight="180px">
+                    </div>
+                    <div id="BBS_main_suggestionBox_content">
+                        <h1 style="font-weight:900px;font-size:30px;margin-left:150px;">
+                            特殊功能
+                        </h1>
+                        <p style="margin-top:30px;margin-left:20px;margin-right:20px;">
+                            &nbsp&nbsp&nbsp&nbsp包含泛用邮件发送、教师注册信息分发共两个页面，特殊功能使用。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+</body>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/webjars/sweetalert2/9.15.1/dist/sweetalert2.min.js}"></script>
+
+</html>
